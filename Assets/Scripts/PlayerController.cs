@@ -5,22 +5,29 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
     private PlayerInputActions playerControls;
-
-    [SerializeField]
     private Rigidbody2D rb;
 
     [SerializeField]
     private float moveSpeed = 500f;
-    [SerializeField]
-    private float dashForce = 500f;
-
+    
     private Vector2 moveDirection = Vector2.zero;
 
     private InputAction move;
-    private InputAction fire;
     private InputAction dash;
+
+    private Vector3 startPosition;
+    private Vector3 endPosition;
+    private float elapsedTime;
+    private bool isDashing = false;
+
+    [SerializeField]
+    private float dashDuration = 0.1f;
+    [SerializeField]
+    private float dashDistance = 3f;
+
+    [SerializeField]
+    private GameObject pointer;
 
     private void Awake()
     {
@@ -32,10 +39,6 @@ public class PlayerController : MonoBehaviour
         move = playerControls.Player.Move;
         move.Enable();
 
-        fire = playerControls.Player.Fire;
-        fire.Enable();
-        fire.performed += Fire;
-
         dash = playerControls.Player.Dash;
         dash.Enable();
         dash.performed += Dash;
@@ -44,7 +47,7 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         move.Disable();
-        fire.Disable();
+        dash.Disable();
     }
 
     // Start is called before the first frame update
@@ -57,6 +60,24 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         moveDirection = move.ReadValue<Vector2>();
+
+        float percentageComplete = elapsedTime / dashDuration;
+        elapsedTime += Time.deltaTime;
+        if (percentageComplete >= 1)
+        {
+            isDashing = false;
+        }
+
+        if (isDashing)
+        {
+            transform.position = Vector3.Lerp(startPosition, endPosition, percentageComplete);
+        }
+
+        Vector3 mousePos = Input.mousePosition;
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3 offsetPos = mouseWorldPos - pointer.transform.position;
+        float rotation = Mathf.Atan2(offsetPos.x, offsetPos.y) * (180/Mathf.PI);
+        pointer.transform.eulerAngles = new Vector3(pointer.transform.eulerAngles.x, pointer.transform.eulerAngles.y, -rotation);
     }
 
     private void FixedUpdate()
@@ -64,13 +85,13 @@ public class PlayerController : MonoBehaviour
         rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
     }
 
-    private void Fire(InputAction.CallbackContext context)
-    {
-        Debug.Log("We fired");
-    }
-
     private void Dash(InputAction.CallbackContext context)
     {
-        rb.AddForce(moveDirection * dashForce);
+        startPosition = transform.position;
+        Vector3 offset = dashDistance * moveDirection;
+        endPosition = transform.position + offset;
+        elapsedTime = 0;
+        isDashing = true;
     }
+
 }

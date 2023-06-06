@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float moveSpeed = 500f;
+    [SerializeField]
+    private float dashForce = 500f;
+
     private Vector2 moveDirection = Vector2.zero;
 
     private InputAction move;
@@ -68,6 +71,6 @@ public class PlayerController : MonoBehaviour
 
     private void Dash(InputAction.CallbackContext context)
     {
-        Debug.Log("Dashed");
+        rb.AddForce(moveDirection * dashForce);
     }
 }

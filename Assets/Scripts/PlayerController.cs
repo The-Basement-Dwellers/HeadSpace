@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     private InputAction move;
     private InputAction fire;
+    private InputAction dash;
 
     private void Awake()
     {
@@ -31,6 +32,10 @@ public class PlayerController : MonoBehaviour
         fire = playerControls.Player.Fire;
         fire.Enable();
         fire.performed += Fire;
+
+        dash = playerControls.Player.Dash;
+        dash.Enable();
+        dash.performed += Dash;
     }
 
     private void OnDisable()
@@ -59,5 +64,10 @@ public class PlayerController : MonoBehaviour
     private void Fire(InputAction.CallbackContext context)
     {
         Debug.Log("We fired");
+    }
+
+    private void Dash(InputAction.CallbackContext context)
+    {
+        Debug.Log("Dashed");
     }
 }

@@ -503,8 +503,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 250
-  dashDuration: 0.2
+  dashDuration: 0.4
   dashDistance: 3
+  dashEaseIntensity: 1.5
+  dashCooldown: 0.8
   pointer: {fileID: 1073733652}
 --- !u!212 &868711467
 SpriteRenderer:

@@ -5,49 +5,35 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerInputActions playerControls;
     private Rigidbody2D rb;
 
-    [SerializeField]
-    private float moveSpeed = 500f;
-    
-    private Vector2 moveDirection = Vector2.zero;
-
+    private PlayerInputActions playerControls;
     private InputAction move;
-    private InputAction dash;
 
-    private Vector3 startPosition;
-    private Vector3 endPosition;
-    private float elapsedTime;
-    private bool isDashing = false;
-
-    [SerializeField]
-    private float dashDuration = 0.1f;
-    [SerializeField]
-    private float dashDistance = 3f;
+    [HideInInspector]
+    public Vector2 moveDirection = Vector2.zero;
 
     [SerializeField]
     private GameObject pointer;
 
-    private void Awake()
-    {
-        playerControls = new PlayerInputActions();
-    }
+    [SerializeField]
+    private float moveSpeed = 500f;
 
     private void OnEnable()
     {
+        if (playerControls == null)
+        {
+            playerControls = new PlayerInputActions();
+            playerControls.Enable();
+        }
+
         move = playerControls.Player.Move;
         move.Enable();
-
-        dash = playerControls.Player.Dash;
-        dash.Enable();
-        dash.performed += Dash;
     }
 
     private void OnDisable()
     {
         move.Disable();
-        dash.Disable();
     }
 
     // Start is called before the first frame update
@@ -59,20 +45,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // read move input
         moveDirection = move.ReadValue<Vector2>();
 
-        float percentageComplete = elapsedTime / dashDuration;
-        elapsedTime += Time.deltaTime;
-        if (percentageComplete >= 1)
-        {
-            isDashing = false;
-        }
-
-        if (isDashing)
-        {
-            transform.position = Vector3.Lerp(startPosition, endPosition, percentageComplete);
-        }
-
+        // Rotates Pointer
         Vector3 mousePos = Input.mousePosition;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3 offsetPos = mouseWorldPos - pointer.transform.position;
@@ -82,16 +58,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // set player velocity
         rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
     }
-
-    private void Dash(InputAction.CallbackContext context)
-    {
-        startPosition = transform.position;
-        Vector3 offset = dashDistance * moveDirection;
-        endPosition = transform.position + offset;
-        elapsedTime = 0;
-        isDashing = true;
-    }
-
 }

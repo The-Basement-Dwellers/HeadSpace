@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float moveSpeed = 500f;
+    [SerializeField]
+    private bool canMoveDiagonal = false;
+    
 
     private void OnEnable()
     {

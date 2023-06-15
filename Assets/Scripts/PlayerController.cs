@@ -18,6 +18,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float moveSpeed = 500f;
+
+    [SerializeField]
+    private float inputBuffer = 0.2f;
+
+    [SerializeField]
+    private bool binaryMove = false;
     
 
     private void OnEnable()
@@ -48,6 +54,18 @@ public class PlayerController : MonoBehaviour
     {
         // read move input
         moveDirection = move.ReadValue<Vector2>();
+        if (binaryMove)
+        {
+            float binaryMoveDirectionX = 0;
+            float binaryMoveDirectionY = 0;
+            if (moveDirection.x > inputBuffer) binaryMoveDirectionX = 1;
+            if (moveDirection.x < -inputBuffer) binaryMoveDirectionX = -1;
+
+            if (moveDirection.y > inputBuffer) binaryMoveDirectionY = 1;
+            if (moveDirection.y < -inputBuffer) binaryMoveDirectionY = -1;
+
+            moveDirection = new Vector2(binaryMoveDirectionX, binaryMoveDirectionY);
+        }
 
         // Rotates Pointer
         Vector3 mousePos = Input.mousePosition;

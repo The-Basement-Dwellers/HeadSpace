@@ -12,13 +12,16 @@ public class PlayerAnimation : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        EventController.setMoveDirectionEvent += setMoveDirection;
+    }
+
+    private void OnDisable() {
+        EventController.setMoveDirectionEvent -= setMoveDirection;
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveDirection = GetComponent<PlayerController>().moveDirection;
-
         isMoving = false;
         if (moveDirection.magnitude > 0)
         {
@@ -28,5 +31,9 @@ public class PlayerAnimation : MonoBehaviour
         }
 
         animator.SetBool("isMoving", isMoving);
+    }
+
+     private void setMoveDirection(Vector3 eventMoveDirection) {
+        moveDirection = eventMoveDirection;
     }
 }

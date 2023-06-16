@@ -513,6 +513,8 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0}
   pointer: {fileID: 1073733652}
   moveSpeed: 250
+  inputBuffer: 0.2
+  binaryMove: 0
 --- !u!212 &868711467
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -554,7 +556,7 @@ SpriteRenderer:
   m_SortingLayerID: 1088288179
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2014922468, guid: 458f83c2aa8f82549b4e539c6c1b6106, type: 3}
+  m_Sprite: {fileID: -670616046, guid: d613f9c1d944f450ebcdfbad7e4d3f16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

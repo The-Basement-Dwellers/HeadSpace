@@ -37,18 +37,23 @@ public class PlayerDash : MonoBehaviour
         dash = playerControls.Player.Dash;
         dash.Enable();
         dash.performed += Dash;
+
+        EventController.setMoveDirectionEvent += setMoveDirection;
     }
 
     private void OnDisable()
     {
         dash.Disable();
+        EventController.setMoveDirectionEvent -= setMoveDirection;
+    }
+
+    private void setMoveDirection(Vector3 eventMoveDirection) {
+        moveDirection = eventMoveDirection;
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveDirection = gameObject.GetComponent<PlayerController>().moveDirection;
-
         if (isDashing)
         {
             StartCoroutine(DashLerp());

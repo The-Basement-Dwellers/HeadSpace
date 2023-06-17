@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private InputAction move;
     private InputAction fire;
     private InputAction dash;
+    private InputAction interact;
 
     private void Awake()
     {
@@ -36,12 +37,18 @@ public class PlayerController : MonoBehaviour
         dash = playerControls.Player.Dash;
         dash.Enable();
         dash.performed += Dash;
+
+        interact = playerControls.Player.Interact;
+        interact.Enable();
+        interact.performed += Interact;
+
     }
 
     private void OnDisable()
     {
         move.Disable();
         fire.Disable();
+        interact.Disable();
     }
 
     // Start is called before the first frame update
@@ -69,5 +76,10 @@ public class PlayerController : MonoBehaviour
     private void Dash(InputAction.CallbackContext context)
     {
         Debug.Log("Dashed");
+    }
+    
+    private void Interact(InputAction.CallbackContext context)
+    {
+        Debug.Log("Interacted");
     }
 }

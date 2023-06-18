@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInputActions playerControls;
     private InputAction move;
+    private InputAction fire;
 
     [HideInInspector]
     public Vector2 moveDirection = Vector2.zero;
@@ -41,11 +43,16 @@ public class PlayerController : MonoBehaviour
 
         move = playerControls.Player.Move;
         move.Enable();
+
+        fire = playerControls.Player.Fire;
+        fire.Enable();
+        fire.performed += Fire;
     }
 
     private void OnDisable()
     {
         move.Disable();
+        fire.Disable();
     }
 
     // Start is called before the first frame update
@@ -100,5 +107,9 @@ public class PlayerController : MonoBehaviour
     {
         // set player velocity
         rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
+    }
+    
+    private void Fire(InputAction.CallbackContext context) {
+        EventController.StartFire();
     }
 }

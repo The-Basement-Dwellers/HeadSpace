@@ -19,10 +19,15 @@ public class PlayerController : MonoBehaviour
     private InputAction fire;
     private InputAction dash;
     private InputAction interact;
+    private InteractablesManager interManager;
+    
+
 
     private void Awake()
     {
         playerControls = new PlayerInputActions();
+        interManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<InteractablesManager>();
+
     }
 
     private void OnEnable()
@@ -80,6 +85,6 @@ public class PlayerController : MonoBehaviour
     
     private void Interact(InputAction.CallbackContext context)
     {
-        Debug.Log("Interacted");
+        interManager.Doors();
     }
 }

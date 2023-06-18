@@ -170,7 +170,7 @@ Transform:
   - {fileID: 1159092600}
   - {fileID: 1701113371}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &175349601
 TilemapRenderer:
@@ -293,6 +293,50 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &326050419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 326050421}
+  - component: {fileID: 326050420}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Manager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &326050420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326050419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e167fd82997bdd74e918067daa71963b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &326050421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326050419}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1693786, y: -0.10583198, z: -0.0076945685}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &367034372
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +349,7 @@ GameObject:
   - component: {fileID: 367034373}
   - component: {fileID: 367034375}
   m_Layer: 0
-  m_Name: IDAC_IDLEonly_direc_0
+  m_Name: child
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,7 +420,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &367034375
 BoxCollider2D:
@@ -388,7 +432,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -750,7 +794,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &868711465
 GameObject:
@@ -770,7 +814,7 @@ GameObject:
   - component: {fileID: 868711473}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Interactor
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -856,7 +900,7 @@ Transform:
   - {fileID: 1460680385}
   - {fileID: 1590137307}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &868711469
 Rigidbody2D:
@@ -2113,7 +2157,7 @@ GameObject:
   - component: {fileID: 909997228}
   - component: {fileID: 909997230}
   m_Layer: 0
-  m_Name: doorclosed-export-export (1)
+  m_Name: top door
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2184,7 +2228,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &909997230
 BoxCollider2D:
@@ -3042,7 +3086,7 @@ Transform:
   m_Children:
   - {fileID: 1562692901}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1590137306
 GameObject:
@@ -3058,7 +3102,7 @@ GameObject:
   - component: {fileID: 1590137309}
   m_Layer: 0
   m_Name: InteractRange
-  m_TagString: Untagged
+  m_TagString: Interactor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3147,7 +3191,7 @@ MonoBehaviour:
   allInteractables: []
   player: {fileID: 868711465}
   interactableDist: 0
-  savedinteractableDist: 0
+  closestObject: {fileID: 0}
 --- !u!58 &1590137310
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3357,7 +3401,7 @@ GameObject:
   - component: {fileID: 1896225917}
   - component: {fileID: 1896225919}
   m_Layer: 0
-  m_Name: doorclosed-export-export
+  m_Name: left door
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3428,7 +3472,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1896225919
 BoxCollider2D:
@@ -3440,7 +3484,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

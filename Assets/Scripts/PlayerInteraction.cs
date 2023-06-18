@@ -9,14 +9,15 @@ public class PlayerInteraction : MonoBehaviour
     public Material defaultMaterial;
     public GameObject[] allInteractables;
     public GameObject player;
+    /// public PlayerController controller;
     public float interactableDist;
-    public float savedinteractableDist;
-    private GameObject closestObject;
+    public GameObject closestObject;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        /// controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         allInteractables = GameObject.FindGameObjectsWithTag("Interactable");
     }
 
@@ -36,24 +37,25 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     closestObject = allInteractables[i];
                 }
+                
            
             }
             oldObject.GetComponent<Renderer>().material = defaultMaterial;
+
         if (Vector3.Distance(player.transform.position, closestObject.transform.position) < 3)
         {
             closestObject.GetComponent<Renderer>().material = myOutline;
-
         }
-        savedinteractableDist = interactableDist;
+
+         
+
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Interactable")
         {
-
             collision.gameObject.GetComponent<Renderer>().material = defaultMaterial;
-
-
+            ///closestObject = null;
         }
 
     }

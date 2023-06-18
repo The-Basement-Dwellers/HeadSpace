@@ -7,6 +7,7 @@ public class EventController : MonoBehaviour {
     public static event Action<Vector3> setMoveDirectionEvent;
     public static event Action<float, GameObject> setHealthBarPercentEvent;
     public static event Action fire;
+    public static event Action dash;
 
     public static void StartMoveDirectionEvent(Vector3 moveDirection) {
         setMoveDirectionEvent?.Invoke(moveDirection);
@@ -16,7 +17,11 @@ public class EventController : MonoBehaviour {
         setHealthBarPercentEvent?.Invoke(percent, targetedGameObject);
     }
 
-    public static void StartFire() {
+    public static void Fire() {
         fire?.Invoke();
+    }
+
+    public static void Dash() {
+        dash?.Invoke();
     }
 }

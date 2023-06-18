@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 4629765664704878426}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,8 +111,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1088288179
-  m_SortingLayer: 2
+  m_SortingLayerID: -1212762553
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1340789970, guid: 197cf699b70ec4c82bc14b7856352f98, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -311,7 +311,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1921756779
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0.5091263, b: 0, a: 1}
@@ -440,7 +440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7193090063089093079, guid: f24ec14de597ed6429d22f0142bcab07, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7193090063089093079, guid: f24ec14de597ed6429d22f0142bcab07, type: 3}
       propertyPath: m_SortingLayerID

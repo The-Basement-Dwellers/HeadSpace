@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private PlayerInputActions playerControls;
     private InputAction move;
     private InputAction fire;
+    private InputAction dash;
 
     [HideInInspector]
     public Vector2 moveDirection = Vector2.zero;
@@ -44,6 +45,10 @@ public class PlayerController : MonoBehaviour
         move = playerControls.Player.Move;
         move.Enable();
 
+        dash = playerControls.Player.Dash;
+        dash.Enable();
+        dash.performed += Dash;
+
         fire = playerControls.Player.Fire;
         fire.Enable();
         fire.performed += Fire;
@@ -52,6 +57,7 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         move.Disable();
+        dash.Disable();
         fire.Disable();
     }
 
@@ -110,6 +116,10 @@ public class PlayerController : MonoBehaviour
     }
     
     private void Fire(InputAction.CallbackContext context) {
-        EventController.StartFire();
+        EventController.Fire();
+    }
+
+    private void Dash(InputAction.CallbackContext context) {
+        EventController.Dash();
     }
 }

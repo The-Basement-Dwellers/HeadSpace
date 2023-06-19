@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,23 +8,23 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     private PlayerInputActions playerControls;
-    private InputAction move;
-    private InputAction look;
-    private InputAction fire;
-    private InputAction dash;
 
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 lookDirection = Vector2.zero;
 
-    // [SerializeField]
-    // private GameObject pointer;
-
-    [SerializeField]
-    private GameObject cameraWeapon;
-
     [SerializeField]
     private float moveSpeed = 500f;
 
+        [SerializeField]
+    private GameObject cameraWeapon;
+
+    private InputAction move;
+    private InputAction look;
+    private InputAction fire;
+    private InputAction dash;
+    private InputAction interact;
+    private InteractablesManager interManager;
+    
     [SerializeField]
     private float inputBuffer = 0.2f;
 
@@ -39,10 +38,10 @@ public class PlayerController : MonoBehaviour
 
     private float rotZ;
 
-    
-
     private void OnEnable()
     {
+        interManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<InteractablesManager>();
+
         if (playerControls == null)
         {
             playerControls = new PlayerInputActions();
@@ -55,21 +54,26 @@ public class PlayerController : MonoBehaviour
         look = playerControls.Player.Look;
         look.Enable();
 
+        fire = playerControls.Player.Fire;
+        fire.Enable();
+        fire.performed += Fire;
+
         dash = playerControls.Player.Dash;
         dash.Enable();
         dash.performed += Dash;
 
-        fire = playerControls.Player.Fire;
-        fire.Enable();
-        fire.performed += Fire;
+        interact = playerControls.Player.Interact;
+        interact.Enable();
+        interact.performed += Interact;
     }
 
     private void OnDisable()
     {
         move.Disable();
         look.Disable();
-        dash.Disable();
         fire.Disable();
+        dash.Disable();
+        interact.Disable();
     }
 
     // Start is called before the first frame update
@@ -113,12 +117,17 @@ public class PlayerController : MonoBehaviour
         // set player velocity
         rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
     }
-    
+
     private void Fire(InputAction.CallbackContext context) {
         EventController.Fire();
     }
 
     private void Dash(InputAction.CallbackContext context) {
         EventController.Dash();
+    }
+    
+    private void Interact(InputAction.CallbackContext context)
+    {
+        interManager.Doors();
     }
 }

@@ -40,6 +40,9 @@ public class CameraWeapon : MonoBehaviour
             foreach (GameObject collider in colliders)
             {
                 RaycastHit2D hit = Physics2D.Raycast(player.transform.position, collider.transform.position - player.transform.position, rayDistance, playerLayerMask);
+                    Debug.Log(hit.collider.gameObject.name);
+
+
                 if (collider.gameObject == hit.collider.gameObject && hit.collider.gameObject.tag == "Enemy")
                 {
                     EventController.Damage(hit.collider.gameObject, damageAmount);
@@ -69,7 +72,6 @@ public class CameraWeapon : MonoBehaviour
     private IEnumerator BarLerp()
     {
         float percentageComplete = elapsedTime / cooldown;
-        Debug.Log(percentageComplete);
 
         elapsedTime += Time.deltaTime;
         if (percentageComplete >= 1)

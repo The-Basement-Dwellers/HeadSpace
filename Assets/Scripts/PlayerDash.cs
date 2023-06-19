@@ -27,17 +27,12 @@ public class PlayerDash : MonoBehaviour
 
     private void OnEnable()
     {
-        EventController.setMoveDirectionEvent += setMoveDirection;
         EventController.dash += Dash;
     }
 
     private void OnDisable()
     {
-        EventController.setMoveDirectionEvent -= setMoveDirection;
-    }
-
-    private void setMoveDirection(Vector3 eventMoveDirection) {
-        moveDirection = eventMoveDirection;
+        EventController.dash -= Dash;
     }
 
     // Update is called once per frame

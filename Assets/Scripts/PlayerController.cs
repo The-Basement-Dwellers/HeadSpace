@@ -10,14 +10,18 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInputActions playerControls;
     private InputAction move;
+    private InputAction look;
     private InputAction fire;
     private InputAction dash;
 
-    [HideInInspector]
-    public Vector2 moveDirection = Vector2.zero;
+    private Vector2 moveDirection = Vector2.zero;
+    private Vector2 lookDirection = Vector2.zero;
+
+    // [SerializeField]
+    // private GameObject pointer;
 
     [SerializeField]
-    private GameObject pointer;
+    private GameObject cameraWeapon;
 
     [SerializeField]
     private float moveSpeed = 500f;
@@ -32,6 +36,9 @@ public class PlayerController : MonoBehaviour
     private float maxHealth = 100.0f;
     [SerializeField]
     private float health;
+
+    private float rotZ;
+
     
 
     private void OnEnable()
@@ -45,6 +52,9 @@ public class PlayerController : MonoBehaviour
         move = playerControls.Player.Move;
         move.Enable();
 
+        look = playerControls.Player.Look;
+        look.Enable();
+
         dash = playerControls.Player.Dash;
         dash.Enable();
         dash.performed += Dash;
@@ -57,6 +67,7 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         move.Disable();
+        look.Disable();
         dash.Disable();
         fire.Disable();
     }
@@ -73,7 +84,9 @@ public class PlayerController : MonoBehaviour
     {
         // read move input
         moveDirection = move.ReadValue<Vector2>();
+        lookDirection = look.ReadValue<Vector2>();
         EventController.StartMoveDirectionEvent(moveDirection);
+        EventController.StartLookDirectionEvent(lookDirection);
 
         float percent = health / maxHealth;
         EventController.StartHealthBarEvent(percent, gameObject);
@@ -91,22 +104,36 @@ public class PlayerController : MonoBehaviour
             moveDirection = new Vector2(binaryMoveDirectionX, binaryMoveDirectionY);
         }
 
-        // Rotates Pointer
-        // Vector3 mousePos = Input.mousePosition;
-        // Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
-        // Vector3 offsetPos = mouseWorldPos - pointer.transform.position;
-        // float rotation = Mathf.Atan2(offsetPos.x, offsetPos.y) * (180/Mathf.PI);
-        // pointer.transform.eulerAngles = new Vector3(pointer.transform.eulerAngles.x, pointer.transform.eulerAngles.y, -rotation);
+        if (lookDirection.magnitude > 0) {
+            switch (lookDirection) {
+                case Vector2 _ when lookDirection.x > 0 && lookDirection.y > 0:
+                    rotZ = -45;
+                    break;
+                case Vector2 _ when lookDirection.x > 0 && lookDirection.y < 0:
+                    rotZ = -135;
+                    break;
+                case Vector2 _ when lookDirection.x < 0 && lookDirection.y > 0:
+                    rotZ = 45;
+                    break;
+                case Vector2 _ when lookDirection.x < 0 && lookDirection.y < 0:
+                    rotZ = 135;
+                    break;
+                case Vector2 _ when lookDirection.x > 0:
+                    rotZ = -90;
+                    break;
+                case Vector2 _ when lookDirection.x < 0:
+                    rotZ = 90;
+                    break;
+                case Vector2 _ when lookDirection.y > 0:
+                    rotZ = 0;
+                    break;
+                case Vector2 _ when lookDirection.y < 0:
+                    rotZ = 180;
+                    break;
+            }
+        }
 
-        // Perspective mouse follow
-        Plane spritePlane = new Plane(Vector3.forward, transform.position);
-        Ray cursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float rayDist;
-        spritePlane.Raycast(cursorRay, out rayDist);
-        Vector3 mouseRayPos = cursorRay.GetPoint(rayDist);
-        Vector3 offsetPos = mouseRayPos - pointer.transform.position;
-        float rotation = Mathf.Atan2(offsetPos.x, offsetPos.y) * (180/Mathf.PI);
-        pointer.transform.eulerAngles = new Vector3(pointer.transform.eulerAngles.x, pointer.transform.eulerAngles.y, -rotation);
+        cameraWeapon.transform.eulerAngles = new Vector3(0, 0, rotZ);
     }
 
     private void FixedUpdate()

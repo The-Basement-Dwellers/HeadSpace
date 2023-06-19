@@ -17,12 +17,18 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 lookDirection = Vector2.zero;
 
+    // [SerializeField]
+    // private GameObject pointer;
+
     [SerializeField]
     private GameObject cameraWeapon;
 
     [SerializeField]
     private float moveSpeed = 500f;
 
+    private InputAction move;
+    private InputAction fire;
+    private InputAction dash;
     private InputAction interact;
     private InteractablesManager interManager;
     
@@ -161,6 +167,7 @@ public class PlayerController : MonoBehaviour
     private void Dash(InputAction.CallbackContext context) {
         EventController.Dash();
     }
+}
 
     private void Interact(InputAction.CallbackContext context)
     {

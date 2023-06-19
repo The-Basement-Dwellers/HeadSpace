@@ -12,6 +12,13 @@ public class CameraWeapon : MonoBehaviour
     [SerializeField] private GameObject flash;
     [SerializeField] private GameObject cameraBar;
     [SerializeField] private float damageAmount = 40f;
+    [SerializeField] private float cooldown = 1f;
+
+    private float elapsedTime;
+    private bool isOnCooldown = false;
+    private float lerpScaleY = 0.95f;
+
+
 
     private void OnEnable() {
         EventController.fire += Fire;
@@ -22,30 +29,57 @@ public class CameraWeapon : MonoBehaviour
     }
 
     private void Fire() {
-        flash.SetActive(true);
-        Invoke("DisableFlash", 0.1f);
+        if (!isOnCooldown)
+        {
+            isOnCooldown = true;
+            elapsedTime = 0;
 
-        cameraBar.transform.localScale = new Vector3(0.25f, 0f, 0f);
-        Invoke("RechargeBar", 0.5f);
+            flash.SetActive(true);
+            Invoke("DisableFlash", 0.1f);
 
-        foreach (GameObject collider in colliders) {
-            RaycastHit2D hit = Physics2D.Raycast(player.transform.position, collider.transform.position - player.transform.position, rayDistance, playerLayerMask);
-            if (collider.gameObject == hit.collider.gameObject && hit.collider.gameObject.tag == "Enemy") {
-                EventController.Damage(hit.collider.gameObject, damageAmount);
+            foreach (GameObject collider in colliders)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(player.transform.position, collider.transform.position - player.transform.position, rayDistance, playerLayerMask);
+                if (collider.gameObject == hit.collider.gameObject && hit.collider.gameObject.tag == "Enemy")
+                {
+                    EventController.Damage(hit.collider.gameObject, damageAmount);
+                }
+
+                if (showRay)
+                {
+                    Debug.DrawRay(player.transform.position, collider.transform.position - player.transform.position, Color.red, 2f);
+                }
             }
+        }
+    }
 
-            if (showRay) {
-                Debug.DrawRay(player.transform.position, collider.transform.position - player.transform.position, Color.red, 2f);
-            }
-        }     
+    private void Update()
+    {
+        if (isOnCooldown) {
+            StartCoroutine(BarLerp());
+        } else {
+            StopCoroutine(BarLerp());
+        }
     }
 
     private void DisableFlash() {
         flash.SetActive(false);
     }
 
-    private void RechargeBar() {
-        cameraBar.transform.localScale = new Vector3(0.25f, 0.95f, 0f);
+    private IEnumerator BarLerp()
+    {
+        float percentageComplete = elapsedTime / cooldown;
+        Debug.Log(percentageComplete);
+
+        elapsedTime += Time.deltaTime;
+        if (percentageComplete >= 1)
+        {
+            isOnCooldown = false;
+        }
+
+        lerpScaleY = Mathf.Lerp(0, 0.95f, percentageComplete);
+        cameraBar.transform.localScale = new Vector3(0.25f, lerpScaleY, 0f);
+        yield return null;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {

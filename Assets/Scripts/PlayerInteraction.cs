@@ -40,19 +40,11 @@ public class PlayerInteraction : MonoBehaviour
         
         }
         oldObject.GetComponent<Renderer>().material = defaultMaterial;
-
-        if (Vector3.Distance(player.transform.position, closestObject.transform.position) < 3)
+        /// Debug.Log(Vector3.Distance(player.transform.position, closestObject.transform.position));
+        if (Vector3.Distance(player.transform.position, closestObject.transform.position) <= 1.5)
         {
             closestObject.GetComponent<Renderer>().material = myOutline;
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Interactable")
-        {
-            collision.gameObject.GetComponent<Renderer>().material = defaultMaterial;
-            ///closestObject = null;
-        }
 
-    }
 }

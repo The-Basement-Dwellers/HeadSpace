@@ -8,7 +8,7 @@ public class InteractablesManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        interactscript = GameObject.FindGameObjectWithTag("Interactor").GetComponent<PlayerInteraction>();
+        interactscript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
     }
 
     // Update is called once per frame

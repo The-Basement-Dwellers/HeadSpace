@@ -53,6 +53,7 @@ public class PlayerDash : MonoBehaviour
     {
         if (!isDashing && !dashOnCooldown)
         {
+            StartCoroutine(DashCooldown(dashCooldown));
             startPosition = transform.position;
             Vector3 offset = dashDistance * moveDirection;
             endPosition = transform.position + offset;

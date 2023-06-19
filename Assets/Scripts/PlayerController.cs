@@ -19,6 +19,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 500f;
 
+    private InputAction move;
+    private InputAction fire;
+    private InputAction dash;
+    private InputAction interact;
+    private InteractablesManager interManager;
+    
+
+
+    private void Awake()
+    {
+        interManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<InteractablesManager>();
+
+    }
+
     [SerializeField]
     private float inputBuffer = 0.2f;
 
@@ -29,7 +43,6 @@ public class PlayerController : MonoBehaviour
     private float maxHealth = 100.0f;
     [SerializeField]
     private float health;
-    
 
     private void OnEnable()
     {
@@ -41,11 +54,25 @@ public class PlayerController : MonoBehaviour
 
         move = playerControls.Player.Move;
         move.Enable();
+
+        fire = playerControls.Player.Fire;
+        fire.Enable();
+        fire.performed += Fire;
+
+        dash = playerControls.Player.Dash;
+        dash.Enable();
+        dash.performed += Dash;
+
+        interact = playerControls.Player.Interact;
+        interact.Enable();
+        interact.performed += Interact;
     }
 
     private void OnDisable()
     {
         move.Disable();
+        fire.Disable();
+        interact.Disable();
     }
 
     // Start is called before the first frame update
@@ -100,5 +127,10 @@ public class PlayerController : MonoBehaviour
     {
         // set player velocity
         rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
+    }
+    
+    private void Interact(InputAction.CallbackContext context)
+    {
+        interManager.Doors();
     }
 }

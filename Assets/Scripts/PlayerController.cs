@@ -104,36 +104,38 @@ public class PlayerController : MonoBehaviour
             moveDirection = new Vector2(binaryMoveDirectionX, binaryMoveDirectionY);
         }
 
-        if (lookDirection.magnitude > 0) {
-            switch (lookDirection) {
-                case Vector2 _ when lookDirection.x > 0 && lookDirection.y > 0:
-                    rotZ = -45;
-                    break;
-                case Vector2 _ when lookDirection.x > 0 && lookDirection.y < 0:
-                    rotZ = -135;
-                    break;
-                case Vector2 _ when lookDirection.x < 0 && lookDirection.y > 0:
-                    rotZ = 45;
-                    break;
-                case Vector2 _ when lookDirection.x < 0 && lookDirection.y < 0:
-                    rotZ = 135;
-                    break;
-                case Vector2 _ when lookDirection.x > 0:
-                    rotZ = -90;
-                    break;
-                case Vector2 _ when lookDirection.x < 0:
-                    rotZ = 90;
-                    break;
-                case Vector2 _ when lookDirection.y > 0:
-                    rotZ = 0;
-                    break;
-                case Vector2 _ when lookDirection.y < 0:
-                    rotZ = 180;
-                    break;
-            }
-        }
+        //if (lookDirection.magnitude > 0) {
+        //    switch (lookDirection) {
+        //        case Vector2 _ when lookDirection.x > 0 && lookDirection.y > 0:
+        //            rotZ = -45;
+        //            break;
+        //        case Vector2 _ when lookDirection.x > 0 && lookDirection.y < 0:
+        //            rotZ = -135;
+        //            break;
+        //        case Vector2 _ when lookDirection.x < 0 && lookDirection.y > 0:
+        //            rotZ = 45;
+        //            break;
+        //        case Vector2 _ when lookDirection.x < 0 && lookDirection.y < 0:
+        //            rotZ = 135;
+        //            break;
+        //        case Vector2 _ when lookDirection.x > 0:
+        //            rotZ = -90;
+        //            break;
+        //        case Vector2 _ when lookDirection.x < 0:
+        //            rotZ = 90;
+        //            break;
+        //        case Vector2 _ when lookDirection.y > 0:
+        //            rotZ = 0;
+        //            break;
+        //        case Vector2 _ when lookDirection.y < 0:
+        //            rotZ = 180;
+        //            break;
+        //    }
+        //}
 
-        cameraWeapon.transform.eulerAngles = new Vector3(0, 0, rotZ);
+        rotZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+
+        cameraWeapon.transform.eulerAngles = new Vector3(0, 0, rotZ - 90);
     }
 
     private void FixedUpdate()

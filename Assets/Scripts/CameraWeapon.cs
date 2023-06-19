@@ -10,6 +10,7 @@ public class CameraWeapon : MonoBehaviour
     [SerializeField] private float rayDistance = 10f;
     [SerializeField] private bool showRay = false;
     [SerializeField] private GameObject flash;
+    [SerializeField] private GameObject cameraBar;
     [SerializeField] private float damageAmount = 40f;
 
     private void OnEnable() {
@@ -23,6 +24,9 @@ public class CameraWeapon : MonoBehaviour
     private void Fire() {
         flash.SetActive(true);
         Invoke("DisableFlash", 0.1f);
+
+        cameraBar.transform.localScale = new Vector3(0.25f, 0f, 0f);
+        Invoke("RechargeBar", 0.5f);
 
         foreach (GameObject collider in colliders) {
             RaycastHit2D hit = Physics2D.Raycast(player.transform.position, collider.transform.position - player.transform.position, rayDistance, playerLayerMask);
@@ -38,6 +42,10 @@ public class CameraWeapon : MonoBehaviour
 
     private void DisableFlash() {
         flash.SetActive(false);
+    }
+
+    private void RechargeBar() {
+        cameraBar.transform.localScale = new Vector3(0.25f, 0.95f, 0f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {

@@ -13,9 +13,10 @@ public class AwarenessController : MonoBehaviour
     [SerializeField]
     private float min = 0.2f;
 
-    private void Start()
+    void Start()
     {
         innerBar = gameObject.transform.Find("Inner Bar").gameObject;
+
         parent = gameObject.transform.parent.gameObject;
         parentRenderer = parent.GetComponent<SpriteRenderer>();
     }
@@ -28,7 +29,7 @@ public class AwarenessController : MonoBehaviour
         EventController.setHealthBarPercentEvent -= SetAwareness;
     }
 
-    private void SetAwareness(float percent, GameObject targetedGameObject)
+    void SetAwareness(float percent, GameObject targetedGameObject)
     {
         if (parent == targetedGameObject) {
             percent = Mathf.Clamp(percent, 0, 1); 

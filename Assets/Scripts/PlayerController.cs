@@ -26,20 +26,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 500f;
 
-    private InputAction move;
-    private InputAction fire;
-    private InputAction dash;
-    private InputAction interact;
-    private InteractablesManager interManager;
-    
-
-
-    private void Awake()
-    {
-        interManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<InteractablesManager>();
-
-    }
-
     [SerializeField]
     private float inputBuffer = 0.2f;
 
@@ -50,7 +36,10 @@ public class PlayerController : MonoBehaviour
     private float maxHealth = 100.0f;
     [SerializeField]
     private float health;
+
     private float rotZ;
+
+    
 
     private void OnEnable()
     {
@@ -62,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
         move = playerControls.Player.Move;
         move.Enable();
+
         look = playerControls.Player.Look;
         look.Enable();
 
@@ -72,10 +62,6 @@ public class PlayerController : MonoBehaviour
         fire = playerControls.Player.Fire;
         fire.Enable();
         fire.performed += Fire;
-
-        interact = playerControls.Player.Interact;
-        interact.Enable();
-        interact.performed += Interact;
     }
 
     private void OnDisable()
@@ -84,8 +70,6 @@ public class PlayerController : MonoBehaviour
         look.Disable();
         dash.Disable();
         fire.Disable();
-        interact.Disable();
-
     }
 
     // Start is called before the first frame update
@@ -166,11 +150,5 @@ public class PlayerController : MonoBehaviour
 
     private void Dash(InputAction.CallbackContext context) {
         EventController.Dash();
-    }
-}
-
-    private void Interact(InputAction.CallbackContext context)
-    {
-        interManager.Doors();
     }
 }

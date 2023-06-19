@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
   - Interactable
   - Interactor
   - Manager
@@ -15,7 +14,7 @@ TagManager:
   - Entities
   - Water
   - UI
-  - Player
+  - 
   - 
   - 
   - 
@@ -50,9 +49,6 @@ TagManager:
     locked: 0
   - name: Entities
     uniqueID: 1088288179
-    locked: 0
-  - name: Player
-    uniqueID: 3082204743
     locked: 0
   - name: UI
     uniqueID: 1921756779

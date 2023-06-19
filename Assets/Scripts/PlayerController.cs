@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,18 +9,12 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInputActions playerControls;
     private InputAction move;
-    private InputAction look;
-    private InputAction fire;
-    private InputAction dash;
 
-    private Vector2 moveDirection = Vector2.zero;
-    private Vector2 lookDirection = Vector2.zero;
-
-    // [SerializeField]
-    // private GameObject pointer;
+    [HideInInspector]
+    public Vector2 moveDirection = Vector2.zero;
 
     [SerializeField]
-    private GameObject cameraWeapon;
+    private GameObject pointer;
 
     [SerializeField]
     private float moveSpeed = 500f;
@@ -50,7 +43,6 @@ public class PlayerController : MonoBehaviour
     private float maxHealth = 100.0f;
     [SerializeField]
     private float health;
-    private float rotZ;
 
     private void OnEnable()
     {
@@ -62,16 +54,14 @@ public class PlayerController : MonoBehaviour
 
         move = playerControls.Player.Move;
         move.Enable();
-        look = playerControls.Player.Look;
-        look.Enable();
-
-        dash = playerControls.Player.Dash;
-        dash.Enable();
-        dash.performed += Dash;
 
         fire = playerControls.Player.Fire;
         fire.Enable();
         fire.performed += Fire;
+
+        dash = playerControls.Player.Dash;
+        dash.Enable();
+        dash.performed += Dash;
 
         interact = playerControls.Player.Interact;
         interact.Enable();
@@ -81,11 +71,8 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         move.Disable();
-        look.Disable();
-        dash.Disable();
         fire.Disable();
         interact.Disable();
-
     }
 
     // Start is called before the first frame update
@@ -100,9 +87,7 @@ public class PlayerController : MonoBehaviour
     {
         // read move input
         moveDirection = move.ReadValue<Vector2>();
-        lookDirection = look.ReadValue<Vector2>();
         EventController.StartMoveDirectionEvent(moveDirection);
-        EventController.StartLookDirectionEvent(lookDirection);
 
         float percent = health / maxHealth;
         EventController.StartHealthBarEvent(percent, gameObject);
@@ -120,8 +105,22 @@ public class PlayerController : MonoBehaviour
             moveDirection = new Vector2(binaryMoveDirectionX, binaryMoveDirectionY);
         }
 
-        rotZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        cameraWeapon.transform.eulerAngles = new Vector3(0, 0, rotZ - 90);
+        // Rotates Pointer
+        // Vector3 mousePos = Input.mousePosition;
+        // Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        // Vector3 offsetPos = mouseWorldPos - pointer.transform.position;
+        // float rotation = Mathf.Atan2(offsetPos.x, offsetPos.y) * (180/Mathf.PI);
+        // pointer.transform.eulerAngles = new Vector3(pointer.transform.eulerAngles.x, pointer.transform.eulerAngles.y, -rotation);
+
+        // Perspective mouse follow
+        Plane spritePlane = new Plane(Vector3.forward, transform.position);
+        Ray cursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        float rayDist;
+        spritePlane.Raycast(cursorRay, out rayDist);
+        Vector3 mouseRayPos = cursorRay.GetPoint(rayDist);
+        Vector3 offsetPos = mouseRayPos - pointer.transform.position;
+        float rotation = Mathf.Atan2(offsetPos.x, offsetPos.y) * (180/Mathf.PI);
+        pointer.transform.eulerAngles = new Vector3(pointer.transform.eulerAngles.x, pointer.transform.eulerAngles.y, -rotation);
     }
 
     private void FixedUpdate()
@@ -130,15 +129,6 @@ public class PlayerController : MonoBehaviour
         rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
     }
     
-    private void Fire(InputAction.CallbackContext context) {
-        EventController.Fire();
-    }
-
-    private void Dash(InputAction.CallbackContext context) {
-        EventController.Dash();
-    }
-}
-
     private void Interact(InputAction.CallbackContext context)
     {
         interManager.Doors();

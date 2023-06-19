@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class PlayerDash : MonoBehaviour
 {
     private PlayerInputActions playerControls;
+    private InputAction dash;
 
     private Vector2 moveDirection = Vector2.zero;
 
@@ -27,12 +28,27 @@ public class PlayerDash : MonoBehaviour
 
     private void OnEnable()
     {
-        EventController.dash += Dash;
+        if (playerControls == null)
+        {
+            playerControls = new PlayerInputActions();
+            playerControls.Enable();
+        }
+
+        dash = playerControls.Player.Dash;
+        dash.Enable();
+        dash.performed += Dash;
+
+        EventController.setMoveDirectionEvent += setMoveDirection;
     }
 
     private void OnDisable()
     {
-        EventController.dash -= Dash;
+        dash.Disable();
+        EventController.setMoveDirectionEvent -= setMoveDirection;
+    }
+
+    private void setMoveDirection(Vector3 eventMoveDirection) {
+        moveDirection = eventMoveDirection;
     }
 
     // Update is called once per frame
@@ -49,10 +65,11 @@ public class PlayerDash : MonoBehaviour
     }
 
     // called on dash input
-    private void Dash()
+    private void Dash(InputAction.CallbackContext context)
     {
         if (!isDashing && !dashOnCooldown)
         {
+            StartCoroutine(DashCooldown(dashCooldown));
             startPosition = transform.position;
             Vector3 offset = dashDistance * moveDirection;
             endPosition = transform.position + offset;

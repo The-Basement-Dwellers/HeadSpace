@@ -6,7 +6,7 @@ public class AwarenessController : MonoBehaviour
 {
     private GameObject parent;
     private SpriteRenderer parentRenderer;
-    private GameObject innerBar;
+    [SerializeField] private GameObject innerBar;
 
     [SerializeField]
     private float max = 0.75f;
@@ -15,8 +15,6 @@ public class AwarenessController : MonoBehaviour
 
     void Start()
     {
-        innerBar = gameObject.transform.Find("Inner Bar").gameObject;
-
         parent = gameObject.transform.parent.gameObject;
         parentRenderer = parent.GetComponent<SpriteRenderer>();
     }

@@ -19,36 +19,32 @@ public class PlayerInteraction : MonoBehaviour
     {
         /// controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         allInteractables = GameObject.FindGameObjectsWithTag("Interactable");
+        closestObject = allInteractables[0];
     }
 
     // Update is called once per frame
     void Update()
     {
+        GameObject oldObject = closestObject;
+        closestObject = allInteractables[0];
+        for (int i = 0; i < allInteractables.Length; i++)
+        {
 
-            GameObject oldObject = closestObject;
+            interactableDist = Vector3.Distance(player.transform.position, allInteractables[i].transform.position);
 
-            closestObject = allInteractables[0];
-            for (int i = 0; i < allInteractables.Length; i++)
+            if (interactableDist < Vector3.Distance(player.transform.position, closestObject.transform.position))
             {
-
-                interactableDist = Vector3.Distance(player.transform.position, allInteractables[i].transform.position);
-
-                if (interactableDist < Vector3.Distance(player.transform.position, closestObject.transform.position))
-                {
-                    closestObject = allInteractables[i];
-                }
-                
-           
+                closestObject = allInteractables[i];
             }
-            oldObject.GetComponent<Renderer>().material = defaultMaterial;
+            
+        
+        }
+        oldObject.GetComponent<Renderer>().material = defaultMaterial;
 
         if (Vector3.Distance(player.transform.position, closestObject.transform.position) < 3)
         {
             closestObject.GetComponent<Renderer>().material = myOutline;
         }
-
-         
-
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

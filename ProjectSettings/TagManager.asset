@@ -7,6 +7,8 @@ TagManager:
   - Interactable
   - Interactor
   - Manager
+  - Ground
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - Entities
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 

@@ -108,8 +108,13 @@ public class PlayerController : MonoBehaviour
             moveDirection = new Vector2(binaryMoveDirectionX, binaryMoveDirectionY);
         }
 
-        rotZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        cameraWeapon.transform.eulerAngles = new Vector3(0, 0, rotZ - 90);
+        if (lookDirection.magnitude > 0.05) {
+            rotZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+        } else {
+            rotZ = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+        }
+
+        cameraWeapon.transform.eulerAngles = new Vector3(0, 0, rotZ + 90);
     }
 
     private void FixedUpdate()

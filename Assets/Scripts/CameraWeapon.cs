@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraWeapon : MonoBehaviour
 {
-    private List<GameObject> colliders = new List<GameObject>();
+    public List<GameObject> colliders = new List<GameObject>();
     [SerializeField] private GameObject player;
     [SerializeField] private LayerMask playerLayerMask;
     [SerializeField] private float rayDistance = 10f;
@@ -40,19 +40,18 @@ public class CameraWeapon : MonoBehaviour
             foreach (GameObject collider in colliders)
             {
                 RaycastHit2D hit = Physics2D.Raycast(player.transform.position, collider.transform.position - player.transform.position, rayDistance, playerLayerMask);
-                    Debug.Log(hit.collider.gameObject.name);
+                    if (collider.gameObject == hit.collider.gameObject && hit.collider.gameObject.tag == "Enemy")
+                    {
+                        EventController.Damage(hit.collider.gameObject, damageAmount);
+                    }
 
-
-                if (collider.gameObject == hit.collider.gameObject && hit.collider.gameObject.tag == "Enemy")
-                {
-                    EventController.Damage(hit.collider.gameObject, damageAmount);
-                }
-
-                if (showRay)
-                {
-                    Debug.DrawRay(player.transform.position, collider.transform.position - player.transform.position, Color.red, 2f);
-                }
+                    if (showRay)
+                    {
+                        Debug.DrawRay(player.transform.position, collider.transform.position - player.transform.position, Color.red, 2f);
+                    }
+                
             }
+            
         }
     }
 

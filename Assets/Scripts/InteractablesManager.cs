@@ -11,23 +11,12 @@ public class InteractablesManager : MonoBehaviour
         interactscript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Doors()
     {
-        if (Vector3.Distance(interactscript.player.transform.position, interactscript.closestObject.transform.position) < 3 && interactscript.closestObject.GetComponent<BoxCollider2D>() == true)
-        {
-            Debug.Log("Interacted");
+        Debug.Log("Interacted");
+        if (Vector3.Distance(interactscript.player.transform.position, interactscript.closestObject.transform.position) < 3 && interactscript.closestObject.GetComponent<BoxCollider2D>() == true) {
             Destroy(interactscript.closestObject.GetComponent<BoxCollider2D>());
-
-        }
-        else
-        {
-            Debug.Log("fuck");
+        } else {
             interactscript.closestObject.AddComponent<BoxCollider2D>();
         }
     }

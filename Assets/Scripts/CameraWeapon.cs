@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CameraWeapon : MonoBehaviour
 {
-    private List<GameObject> colliders = new List<GameObject>();
+    public List<GameObject> colliders = new List<GameObject>();
     [SerializeField] private GameObject player;
-    [SerializeField] private LayerMask playerLayerMask;
+    [SerializeField] private LayerMask rayLayerMask;
     [SerializeField] private float rayDistance = 10f;
     [SerializeField] private bool showRay = false;
     [SerializeField] private GameObject flash;
@@ -37,22 +37,25 @@ public class CameraWeapon : MonoBehaviour
             flash.SetActive(true);
             Invoke("DisableFlash", 0.1f);
 
-            foreach (GameObject collider in colliders)
+            List<GameObject> collidersCopy = new List<GameObject>(colliders);
+
+            foreach (GameObject collider in collidersCopy)
             {
-                RaycastHit2D hit = Physics2D.Raycast(player.transform.position, collider.transform.position - player.transform.position, rayDistance, playerLayerMask);
-                    Debug.Log(hit.collider.gameObject.name);
-
-
-                if (collider.gameObject == hit.collider.gameObject && hit.collider.gameObject.tag == "Enemy")
+                if (collider.gameObject.tag == "Enemy")
                 {
-                    EventController.Damage(hit.collider.gameObject, damageAmount);
-                }
+                    if (showRay)
+                    {
+                        Debug.DrawRay(player.transform.position, collider.transform.position - player.transform.position, Color.red, 1f);
+                    }
 
-                if (showRay)
-                {
-                    Debug.DrawRay(player.transform.position, collider.transform.position - player.transform.position, Color.red, 2f);
+                    RaycastHit2D hit = Physics2D.Raycast(player.transform.position, collider.transform.position - player.transform.position, rayDistance, rayLayerMask);
+                    if (hit.collider != null && hit.collider.gameObject == collider)
+                    {
+                        EventController.Damage(collider.gameObject, damageAmount);
+                    }
                 }
             }
+            
         }
     }
 

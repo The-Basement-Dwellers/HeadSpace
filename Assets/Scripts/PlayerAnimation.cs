@@ -13,29 +13,31 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private GameObject head;
     [SerializeField] private GameObject body;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
+        EventController.setMoveDirectionEvent += SetMoveDirection;
+        EventController.setLookDirectionEvent += SetLookDirection;
+
         headAnimator = head.GetComponent<Animator>();
         bodyAnimator = body.GetComponent<Animator>();
-        EventController.setMoveDirectionEvent += setMoveDirection;
-        EventController.setLookDirectionEvent += setLookDirection;
     }
 
-    private void OnDisable() {
-        EventController.setMoveDirectionEvent -= setMoveDirection;
-        EventController.setLookDirectionEvent -= setLookDirection;
+    private void OnDisable()
+    {
+        EventController.setMoveDirectionEvent -= SetMoveDirection;
+        EventController.setLookDirectionEvent -= SetLookDirection;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         isMoving = false;
         if (lookDirection.magnitude > 0.05)
         {
             headAnimator.SetFloat("X", lookDirection.x);
             headAnimator.SetFloat("Y", lookDirection.y);
-        } else if (moveDirection.magnitude > 0.05) {
+        }
+        else if (moveDirection.magnitude > 0.05)
+        {
             headAnimator.SetFloat("X", moveDirection.x);
             headAnimator.SetFloat("Y", moveDirection.y);
         }
@@ -50,12 +52,14 @@ public class PlayerAnimation : MonoBehaviour
         bodyAnimator.SetBool("isMoving", isMoving);
     }
 
-    private void setMoveDirection(Vector3 eventMoveDirection) {
+    private void SetMoveDirection(Vector3 eventMoveDirection)
+    {
         moveDirection = eventMoveDirection;
     }
 
-    private void setLookDirection(Vector3 eventLookDirection)
+    private void SetLookDirection(Vector3 eventLookDirection)
     {
         lookDirection = eventLookDirection;
     }
 }
+

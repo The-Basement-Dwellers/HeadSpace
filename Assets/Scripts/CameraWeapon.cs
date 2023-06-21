@@ -37,7 +37,9 @@ public class CameraWeapon : MonoBehaviour
             flash.SetActive(true);
             Invoke("DisableFlash", 0.1f);
 
-            foreach (GameObject collider in colliders)
+            List<GameObject> collidersCopy = new List<GameObject>(colliders);
+
+            foreach (GameObject collider in collidersCopy)
             {
                 if (collider.gameObject.tag == "Enemy")
                 {
@@ -47,7 +49,7 @@ public class CameraWeapon : MonoBehaviour
                     }
 
                     RaycastHit2D hit = Physics2D.Raycast(player.transform.position, collider.transform.position - player.transform.position, rayDistance, rayLayerMask);
-                    if (hit.collider.gameObject == collider)
+                    if (hit.collider != null && hit.collider.gameObject == collider)
                     {
                         EventController.Damage(collider.gameObject, damageAmount);
                     }

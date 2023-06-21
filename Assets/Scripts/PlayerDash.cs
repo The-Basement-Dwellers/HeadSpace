@@ -9,13 +9,13 @@ public class PlayerDash : MonoBehaviour
     private PlayerInputActions playerControls;
     private InputAction dash;
     private Vector2 moveDirection = Vector2.zero;
-    private Vector3 startPosition;
-    private Vector3 endPosition;
+    private Vector3 startVelocity;
+    private Vector3 endVelocity;
     private float elapsedTime;
     private bool isDashing = false;
     private bool dashOnCooldown = false;
     [SerializeField] private float dashDuration = 0.1f;
-    [SerializeField] private float dashDistance = 3f;
+    [SerializeField] private float dashSpeed = 3f;
     [SerializeField] private float dashEaseIntensity = 2f;
     [SerializeField] private float dashCooldown = 0.8f;
     private Rigidbody2D rb;
@@ -33,6 +33,7 @@ public class PlayerDash : MonoBehaviour
         dash.performed += Dash;
 
         EventController.setMoveDirectionEvent += setMoveDirection;
+        dashOnCooldown = false;
     }
 
     private void OnDisable()
@@ -60,20 +61,22 @@ public class PlayerDash : MonoBehaviour
         {
             StopCoroutine(DashLerp());
         }
+
+
     }
 
     // called on dash input
     private void Dash(InputAction.CallbackContext context)
     {
-        if (!isDashing && !dashOnCooldown)
+        if (!isDashing && !dashOnCooldown && moveDirection.magnitude > 0.05f)
         {
             StartCoroutine(DashCooldown(dashCooldown));
-            startPosition = transform.position;
-            Vector3 offset = dashDistance * moveDirection;
-            endPosition = transform.position + offset;
+            startVelocity = Vector3.zero;
+            Vector3 offset = dashSpeed * moveDirection;
+            endVelocity = dashSpeed * moveDirection;
             elapsedTime = 0;
             isDashing = true;
-
+            EventController.StartIsDashingEvent(true);
         }
     }
 
@@ -85,10 +88,11 @@ public class PlayerDash : MonoBehaviour
         if (percentageComplete >= 1)
         {
             isDashing = false;
+            EventController.StartIsDashingEvent(false);
         }
         float easedPercentage = IntensifiedEaseInOut(percentageComplete, dashEaseIntensity);
 
-        rb.velocity = Vector3.Lerp(startPosition, endPosition, easedPercentage);
+        rb.velocity = Vector3.Lerp(startVelocity, endVelocity, easedPercentage);
         yield return null;
     }
 

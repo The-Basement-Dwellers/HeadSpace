@@ -38,8 +38,11 @@ public class PlayerController : MonoBehaviour
 
     private float rotZ;
 
+    private bool isDashing = false;
+
     private void OnEnable()
     {
+        EventController.startIsDashingEvent += SetisDashing;
         interManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<InteractablesManager>();
 
         if (playerControls == null)
@@ -69,6 +72,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
+        EventController.startIsDashingEvent -= SetisDashing;
+
         move.Disable();
         look.Disable();
         fire.Disable();
@@ -120,7 +125,10 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         // set player velocity
-        rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
+        if (!isDashing)
+        {
+            rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
+        }
     }
 
     private void Fire(InputAction.CallbackContext context) {
@@ -134,5 +142,9 @@ public class PlayerController : MonoBehaviour
     private void Interact(InputAction.CallbackContext context)
     {
         interManager.Doors();
+    }
+
+    private void SetisDashing(bool value) {
+        isDashing = value;
     }
 }

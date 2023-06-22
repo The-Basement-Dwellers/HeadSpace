@@ -25,6 +25,14 @@ public class CameraWeapon : MonoBehaviour
 	private void OnDisable() {
 		EventController.fire -= Fire;
 	}
+	
+	private void Update() {
+		if (isOnCooldown) {
+			StartCoroutine(BarLerp());
+		} else {
+			StopCoroutine(BarLerp());
+		}
+	}
 
 	private void Fire() {
 		if (!isOnCooldown)
@@ -42,22 +50,7 @@ public class CameraWeapon : MonoBehaviour
 				if (collider.gameObject.tag == "Enemy") {
 					RaycastHit2D[] hits = Physics2D.RaycastAll(player.transform.position, collider.transform.position - player.transform.position, rayDistance, rayLayerMask);
 					
-					bool hasLOS = true;
-					float colliderDistance = 0;
-					float nonColliderDistance = 0;
-					foreach (RaycastHit2D hit in hits) {
-						if (hit.collider.gameObject == collider) 
-						{
-							colliderDistance = hit.fraction;
-						}
-						else if (hit.collider.gameObject.tag != "Enemy")
-						{
-							nonColliderDistance= hit.fraction;
-						}
-					}
-					
-					if (colliderDistance > nonColliderDistance) hasLOS = false;
-					
+					bool hasLOS = checkLOS(collider, hits);
 					foreach (RaycastHit2D hit in hits) {
 						if (hit.collider != null && hit.collider.gameObject.tag == "Enemy" && !damagedColliders.Contains(hit.collider.gameObject) && hasLOS) {
 							if (showRay) {
@@ -69,14 +62,6 @@ public class CameraWeapon : MonoBehaviour
 					}
 				}
 			}
-		}
-	}
-
-	private void Update() {
-		if (isOnCooldown) {
-			StartCoroutine(BarLerp());
-		} else {
-			StopCoroutine(BarLerp());
 		}
 	}
 
@@ -105,5 +90,25 @@ public class CameraWeapon : MonoBehaviour
 
 	private void OnTriggerExit2D(Collider2D collision) {
 		colliders.Remove(collision.gameObject);
+	}
+	
+	private bool checkLOS(GameObject collider, RaycastHit2D[] hits) 
+	{	
+		bool hasLOS = true;
+		float colliderDistance = 0;
+		float nonColliderDistance = 0;
+		foreach (RaycastHit2D hit in hits) {
+			if (hit.collider.gameObject == collider) 
+			{
+				colliderDistance = hit.fraction;
+			}
+			else if (hit.collider.gameObject.tag != "Enemy")
+			{
+				nonColliderDistance= hit.fraction;
+			}
+		}
+		
+		if (colliderDistance > nonColliderDistance) hasLOS = false;
+		return hasLOS;
 	}
 }

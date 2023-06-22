@@ -7,41 +7,29 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    private PlayerInputActions playerControls;
-
     private Vector2 moveDirection = Vector2.zero;
     private Vector2 lookDirection = Vector2.zero;
 
-    [SerializeField]
-    private float moveSpeed = 500f;
-
-        [SerializeField]
-    private GameObject cameraWeapon;
+    private PlayerInputActions playerControls;
 
     private InputAction move;
     private InputAction look;
     private InputAction fire;
     private InputAction dash;
     private InputAction interact;
-    private InteractablesManager interManager;
+
+    [SerializeField] private InteractablesManager interManager;
+    [SerializeField] private GameObject cameraWeapon;
+    [SerializeField] private float moveSpeed = 500f;
+    [SerializeField] private float inputBuffer = 0.2f;
+    [SerializeField]private bool binaryMove = false;
+    [SerializeField] private float maxHealth = 100.0f;
+    [SerializeField] private float health;
     
-    [SerializeField]
-    private float inputBuffer = 0.2f;
-
-    [SerializeField]
-    private bool binaryMove = false;
-
-    [SerializeField]
-    private float maxHealth = 100.0f;
-    [SerializeField]
-    private float health;
-
     private float rotZ;
 
     private void OnEnable()
     {
-        interManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<InteractablesManager>();
-
         if (playerControls == null)
         {
             playerControls = new PlayerInputActions();
@@ -116,10 +104,9 @@ public class PlayerController : MonoBehaviour
 
         cameraWeapon.transform.eulerAngles = new Vector3(0, 0, rotZ + 90);
     }
-
-    private void FixedUpdate()
-    {
-        // set player velocity
+    
+    // set player velocity
+    private void FixedUpdate() {
         rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
     }
 
@@ -131,8 +118,7 @@ public class PlayerController : MonoBehaviour
         EventController.Dash();
     }
     
-    private void Interact(InputAction.CallbackContext context)
-    {
+    private void Interact(InputAction.CallbackContext context) {
         interManager.Doors();
     }
 }

@@ -73,7 +73,6 @@ public class PlayerDash : MonoBehaviour
             endPosition = transform.position + offset;
             elapsedTime = 0;
             isDashing = true;
-
         }
     }
 

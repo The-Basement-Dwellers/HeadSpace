@@ -52,7 +52,7 @@ public class CameraWeapon : MonoBehaviour
 					
 					bool hasLOS = checkLOS(collider, hits);
 					foreach (RaycastHit2D hit in hits) {
-						if (hit.collider != null && hit.collider.gameObject.tag == "Enemy" && !damagedColliders.Contains(hit.collider.gameObject) && hasLOS) {
+						if (hit.collider != null && hit.collider.gameObject.tag == "Enemy" && !damagedColliders.Contains(hit.collider.gameObject) && hasLOS && colliders.Contains(hit.collider.gameObject)) {
 							if (showRay) {
 								Debug.DrawRay(player.transform.position, (hit.point - (Vector2)player.transform.position), Color.red, 1f);
 							}
@@ -84,13 +84,7 @@ public class CameraWeapon : MonoBehaviour
 		yield return null;
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision) {
-		colliders.Add(collision.gameObject);
-	}
-
-	private void OnTriggerExit2D(Collider2D collision) {
-		colliders.Remove(collision.gameObject);
-	}
+	
 	
 	private bool checkLOS(GameObject collider, RaycastHit2D[] hits) 
 	{	

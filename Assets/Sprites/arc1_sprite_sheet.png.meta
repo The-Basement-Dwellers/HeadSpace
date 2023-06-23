@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5683cf539dda1bf44a2c09b5000cfea3
+guid: c5f4cadbd6fc53e43985d0115d6af261
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -109,6 +109,300 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f87d45974d13ccb48b6d60a87a183811
+      internalID: -653647152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da0062e2f6976e142b79238cd2c5d4ef
+      internalID: 223921793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e70e8981a66ff04d87d537cba61b172
+      internalID: -668126357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fdf848ae16f8984dba00c25aa5d8ad3
+      internalID: 347985560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a7b8c0e5128ad34d9f44e99fc33464c
+      internalID: 1434468469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb4760bfd9a7b06459f3761a047a9750
+      internalID: 843724136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e6c4915157333947b6ad69c860c2e38
+      internalID: 39822370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77e77f7bdc7b9a7449cc51a50d91a437
+      internalID: -286357374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dcbb9b0b078bcb48ac889d9d86731c6
+      internalID: -1917330561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_9
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f00d84b88e678764b921a588466be18e
+      internalID: 1415318848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_10
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af6fa78e3b5ee154c96995bf678a9f28
+      internalID: -1920702165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_11
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87d8e7491c1783d4ab50c5e9aaa36561
+      internalID: 2034118169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_12
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d555e944daacecd4a949d0e3be990be7
+      internalID: -844286099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_13
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f10628821a9f24f45912856c55a1d490
+      internalID: 1834124486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_14
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 32
         width: 32
         height: 32
@@ -119,14 +413,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccb88761db0c50d458c5f4f2c1c13bee
-      internalID: 1585639508
+      spriteID: dbd8da7bebd9a0a4580ae7e9b41a1948
+      internalID: 1840064813
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: arc1_sprite_sheet_1
+      name: arc1_sprite_sheet_15
       rect:
         serializedVersion: 2
         x: 32
@@ -140,14 +434,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 056b1b956e9db464eb4ab0a7c9848d4c
-      internalID: 1854734684
+      spriteID: 157319d3ad0cb1940874561ae3fad2e5
+      internalID: 1710776929
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: arc1_sprite_sheet_2
+      name: arc1_sprite_sheet_16
       rect:
         serializedVersion: 2
         x: 64
@@ -161,14 +455,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d2b1d77029c75b48b43599b405a0775
-      internalID: 1950274372
+      spriteID: 361ccfb3115c02f46aa2386a50418b8c
+      internalID: -812842019
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: arc1_sprite_sheet_3
+      name: arc1_sprite_sheet_17
       rect:
         serializedVersion: 2
         x: 96
@@ -182,14 +476,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c7d35dd63cf5c1499d486c2332ad11b
-      internalID: 1976558045
+      spriteID: 20ecc20e8d4485e40828bc77a25164c8
+      internalID: -550390856
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: arc1_sprite_sheet_4
+      name: arc1_sprite_sheet_18
       rect:
         serializedVersion: 2
         x: 128
@@ -203,14 +497,56 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5261a1069d318af468db6515f328471d
-      internalID: -2039409031
+      spriteID: a13fa1e5c79f5bc4aa16edea287530b7
+      internalID: -331956914
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: arc1_sprite_sheet_5
+      name: arc1_sprite_sheet_19
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91e7b9aeb511cf247abf49d37e189f0b
+      internalID: -1387820214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_20
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d5a3f9dda2b68d42adc05f404d492b0
+      internalID: -1668750825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_21
       rect:
         serializedVersion: 2
         x: 0
@@ -224,14 +560,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 60a48020de1024b428d6020736e51f10
-      internalID: -2032501662
+      spriteID: efd3656c84b5c9347b56c0aec86c4661
+      internalID: -1209743391
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: arc1_sprite_sheet_6
+      name: arc1_sprite_sheet_22
       rect:
         serializedVersion: 2
         x: 32
@@ -245,14 +581,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df09e22088137794fb955ae3a2e7e1c8
-      internalID: 512410896
+      spriteID: d5d475620209fc7419d3ef2b08d2da5b
+      internalID: 1080671684
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: arc1_sprite_sheet_7
+      name: arc1_sprite_sheet_23
       rect:
         serializedVersion: 2
         x: 64
@@ -266,14 +602,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2bbf70c92d219eb4a98871d68ed63281
-      internalID: 2110448402
+      spriteID: ef8c903a122d99b40bcebefde17d4725
+      internalID: 869530289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: arc1_sprite_sheet_8
+      name: arc1_sprite_sheet_24
       rect:
         serializedVersion: 2
         x: 96
@@ -287,14 +623,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71c1502d22ecd7c4d82bbcd946113470
-      internalID: -925833476
+      spriteID: c441165d5deb9b347a6c6674e6811c03
+      internalID: 1435700548
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: arc1_sprite_sheet_9
+      name: arc1_sprite_sheet_25
       rect:
         serializedVersion: 2
         x: 128
@@ -308,8 +644,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02c88dd2dcc094c4cb8fc4465ddd26a4
-      internalID: -2011655324
+      spriteID: 47564c01819808c4bb76d08d8184222f
+      internalID: -222070637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_26
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b053640d123c2124f9a5fca19da53c69
+      internalID: 470595436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arc1_sprite_sheet_27
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8f7e55d3075f2549abf52aea2850494
+      internalID: -1336414062
       vertices: []
       indices: 
       edges: []
@@ -325,16 +703,34 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      arc1_sprite_sheet_0: 1585639508
-      arc1_sprite_sheet_1: 1854734684
-      arc1_sprite_sheet_2: 1950274372
-      arc1_sprite_sheet_3: 1976558045
-      arc1_sprite_sheet_4: -2039409031
-      arc1_sprite_sheet_5: -2032501662
-      arc1_sprite_sheet_6: 512410896
-      arc1_sprite_sheet_7: 2110448402
-      arc1_sprite_sheet_8: -925833476
-      arc1_sprite_sheet_9: -2011655324
+      arc1_sprite_sheet_0: -653647152
+      arc1_sprite_sheet_1: 223921793
+      arc1_sprite_sheet_10: -1920702165
+      arc1_sprite_sheet_11: 2034118169
+      arc1_sprite_sheet_12: -844286099
+      arc1_sprite_sheet_13: 1834124486
+      arc1_sprite_sheet_14: 1840064813
+      arc1_sprite_sheet_15: 1710776929
+      arc1_sprite_sheet_16: -812842019
+      arc1_sprite_sheet_17: -550390856
+      arc1_sprite_sheet_18: -331956914
+      arc1_sprite_sheet_19: -1387820214
+      arc1_sprite_sheet_2: -668126357
+      arc1_sprite_sheet_20: -1668750825
+      arc1_sprite_sheet_21: -1209743391
+      arc1_sprite_sheet_22: 1080671684
+      arc1_sprite_sheet_23: 869530289
+      arc1_sprite_sheet_24: 1435700548
+      arc1_sprite_sheet_25: -222070637
+      arc1_sprite_sheet_26: 470595436
+      arc1_sprite_sheet_27: -1336414062
+      arc1_sprite_sheet_3: 347985560
+      arc1_sprite_sheet_4: 1434468469
+      arc1_sprite_sheet_5: 843724136
+      arc1_sprite_sheet_6: 39822370
+      arc1_sprite_sheet_7: -286357374
+      arc1_sprite_sheet_8: -1917330561
+      arc1_sprite_sheet_9: 1415318848
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

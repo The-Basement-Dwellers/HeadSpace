@@ -44,7 +44,8 @@ public class PlayerController : MonoBehaviour
 
         fire = playerControls.Player.Fire;
         fire.Enable();
-        fire.performed += Fire;
+        fire.performed += StartUndertaleBar;
+        fire.canceled += StopUndertaleBar;
 
         dash = playerControls.Player.Dash;
         dash.Enable();
@@ -82,9 +83,9 @@ public class PlayerController : MonoBehaviour
 
         float percent = health / maxHealth;
         EventController.StartHealthBarEvent(percent, gameObject);
-
+ 
         if (binaryMove)
-        {
+        {                     
             float binaryMoveDirectionX = 0;
             float binaryMoveDirectionY = 0;
             if (moveDirection.x > inputBuffer) binaryMoveDirectionX = 1;
@@ -110,8 +111,12 @@ public class PlayerController : MonoBehaviour
         rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
     }
 
-    private void Fire(InputAction.CallbackContext context) {
-        EventController.Fire();
+    private void StartUndertaleBar(InputAction.CallbackContext context) {
+        EventController.StartBar();
+    }
+
+    private void StopUndertaleBar(InputAction.CallbackContext context) {
+        EventController.StopBar();
     }
 
     private void Dash(InputAction.CallbackContext context) {

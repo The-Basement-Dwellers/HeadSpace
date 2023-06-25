@@ -14,16 +14,28 @@ public class CameraWeapon : MonoBehaviour
 	[SerializeField] private float cooldown = 1f;
 	[SerializeField] private bool showRay = false;
 
+	[SerializeField] private GameObject pointer;
+    [SerializeField] private GameObject bar;
+    [SerializeField] private float pointerPeriod;
+    private float elapsedTimeCooldown;
+
+    private float halfBarWidth;
+    private Vector3 startPos;
+    private Vector3 endPos;
+    private bool isShooting = false;
+
 	private float elapsedTime;
 	private float lerpScaleY = 0.95f;
 	private bool isOnCooldown = false;
 
 	private void OnEnable() {
-		EventController.fire += Fire;
+		EventController.startBarEvent += StartBar;
+        EventController.stopBarEvent += StopBar;
 	}
 
 	private void OnDisable() {
-		EventController.fire -= Fire;
+		EventController.startBarEvent -= StartBar;
+        EventController.stopBarEvent -= StopBar;
 	}
 	
 	private void Update() {
@@ -32,13 +44,19 @@ public class CameraWeapon : MonoBehaviour
 		} else {
 			StopCoroutine(BarLerp());
 		}
+
+		if (isShooting) {
+            StartCoroutine(PointerLerp());
+        } else {
+            StopCoroutine(PointerLerp());
+        }
 	}
 
-	private void Fire() {
+	private void Fire(float modifier) {
 		if (!isOnCooldown)
 		{
 			isOnCooldown = true;
-			elapsedTime = 0;
+			elapsedTimeCooldown = 0;
 
 			flash.SetActive(true);
 			Invoke("DisableFlash", 0.1f);
@@ -56,7 +74,7 @@ public class CameraWeapon : MonoBehaviour
 							if (showRay) {
 								Debug.DrawRay(player.transform.position, (hit.point - (Vector2)player.transform.position), Color.red, 1f);
 							}
-							EventController.Damage(hit.collider.gameObject, damageAmount);
+							EventController.Damage(hit.collider.gameObject, damageAmount * modifier);
 							damagedColliders.Add(hit.collider.gameObject);
 						}
 					}
@@ -71,9 +89,9 @@ public class CameraWeapon : MonoBehaviour
 
 	private IEnumerator BarLerp()
 	{
-		float percentageComplete = elapsedTime / cooldown;
+		float percentageComplete = elapsedTimeCooldown / cooldown;
 
-		elapsedTime += Time.deltaTime;
+		elapsedTimeCooldown += Time.deltaTime;
 		if (percentageComplete >= 1)
 		{
 			isOnCooldown = false;
@@ -105,4 +123,37 @@ public class CameraWeapon : MonoBehaviour
 		if (colliderDistance > nonColliderDistance) hasLOS = false;
 		return hasLOS;
 	}
+
+	private void StartBar() {
+        elapsedTime = 0;
+        isShooting = false;
+        bar.SetActive(true);
+        isShooting = true;
+    }
+
+    private void StopBar() {
+        float pointerDistance = Mathf.Abs(pointer.transform.localPosition.x) * 2;
+        float dmgModifier = 1 - pointerDistance;
+        bar.SetActive(false);
+		Fire(dmgModifier);
+    }
+
+	private IEnumerator PointerLerp()
+    {
+        float percentageComplete = elapsedTime / pointerPeriod;
+        elapsedTime += Time.deltaTime;
+
+        halfBarWidth = bar.transform.localScale.x / 2;
+        startPos = new Vector3(bar.transform.position.x - halfBarWidth, bar.transform.position.y, 0);
+        endPos = new Vector3(bar.transform.position.x + halfBarWidth, bar.transform.position.y, 0);
+        
+        pointer.transform.position = Vector3.Lerp(startPos, endPos, percentageComplete);
+
+        if (percentageComplete >= 1) {
+            if (bar.activeSelf) {
+                EventController.StopBar();
+            }
+        }
+        yield return null;
+    }
 }

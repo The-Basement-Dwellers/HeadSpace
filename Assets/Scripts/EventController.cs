@@ -7,9 +7,10 @@ public class EventController : MonoBehaviour {
     public static event Action<Vector3> setLookDirectionEvent;
     public static event Action<Vector3> setMoveDirectionEvent;
     public static event Action<float, GameObject> setHealthBarPercentEvent;
-    public static event Action fire;
     public static event Action dash;
     public static event Action<GameObject, float> damageEvent;
+    public static event Action startBarEvent;
+    public static event Action stopBarEvent;
 
     public static void StartLookDirectionEvent(Vector3 lookDirection) {
         setLookDirectionEvent?.Invoke(lookDirection);
@@ -27,8 +28,12 @@ public class EventController : MonoBehaviour {
         damageEvent?.Invoke(targetedGameObject, damageAmount);
     }
 
-    public static void Fire() {
-        fire?.Invoke();
+    public static void StartBar() {
+        startBarEvent?.Invoke();
+    }
+
+    public static void StopBar() {
+        stopBarEvent?.Invoke();
     }
 
     public static void Dash() {

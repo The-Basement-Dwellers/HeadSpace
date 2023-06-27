@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 673557599892849092}
   - component: {fileID: 5353539874970606103}
   m_Layer: 6
-  m_Name: Undertale bar
+  m_Name: Timing bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -587,12 +587,13 @@ MonoBehaviour:
   flash: {fileID: 8844004094975253227}
   cameraBar: {fileID: 8844004094249206595}
   rayDistance: 10
-  damageAmount: 50
-  cooldown: 1
+  damageAmount: 45
+  cooldown: 1.75
   showRay: 1
   pointer: {fileID: 4788634208538271517}
   bar: {fileID: 3949434100257925899}
-  pointerPeriod: 2
+  pointerPeriod: 1.25
+  enableTimingBar: 0
 --- !u!212 &8844004093669173315
 SpriteRenderer:
   m_ObjectHideFlags: 0

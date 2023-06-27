@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering.Universal;
 using UnityEngine;
 
 public class CameraWeapon : MonoBehaviour
@@ -8,6 +9,7 @@ public class CameraWeapon : MonoBehaviour
 	[SerializeField] private LayerMask rayLayerMask;
 	[SerializeField] private GameObject player;
 	[SerializeField] private GameObject flash;
+	[SerializeField] private GameObject rangeFlash;
 	[SerializeField] private GameObject cameraBar;
 	[SerializeField] private float rayDistance = 10f;
 	[SerializeField] private float damageAmount = 40f;
@@ -39,6 +41,9 @@ public class CameraWeapon : MonoBehaviour
 	private void OnEnable() {
 		EventController.fire += StartFire;
 		EventController.fireRelease += StopFire;
+		
+		flash.GetComponent<Light2D>().pointLightInnerRadius = collision.transform.localScale.y - 0.5f;
+		flash.GetComponent<Light2D>().pointLightOuterRadius = collision.transform.localScale.y ;
 	}
 
 	private void OnDisable() {
@@ -81,6 +86,7 @@ public class CameraWeapon : MonoBehaviour
 					isShooting = true;
 				}
 			} else if (enableRangeBar) {
+				rangeFlash.SetActive(true);
 				range = 0;
 				isRangeShooting = true;
 			} else {
@@ -98,6 +104,8 @@ public class CameraWeapon : MonoBehaviour
 			elapsedTimeCooldown = 0;
 
 			flash.SetActive(true);
+			flash.GetComponent<Light2D>().pointLightInnerRadius = range - 0.5f;
+			flash.GetComponent<Light2D>().pointLightOuterRadius = range ;
 			Invoke("DisableFlash", 0.1f);
 
 			List<GameObject> collidersCopy = new List<GameObject>(colliders);
@@ -129,6 +137,8 @@ public class CameraWeapon : MonoBehaviour
 	
 	private void DisableFlash() {
 		flash.SetActive(false);
+		flash.GetComponent<Light2D>().pointLightInnerRadius = collision.transform.localScale.y - 0.5f;
+		flash.GetComponent<Light2D>().pointLightOuterRadius = collision.transform.localScale.y ;
 	}
 	
 	private bool checkLOS(GameObject collider, RaycastHit2D[] hits) 
@@ -193,6 +203,8 @@ public class CameraWeapon : MonoBehaviour
 		float maxRange = collision.transform.localScale.y;
 		
 		range = Mathf.Lerp(0, maxRange, percentageComplete);
+		rangeFlash.GetComponent<Light2D>().pointLightInnerRadius = range - 0.75f;
+		rangeFlash.GetComponent<Light2D>().pointLightOuterRadius = range;
 
 		if (percentageComplete >= 1) {
 			StopFire();
@@ -202,9 +214,9 @@ public class CameraWeapon : MonoBehaviour
 	
 	private void StopFire() {
 		if (isRangeShooting && enableRangeBar) {
+			rangeFlash.SetActive(false);
 			elapsedTime = 0;
 			isRangeShooting = false;
-			Debug.Log(range);
 			Fire(range: range);
 		}
 	}

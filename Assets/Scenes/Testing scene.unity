@@ -582,7 +582,7 @@ Camera:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1104,16 +1104,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &824137421 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8844004095022375112, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
-  m_PrefabInstance: {fileID: 8844004093814213554}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &845156866 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3949434100257925899, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
-  m_PrefabInstance: {fileID: 8844004093814213554}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &893127581
 GameObject:
   m_ObjectHideFlags: 0
@@ -4135,11 +4125,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b9b2de6b7f7041038131978c9b48dcd, type: 3}
---- !u!1 &1400336658 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4788634208538271517, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
-  m_PrefabInstance: {fileID: 8844004093814213554}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1491433516
 Mesh:
   m_ObjectHideFlags: 0
@@ -4995,33 +4980,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 950395896, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
-      propertyPath: collision
-      value: 
-      objectReference: {fileID: 824137421}
-    - target: {fileID: 950395896, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
-      propertyPath: timingBar
-      value: 
-      objectReference: {fileID: 845156866}
-    - target: {fileID: 950395896, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
-      propertyPath: rangePeriod
-      value: 1
+    - target: {fileID: 3651162107196832811, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
+      propertyPath: m_Color.b
+      value: 0.2783019
       objectReference: {fileID: 0}
-    - target: {fileID: 950395896, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
-      propertyPath: timingPointer
-      value: 
-      objectReference: {fileID: 1400336658}
-    - target: {fileID: 950395896, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
-      propertyPath: enableRangeBar
-      value: 1
+    - target: {fileID: 3651162107196832811, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.2783019
       objectReference: {fileID: 0}
-    - target: {fileID: 950395896, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
-      propertyPath: enableTimingBar
-      value: 0
+    - target: {fileID: 3651162107196832811, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
+      propertyPath: m_PointLightInnerRadius
+      value: 3.42
       objectReference: {fileID: 0}
-    - target: {fileID: 950395896, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
-      propertyPath: timingPointerPeriod
-      value: 1.75
+    - target: {fileID: 3651162107196832811, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 4.17
       objectReference: {fileID: 0}
     - target: {fileID: 8844004093669173314, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
       propertyPath: m_RootOrder

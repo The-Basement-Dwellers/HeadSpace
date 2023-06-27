@@ -44,8 +44,7 @@ public class PlayerController : MonoBehaviour
 
         fire = playerControls.Player.Fire;
         fire.Enable();
-        fire.performed += StartUndertaleBar;
-        fire.canceled += StopUndertaleBar;
+        fire.performed += Fire;
 
         dash = playerControls.Player.Dash;
         dash.Enable();
@@ -99,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
         if (lookDirection.magnitude > 0.05) {
             rotZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        } else {
+        } else if (moveDirection.magnitude > 0.05){
             rotZ = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
         }
 
@@ -111,12 +110,8 @@ public class PlayerController : MonoBehaviour
         rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
     }
 
-    private void StartUndertaleBar(InputAction.CallbackContext context) {
-        EventController.StartBar();
-    }
-
-    private void StopUndertaleBar(InputAction.CallbackContext context) {
-        EventController.StopBar();
+    private void Fire(InputAction.CallbackContext context) {
+        EventController.Fire();
     }
 
     private void Dash(InputAction.CallbackContext context) {

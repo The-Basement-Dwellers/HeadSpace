@@ -15,27 +15,27 @@ public class CameraWeapon : MonoBehaviour
 	[SerializeField] private bool showRay = false;
 
 	[SerializeField] private GameObject pointer;
-    [SerializeField] private GameObject bar;
-    [SerializeField] private float pointerPeriod;
-    private float elapsedTimeCooldown;
+	[SerializeField] private GameObject bar;
+	[SerializeField] private float pointerPeriod;
+	private float elapsedTimeCooldown;
 
-    private float halfBarWidth;
-    private Vector3 startPos;
-    private Vector3 endPos;
-    private bool isShooting = false;
+	private float halfBarWidth;
+	private Vector3 startPos;
+	private Vector3 endPos;
+	private bool isShooting = false;
+	
+	[SerializeField] private bool enableTimingBar= true;
 
 	private float elapsedTime;
 	private float lerpScaleY = 0.95f;
 	private bool isOnCooldown = false;
 
 	private void OnEnable() {
-		EventController.startBarEvent += StartBar;
-        EventController.stopBarEvent += StopBar;
+		EventController.fire += StartFire;
 	}
 
 	private void OnDisable() {
-		EventController.startBarEvent -= StartBar;
-        EventController.stopBarEvent -= StopBar;
+		EventController.fire -= StartFire;
 	}
 	
 	private void Update() {
@@ -46,10 +46,10 @@ public class CameraWeapon : MonoBehaviour
 		}
 
 		if (isShooting) {
-            StartCoroutine(PointerLerp());
-        } else {
-            StopCoroutine(PointerLerp());
-        }
+			StartCoroutine(PointerLerp());
+		} else {
+			StopCoroutine(PointerLerp());
+		}
 	}
 
 	private void Fire(float modifier) {
@@ -124,36 +124,43 @@ public class CameraWeapon : MonoBehaviour
 		return hasLOS;
 	}
 
-	private void StartBar() {
-        elapsedTime = 0;
-        isShooting = false;
-        bar.SetActive(true);
-        isShooting = true;
-    }
-
-    private void StopBar() {
-        float pointerDistance = Mathf.Abs(pointer.transform.localPosition.x) * 2;
-        float dmgModifier = 1 - pointerDistance;
-        bar.SetActive(false);
-		Fire(dmgModifier);
-    }
+	private void StartFire() {
+		if (!isOnCooldown) {
+			if (enableTimingBar) {
+				if (isShooting && !isOnCooldown) {
+					isShooting = false;
+					float pointerDistance = Mathf.Abs(pointer.transform.localPosition.x) * 2;
+					float dmgModifier = 1 - pointerDistance;
+					bar.SetActive(false);
+					Fire(dmgModifier);
+				} else {
+					elapsedTime = 0;
+					isShooting = false;
+					bar.SetActive(true);
+					isShooting = true;
+				}
+			} else {
+				Fire(1);
+			}
+		}
+	}
 
 	private IEnumerator PointerLerp()
-    {
-        float percentageComplete = elapsedTime / pointerPeriod;
-        elapsedTime += Time.deltaTime;
+	{
+		float percentageComplete = elapsedTime / pointerPeriod;
+		elapsedTime += Time.deltaTime;
 
-        halfBarWidth = bar.transform.localScale.x / 2;
-        startPos = new Vector3(bar.transform.position.x - halfBarWidth, bar.transform.position.y, 0);
-        endPos = new Vector3(bar.transform.position.x + halfBarWidth, bar.transform.position.y, 0);
-        
-        pointer.transform.position = Vector3.Lerp(startPos, endPos, percentageComplete);
+		halfBarWidth = bar.transform.localScale.x / 2;
+		startPos = new Vector3(bar.transform.position.x - halfBarWidth, bar.transform.position.y, 0);
+		endPos = new Vector3(bar.transform.position.x + halfBarWidth, bar.transform.position.y, 0);
+		
+		pointer.transform.position = Vector3.Lerp(startPos, endPos, percentageComplete);
 
-        if (percentageComplete >= 1) {
-            if (bar.activeSelf) {
-                EventController.StopBar();
-            }
-        }
-        yield return null;
-    }
+		if (percentageComplete >= 1) {
+			if (bar.activeSelf) {
+				EventController.Fire();
+			}
+		}
+		yield return null;
+	}
 }

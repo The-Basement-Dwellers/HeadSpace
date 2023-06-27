@@ -10,6 +10,7 @@ public class EventController : MonoBehaviour {
 	public static event Action dash;
 	public static event Action<GameObject, float> damageEvent;
 	public static event Action fire;
+	public static event Action fireRelease;
 	
 	public static void StartLookDirectionEvent(Vector3 lookDirection) {
 		setLookDirectionEvent?.Invoke(lookDirection);
@@ -29,6 +30,10 @@ public class EventController : MonoBehaviour {
 
 	public static void Fire() {
 		fire?.Invoke();
+	}
+	
+	public static void FireRelease() {
+		fireRelease?.Invoke();
 	}
 
 	public static void Dash() {

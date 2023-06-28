@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Pathfinding;
 
 namespace Pathfinding {
 	using Pathfinding.RVO;
@@ -487,5 +488,7 @@ namespace Pathfinding {
 			if (version < 1) rotationSpeed *= 90;
 			return base.OnUpgradeSerializedData(version, unityThread);
 		}
+
 	}
 }
+

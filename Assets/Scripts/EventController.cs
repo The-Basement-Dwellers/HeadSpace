@@ -23,7 +23,7 @@ public class EventController : MonoBehaviour {
         setHealthBarPercentEvent?.Invoke(percent, targetedGameObject);
     }
 
-    public static void Damage(GameObject targetedGameObject, float damageAmount) {
+    public static void enemyHurt(GameObject targetedGameObject, float damageAmount) {
         damageEvent?.Invoke(targetedGameObject, damageAmount);
     }
 

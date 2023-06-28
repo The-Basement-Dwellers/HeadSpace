@@ -32,9 +32,9 @@ public class PlayerController : MonoBehaviour
     private bool binaryMove = false;
 
     [SerializeField]
-    private float maxHealth = 100.0f;
+    public float playermaxHealth = 100.0f;
     [SerializeField]
-    private float health;
+    public float playerHealth;
 
     private float rotZ;
 
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        health = maxHealth;
+        playerHealth = playermaxHealth;
     }
 
     // Update is called once per frame
@@ -92,8 +92,13 @@ public class PlayerController : MonoBehaviour
         EventController.StartMoveDirectionEvent(moveDirection);
         EventController.StartLookDirectionEvent(lookDirection);
 
-        float percent = health / maxHealth;
+        float percent = playerHealth / playermaxHealth;
         EventController.StartHealthBarEvent(percent, gameObject);
+        
+        if (playerHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
 
         if (binaryMove)
         {

@@ -45,7 +45,7 @@ public class CameraWeapon : MonoBehaviour
 
                 if (collider.gameObject == hit.collider.gameObject && hit.collider.gameObject.tag == "Enemy")
                 {
-                    EventController.Damage(hit.collider.gameObject, damageAmount);
+                    EventController.enemyHurt(hit.collider.gameObject, damageAmount);
                 }
 
                 if (showRay)

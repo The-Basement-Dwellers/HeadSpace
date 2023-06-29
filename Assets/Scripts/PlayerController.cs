@@ -18,14 +18,15 @@ public class PlayerController : MonoBehaviour
 	private InputAction fire;
 	private InputAction dash;
 	private InputAction interact;
+	private InputAction restart;
 
 	[SerializeField] private InteractablesManager interManager;
 	[SerializeField] private GameObject cameraWeapon;
 	[SerializeField] private float moveSpeed = 500f;
 	[SerializeField] private float inputBuffer = 0.2f;
 	[SerializeField]private bool binaryMove = false;
-    [SerializeField] public float playerMaxHealth = 100.0f;
-    [SerializeField] public float playerHealth;
+	[SerializeField] public float playerMaxHealth = 100.0f;
+	[SerializeField] public float playerHealth;
 	
 	private float rotZ;
 	private bool isDashing = false;
@@ -57,6 +58,10 @@ public class PlayerController : MonoBehaviour
 		interact.Enable();
 		interact.performed += Interact;
 		
+		restart = playerControls.Player.Restart;
+		restart.Enable();
+		restart.performed += Restart;
+		
 		EventController.setCanMoveFlash += setCanMoveFlash;
 		EventController.startIsDashingEvent += SetisDashing;
 	}
@@ -68,6 +73,7 @@ public class PlayerController : MonoBehaviour
 		fire.Disable();
 		dash.Disable();
 		interact.Disable();
+		restart.Disable();
 		
 		EventController.setCanMoveFlash -= setCanMoveFlash;
 		EventController.startIsDashingEvent -= SetisDashing;
@@ -139,8 +145,8 @@ public class PlayerController : MonoBehaviour
 	}
 	
 	private void SetisDashing(bool value) {
-        isDashing = value;
-    }
+		isDashing = value;
+	}
 	
 	private void FireRelease(InputAction.CallbackContext context) {
 		EventController.FireRelease();
@@ -152,6 +158,10 @@ public class PlayerController : MonoBehaviour
 	
 	private void Interact(InputAction.CallbackContext context) {
 		interManager.Doors();
+	}
+	
+	private void Restart(InputAction.CallbackContext context) {
+		Destroy(gameObject);
 	}
 
 	private void OnDestroy() {

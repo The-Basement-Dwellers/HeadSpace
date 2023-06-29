@@ -144,7 +144,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1.94
+  m_PointLightOuterRadius: 0.86
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -713,14 +713,9 @@ MonoBehaviour:
   damageAmount: 45
   cooldown: 1.75
   showRay: 1
-  timingPointer: {fileID: 4788634208538271517}
-  timingBar: {fileID: 3949434100257925899}
   collision: {fileID: 8844004095022375112}
-  timingPointerPeriod: 1.75
   rangePeriod: 1
   flashDuration: 0.1
-  enableTimingBar: 0
-  enableRangeBar: 1
 --- !u!212 &8844004093669173315
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -7,11 +7,19 @@ public class EnemyLogic : MonoBehaviour
     public EnemyTemplate eT;
     public PlayerController pC;
     public GameObject player;
+    private Vector2 moveDirection = Vector2.zero;
 
     void Start()
     {
         pC = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
+
+    void Update()
+    {
+        moveDirection = gameObject.transform.position;
+        EventController.StartEnemyMoveDirectionEvent(gameObject, moveDirection);
+    }
+
     private void OnEnable()
     {
         EventController.damageEvent += enemyHurt;

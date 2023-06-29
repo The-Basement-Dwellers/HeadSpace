@@ -7,32 +7,46 @@ using UnityEngine.EventSystems;
 public class PlayerDash : MonoBehaviour
 {
     private PlayerInputActions playerControls;
-
+    private InputAction dash;
     private Vector2 moveDirection = Vector2.zero;
-
     private Vector3 startPosition;
     private Vector3 endPosition;
     private float elapsedTime;
     private bool isDashing = false;
     private bool dashOnCooldown = false;
-
-    [SerializeField]
-    private float dashDuration = 0.1f;
-    [SerializeField]
-    private float dashDistance = 3f;
-    [SerializeField]
-    private float dashEaseIntensity = 2f;
-    [SerializeField]
-    private float dashCooldown = 0.8f;
+    [SerializeField] private float dashDuration = 0.1f;
+    [SerializeField] private float dashDistance = 3f;
+    [SerializeField] private float dashEaseIntensity = 2f;
+    [SerializeField] private float dashCooldown = 0.8f;
+    private Rigidbody2D rb;
 
     private void OnEnable()
     {
-        EventController.dash += Dash;
+        if (playerControls == null)
+        {
+            playerControls = new PlayerInputActions();
+            playerControls.Enable();
+        }
+
+        dash = playerControls.Player.Dash;
+        dash.Enable();
+        dash.performed += Dash;
+
+        EventController.setMoveDirectionEvent += setMoveDirection;
     }
 
     private void OnDisable()
     {
-        EventController.dash -= Dash;
+        dash.Disable();
+        EventController.setMoveDirectionEvent -= setMoveDirection;
+    }
+
+    private void setMoveDirection(Vector3 eventMoveDirection) {
+        moveDirection = eventMoveDirection;
+    }
+
+    private void Start() {
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -49,7 +63,7 @@ public class PlayerDash : MonoBehaviour
     }
 
     // called on dash input
-    private void Dash()
+    private void Dash(InputAction.CallbackContext context)
     {
         if (!isDashing && !dashOnCooldown)
         {
@@ -59,7 +73,6 @@ public class PlayerDash : MonoBehaviour
             endPosition = transform.position + offset;
             elapsedTime = 0;
             isDashing = true;
-
         }
     }
 
@@ -74,7 +87,7 @@ public class PlayerDash : MonoBehaviour
         }
         float easedPercentage = IntensifiedEaseInOut(percentageComplete, dashEaseIntensity);
 
-        transform.position = Vector3.Lerp(startPosition, endPosition, easedPercentage);
+        rb.velocity = Vector3.Lerp(startPosition, endPosition, easedPercentage);
         yield return null;
     }
 

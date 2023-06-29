@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3948fc0ffc17384587ba731e3cb3972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  innerBar: {fileID: 4008068289961119639}
   max: 0.75
   min: 0.2
 --- !u!1 &4008068289961119639

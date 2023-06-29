@@ -4,50 +4,62 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    private Animator animator;
-    private Vector3 lookDirection;
+    private Animator headAnimator;
+    private Animator bodyAnimator;
     private Vector3 moveDirection;
-    private bool isLooking;
+    private Vector3 lookDirection;
     private bool isMoving;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject head;
+    [SerializeField] private GameObject body;
+
+    private void OnEnable()
     {
-        animator = GetComponent<Animator>();
-        EventController.setLookDirectionEvent += setLookDirection;
-        EventController.setMoveDirectionEvent += setMoveDirection;
+        EventController.setMoveDirectionEvent += SetMoveDirection;
+        EventController.setLookDirectionEvent += SetLookDirection;
+
+        headAnimator = head.GetComponent<Animator>();
+        bodyAnimator = body.GetComponent<Animator>();
     }
 
-    private void OnDisable() {
-        EventController.setLookDirectionEvent -= setLookDirection;
-        EventController.setMoveDirectionEvent -= setMoveDirection;
+    private void OnDisable()
+    {
+        EventController.setMoveDirectionEvent -= SetMoveDirection;
+        EventController.setLookDirectionEvent -= SetLookDirection;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         isMoving = false;
-        isLooking = false;
-        if (lookDirection.magnitude > 0)
+        if (lookDirection.magnitude > 0.05)
         {
-            isLooking = true;
-            animator.SetFloat("X", lookDirection.x);
-            animator.SetFloat("Y", lookDirection.y);
-        } else if (moveDirection.magnitude > 0) {
-            isMoving = true;
-            animator.SetFloat("X", moveDirection.x);
-            animator.SetFloat("Y", moveDirection.y);
+            headAnimator.SetFloat("X", lookDirection.x);
+            headAnimator.SetFloat("Y", lookDirection.y);
+        }
+        else if (moveDirection.magnitude > 0.05)
+        {
+            headAnimator.SetFloat("X", moveDirection.x);
+            headAnimator.SetFloat("Y", moveDirection.y);
         }
 
+        if (moveDirection.magnitude > 0.05)
+        {
+            isMoving = true;
+            bodyAnimator.SetFloat("X", moveDirection.x);
+            bodyAnimator.SetFloat("Y", moveDirection.y);
+        }
 
-        animator.SetBool("isLooking", isLooking);
-        animator.SetBool("isMoving", isMoving);
+        bodyAnimator.SetBool("isMoving", isMoving);
     }
 
-    private void setLookDirection(Vector3 eventLookDirection) {
-        lookDirection = eventLookDirection;
-    }
-    private void setMoveDirection(Vector3 eventMoveDirection) {
+    private void SetMoveDirection(Vector3 eventMoveDirection)
+    {
         moveDirection = eventMoveDirection;
     }
+
+    private void SetLookDirection(Vector3 eventLookDirection)
+    {
+        lookDirection = eventLookDirection;
+    }
 }
+

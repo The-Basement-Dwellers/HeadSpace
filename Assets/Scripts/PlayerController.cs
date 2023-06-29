@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,149 +5,141 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rb;
+	private Rigidbody2D rb;
 
-    private PlayerInputActions playerControls;
-    private InputAction move;
-    private InputAction look;
-    private InputAction fire;
-    private InputAction dash;
+	private Vector2 moveDirection = Vector2.zero;
+	private Vector2 lookDirection = Vector2.zero;
 
-    private Vector2 moveDirection = Vector2.zero;
-    private Vector2 lookDirection = Vector2.zero;
+	private PlayerInputActions playerControls;
 
-    // [SerializeField]
-    // private GameObject pointer;
+	private InputAction move;
+	private InputAction look;
+	private InputAction fire;
+	private InputAction dash;
+	private InputAction interact;
 
-    [SerializeField]
-    private GameObject cameraWeapon;
+	[SerializeField] private InteractablesManager interManager;
+	[SerializeField] private GameObject cameraWeapon;
+	[SerializeField] private float moveSpeed = 500f;
+	[SerializeField] private float inputBuffer = 0.2f;
+	[SerializeField]private bool binaryMove = false;
+	[SerializeField] private float maxHealth = 100.0f;
+	[SerializeField] private float health;
+	
+	private float rotZ;
+	private bool canMoveFlash = true;
 
-    [SerializeField]
-    private float moveSpeed = 500f;
+	private void OnEnable()
+	{
+		if (playerControls == null)
+		{
+			playerControls = new PlayerInputActions();
+			playerControls.Enable();
+		}
 
-    [SerializeField]
-    private float inputBuffer = 0.2f;
+		move = playerControls.Player.Move;
+		move.Enable();
 
-    [SerializeField]
-    private bool binaryMove = false;
+		look = playerControls.Player.Look;
+		look.Enable();
 
-    [SerializeField]
-    private float maxHealth = 100.0f;
-    [SerializeField]
-    private float health;
+		fire = playerControls.Player.Fire;
+		fire.Enable();
+		fire.canceled += FireRelease;
 
-    private float rotZ;
+		dash = playerControls.Player.Dash;
+		dash.Enable();
+		dash.performed += Dash;
 
-    
+		interact = playerControls.Player.Interact;
+		interact.Enable();
+		interact.performed += Interact;
+		
+		EventController.setCanMoveFlash += setCanMoveFlash;
+	}
 
-    private void OnEnable()
-    {
-        if (playerControls == null)
-        {
-            playerControls = new PlayerInputActions();
-            playerControls.Enable();
-        }
+	private void OnDisable()
+	{
+		move.Disable();
+		look.Disable();
+		fire.Disable();
+		dash.Disable();
+		interact.Disable();
+		
+		EventController.setCanMoveFlash -= setCanMoveFlash;
+	}
 
-        move = playerControls.Player.Move;
-        move.Enable();
+	// Start is called before the first frame update
+	void Start()
+	{
+		rb = GetComponent<Rigidbody2D>();
+		health = maxHealth;		
+	}
 
-        look = playerControls.Player.Look;
-        look.Enable();
+	// Update is called once per frame
+	void Update()
+	{
+		if (playerControls.Player.Fire.ReadValue<float>() > 0f) {
+			EventController.Fire();
+		}
+		
+		// read move input
+		moveDirection = move.ReadValue<Vector2>();
+		lookDirection = look.ReadValue<Vector2>();
+		EventController.StartMoveDirectionEvent(moveDirection);
+		EventController.StartLookDirectionEvent(lookDirection);
 
-        dash = playerControls.Player.Dash;
-        dash.Enable();
-        dash.performed += Dash;
+		float percent = health / maxHealth;
+		EventController.StartHealthBarEvent(percent, gameObject);
+ 
+		if (binaryMove)
+		{                     
+			float binaryMoveDirectionX = 0;
+			float binaryMoveDirectionY = 0;
+			if (moveDirection.x > inputBuffer) binaryMoveDirectionX = 1;
+			if (moveDirection.x < -inputBuffer) binaryMoveDirectionX = -1;
 
-        fire = playerControls.Player.Fire;
-        fire.Enable();
-        fire.performed += Fire;
-    }
+			if (moveDirection.y > inputBuffer) binaryMoveDirectionY = 1;
+			if (moveDirection.y < -inputBuffer) binaryMoveDirectionY = -1;
 
-    private void OnDisable()
-    {
-        move.Disable();
-        look.Disable();
-        dash.Disable();
-        fire.Disable();
-    }
+			moveDirection = new Vector2(binaryMoveDirectionX, binaryMoveDirectionY);
+		}
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        health = maxHealth;
-    }
+		if (lookDirection.magnitude > 0.05) {
+			rotZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+		} else if (moveDirection.magnitude > 0.05){
+			rotZ = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+		}
+		
+		if (canMoveFlash) 
+		{
+			if (lookDirection.magnitude > 0.05) {
+				rotZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+			} else if (moveDirection.magnitude > 0.05){
+				rotZ = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+			}
+			cameraWeapon.transform.eulerAngles = new Vector3(0, 0, rotZ + 90);
+		}
+	}
+	
+	// set player velocity
+	private void FixedUpdate() {
+		rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
+	}
+	
+	private void setCanMoveFlash(bool canMove) {
+		canMoveFlash = canMove;
+	}
+	
+	private void FireRelease(InputAction.CallbackContext context) {
+		EventController.FireRelease();
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        // read move input
-        moveDirection = move.ReadValue<Vector2>();
-        lookDirection = look.ReadValue<Vector2>();
-        EventController.StartMoveDirectionEvent(moveDirection);
-        EventController.StartLookDirectionEvent(lookDirection);
-
-        float percent = health / maxHealth;
-        EventController.StartHealthBarEvent(percent, gameObject);
-
-        if (binaryMove)
-        {
-            float binaryMoveDirectionX = 0;
-            float binaryMoveDirectionY = 0;
-            if (moveDirection.x > inputBuffer) binaryMoveDirectionX = 1;
-            if (moveDirection.x < -inputBuffer) binaryMoveDirectionX = -1;
-
-            if (moveDirection.y > inputBuffer) binaryMoveDirectionY = 1;
-            if (moveDirection.y < -inputBuffer) binaryMoveDirectionY = -1;
-
-            moveDirection = new Vector2(binaryMoveDirectionX, binaryMoveDirectionY);
-        }
-
-        //if (lookDirection.magnitude > 0) {
-        //    switch (lookDirection) {
-        //        case Vector2 _ when lookDirection.x > 0 && lookDirection.y > 0:
-        //            rotZ = -45;
-        //            break;
-        //        case Vector2 _ when lookDirection.x > 0 && lookDirection.y < 0:
-        //            rotZ = -135;
-        //            break;
-        //        case Vector2 _ when lookDirection.x < 0 && lookDirection.y > 0:
-        //            rotZ = 45;
-        //            break;
-        //        case Vector2 _ when lookDirection.x < 0 && lookDirection.y < 0:
-        //            rotZ = 135;
-        //            break;
-        //        case Vector2 _ when lookDirection.x > 0:
-        //            rotZ = -90;
-        //            break;
-        //        case Vector2 _ when lookDirection.x < 0:
-        //            rotZ = 90;
-        //            break;
-        //        case Vector2 _ when lookDirection.y > 0:
-        //            rotZ = 0;
-        //            break;
-        //        case Vector2 _ when lookDirection.y < 0:
-        //            rotZ = 180;
-        //            break;
-        //    }
-        //}
-
-        rotZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-
-        cameraWeapon.transform.eulerAngles = new Vector3(0, 0, rotZ - 90);
-    }
-
-    private void FixedUpdate()
-    {
-        // set player velocity
-        rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
-    }
-    
-    private void Fire(InputAction.CallbackContext context) {
-        EventController.Fire();
-    }
-
-    private void Dash(InputAction.CallbackContext context) {
-        EventController.Dash();
-    }
+	private void Dash(InputAction.CallbackContext context) {
+		EventController.Dash();
+	}
+	
+	private void Interact(InputAction.CallbackContext context) {
+		interManager.Doors();
+	}
 }

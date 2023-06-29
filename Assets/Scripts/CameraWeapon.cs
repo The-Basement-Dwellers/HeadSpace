@@ -17,22 +17,12 @@ public class CameraWeapon : MonoBehaviour
 	[SerializeField] private float cooldown = 1f;
 	[SerializeField] private bool showRay = false;
 
-	[SerializeField] private GameObject timingPointer;
-	[SerializeField] private GameObject timingBar;
 	[SerializeField] private GameObject collision;
-	[SerializeField] private float timingPointerPeriod = 2;
 	[SerializeField] private float rangePeriod = 2;
 	[SerializeField] private float flashDuration = 0.1f;
 	private float range = 0;
-	private float elapsedTimeCooldown;
-	private float halftimingBarWidth;
-	private Vector3 startPos;
-	private Vector3 endPos;
+	private float elapsedTimeCooldown;	
 	private bool isShooting = false;
-	
-	[SerializeField] private bool enableTimingBar = true;
-	[SerializeField] private bool enableRangeBar = true;
-	private bool isRangeShooting = false;
 
 	private float elapsedTime;
 	private float lerpScaleY = 0.95f;
@@ -57,14 +47,8 @@ public class CameraWeapon : MonoBehaviour
 		} else {
 			StopCoroutine(BarLerp());
 		}
-
-		if (isShooting) {
-			StartCoroutine(timingPointerLerp());
-		} else {
-			StopCoroutine(timingPointerLerp());
-		}
 		
-		if (isRangeShooting) {
+		if (isShooting) {
 			StartCoroutine(RangeLerp());
 		} else {
 			StopCoroutine(RangeLerp());
@@ -73,29 +57,10 @@ public class CameraWeapon : MonoBehaviour
 	
 	private void StartFire() {
 		if (!isOnCooldown) {
-			if (enableTimingBar) {
-				if (isShooting && !isOnCooldown) {
-					DisablePreFlash();
-					Invoke("EnablePreFlash", flashDuration / 2);
-					isShooting = false;
-					float timingPointerDistance = Mathf.Abs(timingPointer.transform.localPosition.x) * 2;
-					float dmgModifier = 1 - timingPointerDistance;
-					timingBar.SetActive(false);
-					Fire(modifier: dmgModifier);
-				} else {
-					elapsedTime = 0;
-					timingBar.SetActive(true);
-					isShooting = true;
-					preFlash.SetActive(true);
-				}
-			} else if (enableRangeBar) {
-				rangeFlash.SetActive(true);
-				range = 0;
-				isRangeShooting = true;
-				preFlash.SetActive(true);
-			} else {
-				Fire();
-			}
+			rangeFlash.SetActive(true);
+			range = 0;
+			isShooting = true;
+			preFlash.SetActive(true);
 		}
 	}
 
@@ -110,7 +75,6 @@ public class CameraWeapon : MonoBehaviour
 			flash.SetActive(true);
 			flash.GetComponent<Light2D>().pointLightInnerRadius = range - 0.5f;
 			flash.GetComponent<Light2D>().pointLightOuterRadius = range;
-			EventController.StartCanMoveFlashEvent(false);
 			Invoke("DisableFlash", flashDuration);
 
 			List<GameObject> collidersCopy = new List<GameObject>(colliders);
@@ -153,7 +117,14 @@ public class CameraWeapon : MonoBehaviour
 	
 	private void EnablePreFlash() {
 		preFlash.SetActive(true);
-		Invoke("DisablePreFlash", flashDuration / 2);
+		Invoke("DisablePreFlash", flashDuration / 4);
+	}
+	
+	private void DelayedFire() {
+			rangeFlash.SetActive(false);
+			elapsedTime = 0;
+			isShooting = false;
+			Fire(range: range);
 	}
 	
 	private bool checkLOS(GameObject collider, RaycastHit2D[] hits) 
@@ -190,25 +161,6 @@ public class CameraWeapon : MonoBehaviour
 		cameraBar.transform.localScale = new Vector3(0.25f, lerpScaleY, 0f);
 		yield return null;
 	}
-
-	private IEnumerator timingPointerLerp()
-	{
-		float percentageComplete = elapsedTime / timingPointerPeriod;
-		elapsedTime += Time.deltaTime;
-
-		halftimingBarWidth = timingBar.transform.localScale.x / 2;
-		startPos = new Vector3(timingBar.transform.position.x - halftimingBarWidth, timingBar.transform.position.y, 0);
-		endPos = new Vector3(timingBar.transform.position.x + halftimingBarWidth, timingBar.transform.position.y, 0);
-		
-		timingPointer.transform.position = Vector3.Lerp(startPos, endPos, percentageComplete);
-
-		if (percentageComplete >= 1) {
-			if (timingBar.activeSelf) {
-				EventController.Fire();
-			}
-		}
-		yield return null;
-	}
 	
 	private IEnumerator RangeLerp()
 	{
@@ -228,14 +180,14 @@ public class CameraWeapon : MonoBehaviour
 	}
 	
 	private void StopFire() {
-		if (isRangeShooting && enableRangeBar) {
+		StopCoroutine("RangeLerp");
+		if (isShooting) {
+			EventController.StartCanMoveFlashEvent(false);
+			isShooting = false;
 			DisablePreFlash();
 			Invoke("EnablePreFlash", flashDuration / 2);
-			//Invoke("EnablePreFlash", (flashDuration / 2) * 3);
-			rangeFlash.SetActive(false);
-			elapsedTime = 0;
-			isRangeShooting = false;
-			Fire(range: range);
+			Invoke("EnablePreFlash", (flashDuration / 2) * 3);
+			Invoke("DelayedFire", flashDuration * 2);
 		}
 	}
 }

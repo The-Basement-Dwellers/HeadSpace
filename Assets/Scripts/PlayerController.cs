@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour
 
 		fire = playerControls.Player.Fire;
 		fire.Enable();
-		fire.performed += Fire;
 		fire.canceled += FireRelease;
 
 		dash = playerControls.Player.Dash;
@@ -80,6 +79,10 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (playerControls.Player.Fire.ReadValue<float>() > 0f) {
+			EventController.Fire();
+		}
+		
 		// read move input
 		moveDirection = move.ReadValue<Vector2>();
 		lookDirection = look.ReadValue<Vector2>();
@@ -126,10 +129,6 @@ public class PlayerController : MonoBehaviour
 	
 	private void setCanMoveFlash(bool canMove) {
 		canMoveFlash = canMove;
-	}
-
-	private void Fire(InputAction.CallbackContext context) {
-		EventController.Fire();
 	}
 	
 	private void FireRelease(InputAction.CallbackContext context) {

@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float health;
 	
 	private float rotZ;
+	private bool isDashing = false;
 	private bool canMoveFlash = true;
 
 	private void OnEnable()
@@ -56,6 +57,7 @@ public class PlayerController : MonoBehaviour
 		interact.performed += Interact;
 		
 		EventController.setCanMoveFlash += setCanMoveFlash;
+		EventController.startIsDashingEvent += SetisDashing;
 	}
 
 	private void OnDisable()
@@ -67,6 +69,7 @@ public class PlayerController : MonoBehaviour
 		interact.Disable();
 		
 		EventController.setCanMoveFlash -= setCanMoveFlash;
+		EventController.startIsDashingEvent -= SetisDashing;
 	}
 
 	// Start is called before the first frame update
@@ -124,12 +127,19 @@ public class PlayerController : MonoBehaviour
 	
 	// set player velocity
 	private void FixedUpdate() {
-		rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
+		if (!isDashing)
+		{
+			rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
+		}
 	}
 	
 	private void setCanMoveFlash(bool canMove) {
 		canMoveFlash = canMove;
 	}
+	
+	private void SetisDashing(bool value) {
+        isDashing = value;
+    }
 	
 	private void FireRelease(InputAction.CallbackContext context) {
 		EventController.FireRelease();

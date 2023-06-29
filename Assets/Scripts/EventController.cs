@@ -7,6 +7,7 @@ public class EventController : MonoBehaviour {
 	public static event Action<Vector3> setLookDirectionEvent;
 	public static event Action<Vector3> setMoveDirectionEvent;
 	public static event Action<float, GameObject> setHealthBarPercentEvent;
+	public static event Action<bool> startIsDashingEvent;
 	public static event Action<bool> setCanMoveFlash;
 	public static event Action dash;
 	public static event Action<GameObject, float> damageEvent;
@@ -17,7 +18,9 @@ public class EventController : MonoBehaviour {
 		setLookDirectionEvent?.Invoke(lookDirection);
 	}
 
-    public static event Action<bool> startIsDashingEvent;
+	public static void StartIsDashingEvent(bool isDashing) {
+        startIsDashingEvent?.Invoke(isDashing);
+    }
 
 	public static void StartMoveDirectionEvent(Vector3 moveDirection) {
 		setMoveDirectionEvent?.Invoke(moveDirection);
@@ -42,9 +45,6 @@ public class EventController : MonoBehaviour {
 	public static void FireRelease() {
 		fireRelease?.Invoke();
 	}
-    public static void StartIsDashingEvent(bool isDashing) {
-        startIsDashingEvent?.Invoke(isDashing);
-    }
 
 	public static void Dash() {
 		dash?.Invoke();

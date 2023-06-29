@@ -75,6 +75,8 @@ public class CameraWeapon : MonoBehaviour
 		if (!isOnCooldown) {
 			if (enableTimingBar) {
 				if (isShooting && !isOnCooldown) {
+					DisablePreFlash();
+					Invoke("EnablePreFlash", flashDuration / 2);
 					isShooting = false;
 					float timingPointerDistance = Mathf.Abs(timingPointer.transform.localPosition.x) * 2;
 					float dmgModifier = 1 - timingPointerDistance;
@@ -85,7 +87,6 @@ public class CameraWeapon : MonoBehaviour
 					timingBar.SetActive(true);
 					isShooting = true;
 					preFlash.SetActive(true);
-					Invoke("DisablePreFlash", flashDuration / 2);
 				}
 			} else if (enableRangeBar) {
 				rangeFlash.SetActive(true);

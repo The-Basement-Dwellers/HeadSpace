@@ -650,8 +650,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashDuration: 0.4
-  dashDistance: 3
-  dashEaseIntensity: 1.5
+  dashSpeed: 15
+  dashEaseIntensity: 0.7
   dashCooldown: 0.8
 --- !u!114 &8844004093669173313
 MonoBehaviour:

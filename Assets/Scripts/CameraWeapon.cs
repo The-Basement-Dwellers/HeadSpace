@@ -79,22 +79,27 @@ public class CameraWeapon : MonoBehaviour
 
 			List<GameObject> damagedColliders = new List<GameObject>();
 			foreach (GameObject collider in collidersCopy) {
-				if (collider.gameObject.tag == "Enemy") {
-					RaycastHit2D[] hits = Physics2D.RaycastAll(player.transform.position, collider.transform.position - player.transform.position, rayDistance, rayLayerMask);
-					bool hasLOS = checkLOS(collider, hits);
-					foreach (RaycastHit2D hit in hits) {
-						if (hit.collider != null && hit.collider.gameObject.tag == "Enemy" && !damagedColliders.Contains(hit.collider.gameObject) && colliders.Contains(hit.collider.gameObject)) {
-							if (showRay) {
-								Debug.DrawRay(player.transform.position, (hit.point - (Vector2)player.transform.position), Color.red, 1f);
-								Debug.DrawLine(player.transform.position, player.transform.position + (collider.transform.position - player.transform.position).normalized * range, Color.green, 1f);
-							}
+				Debug.Log("collider: " + collider);
+				if (collider != null) {
+					if (collider.gameObject.tag == "Enemy") {
+						RaycastHit2D[] hits = Physics2D.RaycastAll(player.transform.position, collider.transform.position - player.transform.position, rayDistance, rayLayerMask);
+						bool hasLOS = checkLOS(collider, hits);
+						foreach (RaycastHit2D hit in hits) {
+							if (hit.collider != null && hit.collider.gameObject.tag == "Enemy" && !damagedColliders.Contains(hit.collider.gameObject) && colliders.Contains(hit.collider.gameObject)) {
+								if (showRay) {
+									Debug.DrawRay(player.transform.position, (hit.point - (Vector2)player.transform.position), Color.red, 1f);
+									Debug.DrawLine(player.transform.position, player.transform.position + (collider.transform.position - player.transform.position).normalized * range, Color.green, 1f);
+								}
 
-							if (Vector3.Distance(player.transform.position, hit.collider.gameObject.transform.position) <= range && hasLOS) {
-								EventController.enemyHurt(hit.collider.gameObject, damageAmount);
-								damagedColliders.Add(hit.collider.gameObject);
+								if (Vector3.Distance(player.transform.position, hit.collider.gameObject.transform.position) <= range && hasLOS) {
+									EventController.enemyHurt(hit.collider.gameObject, damageAmount);
+									damagedColliders.Add(hit.collider.gameObject);
+								}
 							}
 						}
 					}
+				} else {
+					colliders.Remove(collider);
 				}
 			}
 			range = 0;

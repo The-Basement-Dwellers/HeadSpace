@@ -9,6 +9,7 @@ public class CameraWeapon : MonoBehaviour
 	[SerializeField] private LayerMask rayLayerMask;
 	[SerializeField] private GameObject player;
 	[SerializeField] private GameObject flash;
+	[SerializeField] private GameObject preFlash;
 	[SerializeField] private GameObject rangeFlash;
 	[SerializeField] private GameObject cameraBar;
 	[SerializeField] private float rayDistance = 10f;
@@ -83,11 +84,14 @@ public class CameraWeapon : MonoBehaviour
 					elapsedTime = 0;
 					timingBar.SetActive(true);
 					isShooting = true;
+					preFlash.SetActive(true);
+					Invoke("DisablePreFlash", flashDuration / 2);
 				}
 			} else if (enableRangeBar) {
 				rangeFlash.SetActive(true);
 				range = 0;
 				isRangeShooting = true;
+				preFlash.SetActive(true);
 			} else {
 				Fire();
 			}
@@ -140,6 +144,15 @@ public class CameraWeapon : MonoBehaviour
 		flash.GetComponent<Light2D>().pointLightInnerRadius = collision.transform.localScale.y - 0.5f;
 		flash.GetComponent<Light2D>().pointLightOuterRadius = collision.transform.localScale.y ;
 		EventController.StartCanMoveFlashEvent(true);
+	}
+	
+	private void DisablePreFlash() {
+		preFlash.SetActive(false);
+	}
+	
+	private void EnablePreFlash() {
+		preFlash.SetActive(true);
+		Invoke("DisablePreFlash", flashDuration / 2);
 	}
 	
 	private bool checkLOS(GameObject collider, RaycastHit2D[] hits) 
@@ -215,6 +228,9 @@ public class CameraWeapon : MonoBehaviour
 	
 	private void StopFire() {
 		if (isRangeShooting && enableRangeBar) {
+			DisablePreFlash();
+			Invoke("EnablePreFlash", flashDuration / 2);
+			//Invoke("EnablePreFlash", (flashDuration / 2) * 3);
 			rangeFlash.SetActive(false);
 			elapsedTime = 0;
 			isRangeShooting = false;

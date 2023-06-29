@@ -58,13 +58,13 @@ public class CameraWeapon : MonoBehaviour
 	private void StartFire() {
 		if (!isOnCooldown) {
 			rangeFlash.SetActive(true);
-			range = 0;
 			isShooting = true;
 			preFlash.SetActive(true);
 		}
 	}
 
-	private void Fire(float modifier = 1, float range = -1) {
+	private void Fire(float range = -1) {
+		Debug.Log(range);
 		if (range == -1) range = collision.transform.localScale.y;
 		
 		if (!isOnCooldown)
@@ -91,9 +91,9 @@ public class CameraWeapon : MonoBehaviour
 								Debug.DrawRay(player.transform.position, (hit.point - (Vector2)player.transform.position), Color.red, 1f);
 								Debug.DrawLine(player.transform.position, player.transform.position + (collider.transform.position - player.transform.position).normalized * range, Color.green, 1f);
 							}						
-							
+							Debug.Log(range);
 							if (Vector3.Distance(player.transform.position, hit.collider.gameObject.transform.position) <= range) {
-								EventController.Damage(hit.collider.gameObject, damageAmount * modifier);
+								EventController.Damage(hit.collider.gameObject, damageAmount);
 								damagedColliders.Add(hit.collider.gameObject);
 							}
 							
@@ -101,6 +101,8 @@ public class CameraWeapon : MonoBehaviour
 					}
 				}
 			}
+			range = 0;
+			preFlash.SetActive(false);
 		}
 	}
 	
@@ -124,7 +126,7 @@ public class CameraWeapon : MonoBehaviour
 			rangeFlash.SetActive(false);
 			elapsedTime = 0;
 			isShooting = false;
-			Fire(range: range);
+			Fire(range);
 	}
 	
 	private bool checkLOS(GameObject collider, RaycastHit2D[] hits) 
@@ -180,7 +182,6 @@ public class CameraWeapon : MonoBehaviour
 	}
 	
 	private void StopFire() {
-		StopCoroutine("RangeLerp");
 		if (isShooting) {
 			EventController.StartCanMoveFlashEvent(false);
 			isShooting = false;

@@ -17,6 +17,8 @@ public class EventController : MonoBehaviour {
 		setLookDirectionEvent?.Invoke(lookDirection);
 	}
 
+    public static event Action<bool> startIsDashingEvent;
+
 	public static void StartMoveDirectionEvent(Vector3 moveDirection) {
 		setMoveDirectionEvent?.Invoke(moveDirection);
 	}
@@ -40,6 +42,9 @@ public class EventController : MonoBehaviour {
 	public static void FireRelease() {
 		fireRelease?.Invoke();
 	}
+    public static void StartIsDashingEvent(bool isDashing) {
+        startIsDashingEvent?.Invoke(isDashing);
+    }
 
 	public static void Dash() {
 		dash?.Invoke();

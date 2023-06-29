@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float health;
 	
 	private float rotZ;
+	private bool canMoveFlash = true;
 
 	private void OnEnable()
 	{
@@ -54,6 +55,8 @@ public class PlayerController : MonoBehaviour
 		interact = playerControls.Player.Interact;
 		interact.Enable();
 		interact.performed += Interact;
+		
+		EventController.setCanMoveFlash += setCanMoveFlash;
 	}
 
 	private void OnDisable()
@@ -63,13 +66,15 @@ public class PlayerController : MonoBehaviour
 		fire.Disable();
 		dash.Disable();
 		interact.Disable();
+		
+		EventController.setCanMoveFlash -= setCanMoveFlash;
 	}
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
-		health = maxHealth;
+		health = maxHealth;		
 	}
 
 	// Update is called once per frame
@@ -102,13 +107,25 @@ public class PlayerController : MonoBehaviour
 		} else if (moveDirection.magnitude > 0.05){
 			rotZ = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
 		}
-
-		cameraWeapon.transform.eulerAngles = new Vector3(0, 0, rotZ + 90);
+		
+		if (canMoveFlash) 
+		{
+			if (lookDirection.magnitude > 0.05) {
+				rotZ = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+			} else if (moveDirection.magnitude > 0.05){
+				rotZ = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+			}
+			cameraWeapon.transform.eulerAngles = new Vector3(0, 0, rotZ + 90);
+		}
 	}
 	
 	// set player velocity
 	private void FixedUpdate() {
 		rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;
+	}
+	
+	private void setCanMoveFlash(bool canMove) {
+		canMoveFlash = canMove;
 	}
 
 	private void Fire(InputAction.CallbackContext context) {

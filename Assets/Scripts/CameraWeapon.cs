@@ -18,13 +18,12 @@ public class CameraWeapon : MonoBehaviour
 
 	[SerializeField] private GameObject timingPointer;
 	[SerializeField] private GameObject timingBar;
-	[SerializeField] private float timingPointerPeriod = 2;
-	
-	[SerializeField] private float rangePeriod = 2;
-	private float range = 0;
 	[SerializeField] private GameObject collision;
+	[SerializeField] private float timingPointerPeriod = 2;
+	[SerializeField] private float rangePeriod = 2;
+	[SerializeField] private float flashDuration = 0.1f;
+	private float range = 0;
 	private float elapsedTimeCooldown;
-
 	private float halftimingBarWidth;
 	private Vector3 startPos;
 	private Vector3 endPos;
@@ -105,8 +104,9 @@ public class CameraWeapon : MonoBehaviour
 
 			flash.SetActive(true);
 			flash.GetComponent<Light2D>().pointLightInnerRadius = range - 0.5f;
-			flash.GetComponent<Light2D>().pointLightOuterRadius = range ;
-			Invoke("DisableFlash", 0.1f);
+			flash.GetComponent<Light2D>().pointLightOuterRadius = range;
+			EventController.StartCanMoveFlashEvent(false);
+			Invoke("DisableFlash", flashDuration);
 
 			List<GameObject> collidersCopy = new List<GameObject>(colliders);
 
@@ -139,6 +139,7 @@ public class CameraWeapon : MonoBehaviour
 		flash.SetActive(false);
 		flash.GetComponent<Light2D>().pointLightInnerRadius = collision.transform.localScale.y - 0.5f;
 		flash.GetComponent<Light2D>().pointLightOuterRadius = collision.transform.localScale.y ;
+		EventController.StartCanMoveFlashEvent(true);
 	}
 	
 	private bool checkLOS(GameObject collider, RaycastHit2D[] hits) 

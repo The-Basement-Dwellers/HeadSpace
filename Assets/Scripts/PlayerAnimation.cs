@@ -52,13 +52,11 @@ public class PlayerAnimation : MonoBehaviour
         bodyAnimator.SetBool("isMoving", isMoving);
     }
 
-    private void SetMoveDirection(Vector3 eventMoveDirection)
-    {
+     private void SetMoveDirection(GameObject targetedGameObject, Vector3 eventMoveDirection) {
         moveDirection = eventMoveDirection;
     }
 
-    private void SetLookDirection(Vector3 eventLookDirection)
-    {
+    private void SetLookDirection(GameObject targetedGameObject, Vector3 eventLookDirection) {
         lookDirection = eventLookDirection;
     }
 }

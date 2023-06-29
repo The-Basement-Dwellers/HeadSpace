@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,8 +24,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float moveSpeed = 500f;
 	[SerializeField] private float inputBuffer = 0.2f;
 	[SerializeField]private bool binaryMove = false;
-	[SerializeField] private float maxHealth = 100.0f;
-	[SerializeField] private float health;
+    [SerializeField] public float playerMaxHealth = 100.0f;
+    [SerializeField] public float playerHealth;
 	
 	private float rotZ;
 	private bool isDashing = false;
@@ -76,7 +77,7 @@ public class PlayerController : MonoBehaviour
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
-		health = maxHealth;		
+		playerHealth = playerMaxHealth;		
 	}
 
 	// Update is called once per frame
@@ -89,10 +90,10 @@ public class PlayerController : MonoBehaviour
 		// read move input
 		moveDirection = move.ReadValue<Vector2>();
 		lookDirection = look.ReadValue<Vector2>();
-		EventController.StartMoveDirectionEvent(moveDirection);
-		EventController.StartLookDirectionEvent(lookDirection);
+		EventController.StartMoveDirectionEvent(gameObject, moveDirection);
+		EventController.StartLookDirectionEvent(gameObject, lookDirection);
 
-		float percent = health / maxHealth;
+		float percent = playerHealth / playerMaxHealth;
 		EventController.StartHealthBarEvent(percent, gameObject);
  
 		if (binaryMove)
@@ -151,5 +152,9 @@ public class PlayerController : MonoBehaviour
 	
 	private void Interact(InputAction.CallbackContext context) {
 		interManager.Doors();
+	}
+
+	private void OnDestroy() {
+		SceneManager.LoadScene("Ward");
 	}
 }

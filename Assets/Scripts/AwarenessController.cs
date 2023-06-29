@@ -30,6 +30,9 @@ public class AwarenessController : MonoBehaviour
     void SetAwareness(float percent, GameObject targetedGameObject)
     {
         if (parent == targetedGameObject) {
+            if (percent <= 0) {
+                Destroy(targetedGameObject);
+            };
             percent = Mathf.Clamp(percent, 0, 1); 
             innerBar.transform.localScale = new Vector3(percent, 1, 1);
 

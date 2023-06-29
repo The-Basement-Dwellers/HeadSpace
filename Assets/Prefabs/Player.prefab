@@ -339,8 +339,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 65
   m_PointLightOuterAngle: 75
-  m_PointLightInnerRadius: 3.42
-  m_PointLightOuterRadius: 4.17
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 0
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -635,8 +635,8 @@ MonoBehaviour:
   moveSpeed: 250
   inputBuffer: 0.2
   binaryMove: 0
-  maxHealth: 100
-  health: 100
+  playerMaxHealth: 100
+  playerHealth: 0
 --- !u!114 &8844004093669173318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,10 +700,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b10e0ab80ef447c8912f20db44a08a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliders: []
+  colliders:
+  - {fileID: 0}
+  - {fileID: 0}
   rayLayerMask:
     serializedVersion: 2
-    m_Bits: 59
+    m_Bits: 154
   player: {fileID: 8844004093669173357}
   flash: {fileID: 8844004094975253227}
   preFlash: {fileID: 2854371957840472402}

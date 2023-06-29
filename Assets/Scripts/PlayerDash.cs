@@ -42,7 +42,7 @@ public class PlayerDash : MonoBehaviour
 		EventController.setMoveDirectionEvent -= setMoveDirection;
 	}
 
-	private void setMoveDirection(Vector3 eventMoveDirection) {
+	private void setMoveDirection(GameObject targetedGameObject, Vector3 eventMoveDirection) {
 		moveDirection = eventMoveDirection;
 	}
 

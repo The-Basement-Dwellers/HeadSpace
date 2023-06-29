@@ -57,14 +57,12 @@ public class CameraWeapon : MonoBehaviour
 	
 	private void StartFire() {
 		if (!isOnCooldown) {
-			rangeFlash.SetActive(true);
 			isShooting = true;
 			preFlash.SetActive(true);
 		}
 	}
 
 	private void Fire(float range = -1) {
-		Debug.Log(range);
 		if (range == -1) range = collision.transform.localScale.y;
 		
 		if (!isOnCooldown)
@@ -83,20 +81,18 @@ public class CameraWeapon : MonoBehaviour
 			foreach (GameObject collider in collidersCopy) {
 				if (collider.gameObject.tag == "Enemy") {
 					RaycastHit2D[] hits = Physics2D.RaycastAll(player.transform.position, collider.transform.position - player.transform.position, rayDistance, rayLayerMask);
-					
 					bool hasLOS = checkLOS(collider, hits);
 					foreach (RaycastHit2D hit in hits) {
-						if (hit.collider != null && hit.collider.gameObject.tag == "Enemy" && !damagedColliders.Contains(hit.collider.gameObject) && hasLOS && colliders.Contains(hit.collider.gameObject)) {
+						if (hit.collider != null && hit.collider.gameObject.tag == "Enemy" && !damagedColliders.Contains(hit.collider.gameObject) && colliders.Contains(hit.collider.gameObject)) {
 							if (showRay) {
 								Debug.DrawRay(player.transform.position, (hit.point - (Vector2)player.transform.position), Color.red, 1f);
 								Debug.DrawLine(player.transform.position, player.transform.position + (collider.transform.position - player.transform.position).normalized * range, Color.green, 1f);
-							}						
-							Debug.Log(range);
-							if (Vector3.Distance(player.transform.position, hit.collider.gameObject.transform.position) <= range) {
-								EventController.Damage(hit.collider.gameObject, damageAmount);
+							}
+
+							if (Vector3.Distance(player.transform.position, hit.collider.gameObject.transform.position) <= range && hasLOS) {
+								EventController.enemyHurt(hit.collider.gameObject, damageAmount);
 								damagedColliders.Add(hit.collider.gameObject);
 							}
-							
 						}
 					}
 				}
@@ -131,9 +127,9 @@ public class CameraWeapon : MonoBehaviour
 	
 	private bool checkLOS(GameObject collider, RaycastHit2D[] hits) 
 	{	
-		bool hasLOS = true;
-		float colliderDistance = 0;
-		float nonColliderDistance = 0;
+		bool hasLOS = false;
+		float colliderDistance = -1;
+		float nonColliderDistance = -1;
 		foreach (RaycastHit2D hit in hits) {
 			if (hit.collider.gameObject == collider) 
 			{
@@ -141,11 +137,15 @@ public class CameraWeapon : MonoBehaviour
 			}
 			else if (hit.collider.gameObject.tag != "Enemy")
 			{
-				nonColliderDistance= hit.fraction;
+				nonColliderDistance = hit.fraction;
 			}
 		}
-		
-		if (colliderDistance > nonColliderDistance) hasLOS = false;
+
+		if (nonColliderDistance != -1) {
+			if (colliderDistance < nonColliderDistance) hasLOS = true;
+		} else {
+			hasLOS = true;
+		}
 		return hasLOS;
 	}
 	
@@ -174,6 +174,7 @@ public class CameraWeapon : MonoBehaviour
 		range = Mathf.Lerp(0, maxRange, percentageComplete);
 		rangeFlash.GetComponent<Light2D>().pointLightInnerRadius = range - 0.75f;
 		rangeFlash.GetComponent<Light2D>().pointLightOuterRadius = range;
+		rangeFlash.SetActive(true);
 
 		if (percentageComplete >= 1) {
 			StopFire();

@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour
 	}
 	
 	private void Restart(InputAction.CallbackContext context) {
-		SceneManager.LoadScene("Ward");
+		Destroy(gameObject);
 	}
 
 	private void OnDestroy() {

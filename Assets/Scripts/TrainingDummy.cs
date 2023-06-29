@@ -21,8 +21,6 @@ public class TrainingDummy : MonoBehaviour
             EventController.StartHealthBarEvent(health / maxHealth, gameObject);
         }
 
-        if (health <= 0f) {
-            Destroy(gameObject);
-        }
+        if (health <= 0f) Destroy(gameObject);
     }
 }

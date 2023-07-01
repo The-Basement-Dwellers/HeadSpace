@@ -13,7 +13,7 @@ public class CameraWeapon : MonoBehaviour
 	[SerializeField] private GameObject rangeFlash;
 	[SerializeField] private GameObject cameraBar;
 	[SerializeField] private float rayDistance = 10f;
-	[SerializeField] private float damageAmount = 40f;
+	[SerializeField] private float damageAmount = 100f;
 	[SerializeField] private float cooldown = 1f;
 	[SerializeField] private bool showRay = false;
 

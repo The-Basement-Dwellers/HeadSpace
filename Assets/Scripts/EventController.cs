@@ -11,6 +11,7 @@ public class EventController : MonoBehaviour {
 	public static event Action<bool> startIsDashingEvent;
 	public static event Action<bool> setCanMoveFlash;
 	public static event Action dash;
+	public static event Action interactEvent;
 	public static event Action<GameObject, float> damageEvent;
 	public static event Action fire;
 	public static event Action fireRelease;
@@ -54,5 +55,10 @@ public class EventController : MonoBehaviour {
 
 	public static void Dash() {
 		dash?.Invoke();
+	}
+
+	public static void Interact()
+	{
+		interactEvent?.Invoke();
 	}
 }

@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour
 	}
 	
 	private void InteractAction(InputAction.CallbackContext context) {
-		EventController.Interact();
+		EventController.InteractEvent();
 	}
 	
 	private void Restart(InputAction.CallbackContext context) {

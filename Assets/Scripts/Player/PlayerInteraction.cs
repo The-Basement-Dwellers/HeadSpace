@@ -9,17 +9,18 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private GameObject[] allInteractables;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject closestObject;
+    private bool isHighlighted;
     private IInteractable targetedGameObject;
 
 
     void OnEnable()
     {
-        EventController.interactEvent += InteractTest;
+        EventController.interactEvent += Interact;
     }
 
     private void OnDisable()
     {
-        EventController.interactEvent -= InteractTest;
+        EventController.interactEvent -= Interact;
     }
 
     // Stores all interactables in an array and sets closestObject to first index
@@ -34,28 +35,45 @@ public class PlayerInteraction : MonoBehaviour
     {
         GameObject oldObject = closestObject;
         closestObject = allInteractables[0];
-        for (int i = 0; i < allInteractables.Length; i++)
+        if (oldObject != null)
         {
-            float interactableDist = Vector3.Distance(player.transform.position, allInteractables[i].transform.position);
-
-            if (interactableDist < Vector3.Distance(player.transform.position, closestObject.transform.position))
+            for (int i = 0; i < allInteractables.Length; i++)
             {
-                closestObject = allInteractables[i];
+                float interactableDist = Vector3.Distance(player.transform.position, allInteractables[i].transform.position);
+
+                if (interactableDist < Vector3.Distance(player.transform.position, closestObject.transform.position))
+                {
+                    closestObject = allInteractables[i];
+                }
+            }
+
+            oldObject.GetComponent<Renderer>().material = defaultMaterial;
+
+            if (Vector3.Distance(player.transform.position, closestObject.transform.position) <= 1.5)
+            {
+                closestObject.GetComponent<Renderer>().material = whiteOutline;
+                targetedGameObject = closestObject.GetComponent<IInteractable>();
+                isHighlighted = true;
+
+            }
+            else
+            {
+                isHighlighted = false;
+                closestObject = null;
             }
         }
-        targetedGameObject = closestObject.GetComponent<IInteractable>();
-        oldObject.GetComponent<Renderer>().material = defaultMaterial;
-
-        if (Vector3.Distance(player.transform.position, closestObject.transform.position) <= 1.5)
-        {
-            closestObject.GetComponent<Renderer>().material = whiteOutline;
-        }
-        
     }
     
-    void InteractTest()
+    void Interact()
     {
         //Debug.Log(targetedGameObject);
-        targetedGameObject.Interact();
+        if (isHighlighted) {
+            targetedGameObject.Interact();
+        }
+        else
+        {
+            Debug.Log("Not In Range of Interactable");
+        }
+        
     }
 }

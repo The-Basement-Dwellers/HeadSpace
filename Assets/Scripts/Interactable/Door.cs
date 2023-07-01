@@ -8,8 +8,7 @@ public class Door : MonoBehaviour, IInteractable
     public GameObject player;
     public void Interact()
     {
-        if (Vector3.Distance(player.transform.position, gameObject.transform.position) <= 1.5 && 
-            gameObject.GetComponent<BoxCollider2D>().isTrigger)
+        if  (gameObject.GetComponent<BoxCollider2D>().isTrigger)
         {
             gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);

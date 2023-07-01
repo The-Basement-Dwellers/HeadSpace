@@ -57,7 +57,7 @@ public class EventController : MonoBehaviour {
 		dash?.Invoke();
 	}
 
-	public static void Interact()
+	public static void InteractEvent()
 	{
 		interactEvent?.Invoke();
 	}

@@ -7,13 +7,11 @@ public class EnemyAnimation : MonoBehaviour
     public Animator animator;
     private Vector3 moveDirection;
     private bool isMoving;
-    private GameObject self;
     private Vector3 dir;
 
     // Start is called before the first frame update
     private void OnEnable()
     {
-        self = gameObject;
         animator = GetComponent<Animator>();
         EventController.setEnemyMoveDirectionEvent += setEnemyMoveDirection;
     }
@@ -35,9 +33,8 @@ public class EnemyAnimation : MonoBehaviour
         animator.SetBool("isMoving", isMoving);
     }
 
-     private void setEnemyMoveDirection(GameObject targetedGameObject, Vector3 eventMoveDirection) {
+     private void setEnemyMoveDirection(Vector3 eventMoveDirection) {
         moveDirection = eventMoveDirection;
-        self = targetedGameObject;
 
     }
     IEnumerator FindDirection(Vector3 a)

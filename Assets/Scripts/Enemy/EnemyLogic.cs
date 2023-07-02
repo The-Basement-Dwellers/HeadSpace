@@ -23,46 +23,39 @@ public class EnemyLogic : MonoBehaviour
     void Update()
     {
         moveDirection = gameObject.transform.position;
-        EventController.StartEnemyMoveDirectionEvent(gameObject, moveDirection);
+        EventController.StartEnemyMoveDirectionEvent(moveDirection);
     }
 
     private void OnEnable()
     {
-        EventController.damageEvent += enemyHurt;
+        EventController.damageEvent += Damage;
     }
 
     private void OnDisable()
     {
-        EventController.damageEvent -= enemyHurt;
+        EventController.damageEvent -= Damage;
     }
 
-    private void enemyHurt(GameObject targetedGameObject, float damageAmount)
+    private void Damage(GameObject targetedGameObject, float damageAmount)
     {
         if (targetedGameObject == gameObject)
         {
             health -= damageAmount;
+            EventController.StartHealthBarEvent(health / maxHealth, gameObject);
 
-            EventController.StartHealthBarEvent(health / maxHealth , gameObject);
+        }
+        else if (targetedGameObject == player) 
+        {   
+            playerController.playerHealth -= damageAmount;
+            EventController.StartHealthBarEvent(playerController.playerHealth / playerController.playerMaxHealth, player);
         }
 
-        // if (health <= 0f)
-        // {
-        //     Destroy(gameObject);
-        // }
     }
-
-    private void playerHurt(GameObject targetedGameObject, float damageAmount)
-    {
-        playerController.playerHealth -= damageAmount;
-
-        EventController.StartHealthBarEvent(playerController.playerHealth / playerController.playerMaxHealth, player);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject == player)
+        if (collision.gameObject.tag == "Player")
         {
-            playerHurt(player, damage);
+            Damage(collision.gameObject, damage);
         }
     }
 

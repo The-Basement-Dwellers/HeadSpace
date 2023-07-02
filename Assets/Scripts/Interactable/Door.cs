@@ -5,7 +5,6 @@ using static PlayerInteraction;
 
 public class Door : MonoBehaviour, IInteractable
 {
-    public GameObject player;
     public void Interact()
     {
         if  (gameObject.GetComponent<BoxCollider2D>().isTrigger)

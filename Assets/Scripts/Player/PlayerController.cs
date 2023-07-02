@@ -96,8 +96,8 @@ public class PlayerController : MonoBehaviour
 		// read move input
 		moveDirection = move.ReadValue<Vector2>();
 		lookDirection = look.ReadValue<Vector2>();
-		EventController.StartMoveDirectionEvent(gameObject, moveDirection);
-		EventController.StartLookDirectionEvent(gameObject, lookDirection);
+		EventController.StartMoveDirectionEvent(moveDirection);
+		EventController.StartLookDirectionEvent(lookDirection);
 
 		float percent = playerHealth / playerMaxHealth;
 		EventController.StartHealthBarEvent(percent, gameObject);

@@ -13,7 +13,7 @@ public class CameraWeapon : MonoBehaviour
 	[SerializeField] private GameObject rangeFlash;
 	[SerializeField] private GameObject cameraBar;
 	[SerializeField] private float rayDistance = 10f;
-	[SerializeField] private float damageAmount = 40f;
+	[SerializeField] private float damageAmount = 100f;
 	[SerializeField] private float cooldown = 1f;
 	[SerializeField] private bool showRay = false;
 
@@ -80,7 +80,7 @@ public class CameraWeapon : MonoBehaviour
 			List<GameObject> damagedColliders = new List<GameObject>();
 			foreach (GameObject collider in collidersCopy) {
 				Debug.Log("collider: " + collider);
-				if (collider != null) {
+				if (collider != null) {   ///WTF AM I READING TOM?? CAN YOU NEST ANY HARDER
 					if (collider.gameObject.tag == "Enemy") {
 						RaycastHit2D[] hits = Physics2D.RaycastAll(player.transform.position, collider.transform.position - player.transform.position, rayDistance, rayLayerMask);
 						bool hasLOS = checkLOS(collider, hits);
@@ -92,7 +92,7 @@ public class CameraWeapon : MonoBehaviour
 								}
 
 								if (Vector3.Distance(player.transform.position, hit.collider.gameObject.transform.position) <= range && hasLOS) {
-									EventController.enemyHurt(hit.collider.gameObject, damageAmount);
+									EventController.Damage(hit.collider.gameObject, damageAmount);
 									damagedColliders.Add(hit.collider.gameObject);
 								}
 							}

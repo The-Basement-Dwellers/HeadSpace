@@ -5,9 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Interactable
-  - Interactor
   - Manager
-  - Ground
   - Enemy
   layers:
   - Default
@@ -51,6 +49,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3017911293
+    locked: 0
+  - name: Level
+    uniqueID: 899026771
     locked: 0
   - name: Entities
     uniqueID: 1088288179

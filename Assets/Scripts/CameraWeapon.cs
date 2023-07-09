@@ -33,7 +33,7 @@ public class CameraWeapon : MonoBehaviour
 		EventController.fireRelease += StopFire;
 		
 		flash.GetComponent<Light2D>().pointLightInnerRadius = collision.transform.localScale.y - 0.5f;
-		flash.GetComponent<Light2D>().pointLightOuterRadius = collision.transform.localScale.y ;
+		flash.GetComponent<Light2D>().pointLightOuterRadius = collision.transform.localScale.y;
 	}
 
 	private void OnDisable() {
@@ -79,7 +79,6 @@ public class CameraWeapon : MonoBehaviour
 
 			List<GameObject> damagedColliders = new List<GameObject>();
 			foreach (GameObject collider in collidersCopy) {
-				Debug.Log("collider: " + collider);
 				if (collider != null) {   ///WTF AM I READING TOM?? CAN YOU NEST ANY HARDER
 					if (collider.gameObject.tag == "Enemy") {
 						RaycastHit2D[] hits = Physics2D.RaycastAll(player.transform.position, collider.transform.position - player.transform.position, rayDistance, rayLayerMask);

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7610449010337299111}
   - component: {fileID: 6218138919780867738}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Inner Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3223194827277276356}
   - component: {fileID: 3480759451455970392}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Pre Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2865326359707957535}
   - component: {fileID: 7264519589903950540}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Timing bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 2009737682035079761}
   - component: {fileID: 4338167642199273414}
   - component: {fileID: 4383976282654532215}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Awareness bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,13 +392,14 @@ GameObject:
   - component: {fileID: 6063935169211142297}
   - component: {fileID: 6063935169211142303}
   - component: {fileID: 6063935169211142299}
+  - component: {fileID: 7795498387104693596}
   - component: {fileID: 6063935169211142296}
   - component: {fileID: 6063935169211142300}
   - component: {fileID: 6063935169211142301}
   - component: {fileID: 6063935169211142298}
   - component: {fileID: 6063935169211142273}
   - component: {fileID: 3358377131455388451}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -460,7 +461,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0014230013, y: -0.029515848}
+  m_Offset: {x: 0.0011485815, y: -0.032248646}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -471,7 +472,33 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6251581, y: 0.9409683}
+  m_Size: {x: 0.6239548, y: 0.93512243}
+  m_EdgeRadius: 0
+--- !u!61 &7795498387104693596
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063935169211142326}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0011485815, y: -0.032248646}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.6239548, y: 0.93512243}
   m_EdgeRadius: 0
 --- !u!212 &6063935169211142296
 SpriteRenderer:
@@ -665,7 +692,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6063935169544785391}
   - component: {fileID: 6063935169544785390}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -749,7 +776,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6063935169705245594}
   - component: {fileID: 6063935169705245595}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Fill Offset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -834,7 +861,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6063935169984443326}
   - component: {fileID: 6063935169984443313}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Camera Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -920,7 +947,7 @@ GameObject:
   - component: {fileID: 6063935170749406255}
   - component: {fileID: 6063935170749406241}
   - component: {fileID: 6063935170749406254}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -981,7 +1008,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1277056003
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: -1
   m_Sprite: {fileID: 793210608, guid: 5cdcafb7e19c74ed6b56f21d8dd720d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1026,7 +1053,7 @@ GameObject:
   - component: {fileID: 6063935171084474386}
   - component: {fileID: 6063935171084474389}
   - component: {fileID: 9088637109734756538}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Collison
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1102,7 +1129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6063935171119145523}
   - component: {fileID: 6063935171119145522}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1214,7 +1241,7 @@ GameObject:
   - component: {fileID: 6063935171216015158}
   - component: {fileID: 6063935171216015112}
   - component: {fileID: 6063935171216015113}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1275,7 +1302,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1277056003
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -473046313, guid: 5cdcafb7e19c74ed6b56f21d8dd720d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1319,7 +1346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 414997705273456469}
   - component: {fileID: 2031355027825689840}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1430,7 +1457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8122947412733827539}
   - component: {fileID: 3358222558314874267}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Pointer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,8 +9,11 @@ public class EnemyLogic : MonoBehaviour
     public GameObject player;
     private Vector2 moveDirection = Vector2.zero;
     [SerializeField] private float health;
+    [SerializeField] private float damageCooldown = 0.5f;
     private float maxHealth;
     private float damage;
+    private bool isColliding = false;
+    private bool damageCoroutineIsRunning = false;
 
     void Start()
     {
@@ -18,12 +21,21 @@ public class EnemyLogic : MonoBehaviour
         health = enemyTemplate.maxHealth;
         maxHealth = enemyTemplate.maxHealth;
         damage = enemyTemplate.damage;
+
+        EventController.colliderEnter += ColliderEnter;
+        EventController.colliderExit += ColliderExit;
     }
 
     void Update()
     {
         moveDirection = gameObject.transform.position;
-        EventController.StartEnemyMoveDirectionEvent(moveDirection);
+        EventController.StartMoveDirectionEvent(moveDirection, gameObject);
+        
+        if (isColliding && !damageCoroutineIsRunning) {
+            Debug.Log("DamageCoroutineIsRunning");
+            damageCoroutineIsRunning = true;
+            StartCoroutine(DamageCooldown());
+        }
     }
 
     private void OnEnable()
@@ -51,12 +63,22 @@ public class EnemyLogic : MonoBehaviour
         }
 
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    public void ColliderEnter(GameObject targetedGameObject)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            Damage(collision.gameObject, damage);
-        }
+        if (targetedGameObject == gameObject) isColliding = true;
+    }
+
+    private void ColliderExit(GameObject targetedGameObject)
+    {
+        if (targetedGameObject == gameObject) isColliding = false;
+    }
+
+    private IEnumerator DamageCooldown()
+    {
+        Damage(player, damage);
+        yield return new WaitForSeconds(damageCooldown);       
+        damageCoroutineIsRunning = false;
     }
 
 }

@@ -13,11 +13,11 @@ public class EnemyAnimation : MonoBehaviour
     private void OnEnable()
     {
         animator = GetComponent<Animator>();
-        EventController.setEnemyMoveDirectionEvent += setEnemyMoveDirection;
+        EventController.setMoveDirectionEvent += setMoveDirection;
     }
 
     private void OnDisable() {
-        EventController.setEnemyMoveDirectionEvent -= setEnemyMoveDirection;
+        EventController.setMoveDirectionEvent -= setMoveDirection;
     }
 
     // Update is called once per frame
@@ -33,9 +33,8 @@ public class EnemyAnimation : MonoBehaviour
         animator.SetBool("isMoving", isMoving);
     }
 
-     private void setEnemyMoveDirection(Vector3 eventMoveDirection) {
-        moveDirection = eventMoveDirection;
-
+    private void setMoveDirection(Vector3 eventMoveDirection, GameObject targetedGameObject) {
+        if (gameObject == targetedGameObject) moveDirection = eventMoveDirection;
     }
     IEnumerator FindDirection(Vector3 a)
     {

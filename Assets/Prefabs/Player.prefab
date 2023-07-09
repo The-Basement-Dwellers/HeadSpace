@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3223194827277276356}
   - component: {fileID: 3480759451455970392}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pre Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,7 +637,7 @@ MonoBehaviour:
   - {fileID: 0}
   rayLayerMask:
     serializedVersion: 2
-    m_Bits: 155
+    m_Bits: 147
   player: {fileID: 6063935169211142326}
   flash: {fileID: 6063935171119145520}
   preFlash: {fileID: 650662502287184265}
@@ -659,7 +659,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6063935169483856835}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CameraWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -863,7 +863,7 @@ GameObject:
   - component: {fileID: 6063935169984443313}
   m_Layer: 3
   m_Name: Camera Bar
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1053,7 +1053,7 @@ GameObject:
   - component: {fileID: 6063935171084474386}
   - component: {fileID: 6063935171084474389}
   - component: {fileID: 9088637109734756538}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collison
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1129,7 +1129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6063935171119145523}
   - component: {fileID: 6063935171119145522}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1346,7 +1346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 414997705273456469}
   - component: {fileID: 2031355027825689840}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}

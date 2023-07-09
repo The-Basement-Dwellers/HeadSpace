@@ -81,6 +81,7 @@ public class CameraWeapon : MonoBehaviour
 			foreach (GameObject collider in collidersCopy) {
 				if (collider != null) {
 					if (collider.gameObject.tag == "Enemy") {
+						rayDistance = Vector3.Distance(player.transform.position, collider.transform.position);
 						RaycastHit2D[] hits = Physics2D.RaycastAll(player.transform.position, collider.transform.position - player.transform.position, rayDistance, rayLayerMask);
 						bool hasLOS = checkLOS(collider, hits);
 						foreach (RaycastHit2D hit in hits) {
@@ -136,25 +137,17 @@ public class CameraWeapon : MonoBehaviour
 	
 	private bool checkLOS(GameObject collider, RaycastHit2D[] hits) 
 	{	
-		bool hasLOS = false;
-		float colliderDistance = -1;
-		float nonColliderDistance = -1;
+		bool hasLOS = true;
 		foreach (RaycastHit2D hit in hits) {
-			if (hit.collider.gameObject == collider) 
-			{
-				colliderDistance = hit.fraction;
-			}
-			else if (hit.collider.gameObject.tag != "Enemy")
-			{
-				nonColliderDistance = hit.fraction;
+			if (hit.collider.gameObject.tag != "Enemy") {
+				Debug.Log(hit.collider.gameObject.name);
+				hasLOS = false;
 			}
 		}
 
-		if (nonColliderDistance != -1) {
-			if (colliderDistance < nonColliderDistance) hasLOS = true;
-		} else {
-			hasLOS = true;
-		}
+
+
+		Debug.Log(hasLOS);
 		return hasLOS;
 	}
 	

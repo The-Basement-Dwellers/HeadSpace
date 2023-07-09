@@ -11,12 +11,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Entities
+  - Player
   - Water
   - UI
-  - Player
   - Level
-  - 
+  - Enemy
+  - Enemy Collider
   - 
   - 
   - 

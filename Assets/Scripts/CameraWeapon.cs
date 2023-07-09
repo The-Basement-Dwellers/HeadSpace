@@ -88,7 +88,6 @@ public class CameraWeapon : MonoBehaviour
                             bool hasCollider = hit.collider != null;
                             bool isEnemy = hit.collider.gameObject.tag == "Enemy";
                             bool isDamaged = damagedColliders.Contains(hit.collider.gameObject);
-                            //bool isCollider = colliders.Contains(hit.collider.gameObject);
                             if (hasCollider && isEnemy && !isDamaged) {
 								if (showRay) {
 									Debug.DrawRay(player.transform.position, (hit.point - (Vector2)player.transform.position), Color.red, 1f);
@@ -140,14 +139,9 @@ public class CameraWeapon : MonoBehaviour
 		bool hasLOS = true;
 		foreach (RaycastHit2D hit in hits) {
 			if (hit.collider.gameObject.tag != "Enemy") {
-				Debug.Log(hit.collider.gameObject.name);
 				hasLOS = false;
 			}
 		}
-
-
-
-		Debug.Log(hasLOS);
 		return hasLOS;
 	}
 	

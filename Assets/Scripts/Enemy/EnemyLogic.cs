@@ -21,9 +21,6 @@ public class EnemyLogic : MonoBehaviour
         health = enemyTemplate.maxHealth;
         maxHealth = enemyTemplate.maxHealth;
         damage = enemyTemplate.damage;
-
-        EventController.colliderEnter += ColliderEnter;
-        EventController.colliderExit += ColliderExit;
     }
 
     void Update()
@@ -32,7 +29,6 @@ public class EnemyLogic : MonoBehaviour
         EventController.StartMoveDirectionEvent(moveDirection, gameObject);
         
         if (isColliding && !damageCoroutineIsRunning) {
-            Debug.Log("DamageCoroutineIsRunning");
             damageCoroutineIsRunning = true;
             StartCoroutine(DamageCooldown());
         }
@@ -41,11 +37,15 @@ public class EnemyLogic : MonoBehaviour
     private void OnEnable()
     {
         EventController.damageEvent += Damage;
+        EventController.colliderEnter += ColliderEnter;
+        EventController.colliderExit += ColliderExit;
     }
 
     private void OnDisable()
     {
         EventController.damageEvent -= Damage;
+        EventController.colliderEnter -= ColliderEnter;
+        EventController.colliderExit -= ColliderExit;
     }
 
     private void Damage(GameObject targetedGameObject, float damageAmount)

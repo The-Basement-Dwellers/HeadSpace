@@ -17,6 +17,6 @@ public class Door : MonoBehaviour, IInteractable
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, .5f);
 
-        }
+        }  
     }
 }

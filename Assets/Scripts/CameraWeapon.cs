@@ -33,7 +33,7 @@ public class CameraWeapon : MonoBehaviour
 		EventController.fireRelease += StopFire;
 		
 		flash.GetComponent<Light2D>().pointLightInnerRadius = collision.transform.localScale.y - 0.5f;
-		flash.GetComponent<Light2D>().pointLightOuterRadius = collision.transform.localScale.y ;
+		flash.GetComponent<Light2D>().pointLightOuterRadius = collision.transform.localScale.y;
 	}
 
 	private void OnDisable() {
@@ -79,19 +79,23 @@ public class CameraWeapon : MonoBehaviour
 
 			List<GameObject> damagedColliders = new List<GameObject>();
 			foreach (GameObject collider in collidersCopy) {
-				Debug.Log("collider: " + collider);
-				if (collider != null) {   ///WTF AM I READING TOM?? CAN YOU NEST ANY HARDER
+				if (collider != null) {
 					if (collider.gameObject.tag == "Enemy") {
+						rayDistance = Vector3.Distance(player.transform.position, collider.transform.position);
 						RaycastHit2D[] hits = Physics2D.RaycastAll(player.transform.position, collider.transform.position - player.transform.position, rayDistance, rayLayerMask);
 						bool hasLOS = checkLOS(collider, hits);
 						foreach (RaycastHit2D hit in hits) {
-							if (hit.collider != null && hit.collider.gameObject.tag == "Enemy" && !damagedColliders.Contains(hit.collider.gameObject) && colliders.Contains(hit.collider.gameObject)) {
+                            bool hasCollider = hit.collider != null;
+                            bool isEnemy = hit.collider.gameObject.tag == "Enemy";
+                            bool isDamaged = damagedColliders.Contains(hit.collider.gameObject);
+                            if (hasCollider && isEnemy && !isDamaged) {
 								if (showRay) {
 									Debug.DrawRay(player.transform.position, (hit.point - (Vector2)player.transform.position), Color.red, 1f);
 									Debug.DrawLine(player.transform.position, player.transform.position + (collider.transform.position - player.transform.position).normalized * range, Color.green, 1f);
 								}
 
-								if (Vector3.Distance(player.transform.position, hit.collider.gameObject.transform.position) <= range && hasLOS) {
+                                bool withinRange = Vector3.Distance(player.transform.position, hit.collider.gameObject.transform.position) <= range;
+                                if (withinRange && hasLOS) {
 									EventController.Damage(hit.collider.gameObject, damageAmount);
 									damagedColliders.Add(hit.collider.gameObject);
 								}
@@ -132,24 +136,11 @@ public class CameraWeapon : MonoBehaviour
 	
 	private bool checkLOS(GameObject collider, RaycastHit2D[] hits) 
 	{	
-		bool hasLOS = false;
-		float colliderDistance = -1;
-		float nonColliderDistance = -1;
+		bool hasLOS = true;
 		foreach (RaycastHit2D hit in hits) {
-			if (hit.collider.gameObject == collider) 
-			{
-				colliderDistance = hit.fraction;
+			if (hit.collider.gameObject.tag != "Enemy") {
+				hasLOS = false;
 			}
-			else if (hit.collider.gameObject.tag != "Enemy")
-			{
-				nonColliderDistance = hit.fraction;
-			}
-		}
-
-		if (nonColliderDistance != -1) {
-			if (colliderDistance < nonColliderDistance) hasLOS = true;
-		} else {
-			hasLOS = true;
 		}
 		return hasLOS;
 	}

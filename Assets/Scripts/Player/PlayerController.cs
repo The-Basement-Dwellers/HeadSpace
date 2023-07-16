@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour
 		
 		EventController.setCanMoveFlash += setCanMoveFlash;
 		EventController.startIsDashingEvent += SetisDashing;
+
+		AstarPath.active.Scan();
 	}
 
 	private void OnDisable()
@@ -96,7 +98,7 @@ public class PlayerController : MonoBehaviour
 		// read move input
 		moveDirection = move.ReadValue<Vector2>();
 		lookDirection = look.ReadValue<Vector2>();
-		EventController.StartMoveDirectionEvent(moveDirection);
+		EventController.StartMoveDirectionEvent(moveDirection, gameObject);
 		EventController.StartLookDirectionEvent(lookDirection);
 
 		float percent = playerHealth / playerMaxHealth;

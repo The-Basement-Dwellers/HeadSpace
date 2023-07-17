@@ -5,18 +5,19 @@ using static PlayerInteraction;
 
 public class Door : MonoBehaviour, IInteractable
 {
-    public void Interact()
-    {
-        if  (gameObject.GetComponent<BoxCollider2D>().isTrigger)
-        {
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-        }
-        else
-        {
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, .5f);
-
-        }  
-    }
+	public void Interact()
+	{
+		if  (gameObject.GetComponent<BoxCollider2D>().isTrigger)
+		{
+			gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+			gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+			gameObject.layer = 0;
+		}
+		else
+		{
+			gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+			gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, .5f);
+			gameObject.layer = 2;
+		}  
+	}
 }

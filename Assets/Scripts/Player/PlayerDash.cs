@@ -71,9 +71,8 @@ public class PlayerDash : MonoBehaviour
 		if (!isDashing && !dashOnCooldown && moveDirection.magnitude > 0.05f)
 		{
 			StartCoroutine(DashCooldown(dashCooldown));
-			startVelocity = Vector3.zero;
-			Vector3 offset = dashSpeed * moveDirection;
-			endVelocity = dashSpeed * moveDirection;
+			startVelocity = dashSpeed * rb.velocity.normalized;
+			endVelocity = rb.velocity;
 			elapsedTime = 0;
 			isDashing = true;
 			EventController.StartIsDashingEvent(true);
@@ -90,7 +89,7 @@ public class PlayerDash : MonoBehaviour
 			isDashing = false;
 			EventController.StartIsDashingEvent(false);
 		}
-		float easedPercentage = IntensifiedEaseInOut(percentageComplete, dashEaseIntensity);
+		float easedPercentage = EaseIn(percentageComplete);
 
 		rb.velocity = Vector3.Lerp(startVelocity, endVelocity, easedPercentage);
 		yield return null;
@@ -104,10 +103,17 @@ public class PlayerDash : MonoBehaviour
 	}
 
 	// Ease percentage for slow start/end and fast in middle
-	private float IntensifiedEaseInOut(float percent, float intensity)
+	private float EaseIn(float percent)
+	{
+		return Mathf.Pow(percent, 2);
+	}
+	
+	private float IntensifiedEaseIn(float percent, float intensity)
 	{
 		percent = Mathf.Clamp01(percent);
 		float intensifiedPercent = Mathf.Pow(percent, intensity) / (Mathf.Pow(percent, intensity) + Mathf.Pow(1 - percent, intensity));
-		return Mathf.Clamp(intensifiedPercent, 0, 0.8f);
+		
+		if (percent < 0.5f) intensifiedPercent = 0.5f;
+		return Mathf.Clamp(intensifiedPercent, 0, 1f);
 	}
 }

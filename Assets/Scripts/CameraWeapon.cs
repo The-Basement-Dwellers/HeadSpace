@@ -29,16 +29,25 @@ public class CameraWeapon : MonoBehaviour
 	private bool isOnCooldown = false;
 
 	private void OnEnable() {
-		EventController.fire += StartFire;
 		EventController.fireRelease += StopFire;
+		EventController.setLookDirectionEvent += SetLookDirectionEvent;
 		
 		flash.GetComponent<Light2D>().pointLightInnerRadius = collision.transform.localScale.y - 0.5f;
 		flash.GetComponent<Light2D>().pointLightOuterRadius = collision.transform.localScale.y;
 	}
 
 	private void OnDisable() {
-		EventController.fire -= StartFire;
 		EventController.fireRelease -= StopFire;
+		EventController.setLookDirectionEvent -= SetLookDirectionEvent;
+	}
+	
+	private void SetLookDirectionEvent(Vector3 lookDirection) {
+		if (lookDirection.magnitude > 0) {
+			if (!isOnCooldown) {
+				isShooting = true;
+				preFlash.SetActive(true);
+			}
+		} else StopFire();
 	}
 	
 	private void Update() {
@@ -52,13 +61,6 @@ public class CameraWeapon : MonoBehaviour
 			StartCoroutine(RangeLerp());
 		} else {
 			StopCoroutine(RangeLerp());
-		}
-	}
-	
-	private void StartFire() {
-		if (!isOnCooldown) {
-			isShooting = true;
-			preFlash.SetActive(true);
 		}
 	}
 
@@ -85,17 +87,17 @@ public class CameraWeapon : MonoBehaviour
 						RaycastHit2D[] hits = Physics2D.RaycastAll(player.transform.position, collider.transform.position - player.transform.position, rayDistance, rayLayerMask);
 						bool hasLOS = checkLOS(collider, hits);
 						foreach (RaycastHit2D hit in hits) {
-                            bool hasCollider = hit.collider != null;
-                            bool isEnemy = hit.collider.gameObject.tag == "Enemy";
-                            bool isDamaged = damagedColliders.Contains(hit.collider.gameObject);
-                            if (hasCollider && isEnemy && !isDamaged) {
+							bool hasCollider = hit.collider != null;
+							bool isEnemy = hit.collider.gameObject.tag == "Enemy";
+							bool isDamaged = damagedColliders.Contains(hit.collider.gameObject);
+							if (hasCollider && isEnemy && !isDamaged) {
 								if (showRay) {
 									Debug.DrawRay(player.transform.position, (hit.point - (Vector2)player.transform.position), Color.red, 1f);
 									Debug.DrawLine(player.transform.position, player.transform.position + (collider.transform.position - player.transform.position).normalized * range, Color.green, 1f);
 								}
 
-                                bool withinRange = Vector3.Distance(player.transform.position, hit.collider.gameObject.transform.position) <= range;
-                                if (withinRange && hasLOS) {
+								bool withinRange = Vector3.Distance(player.transform.position, hit.collider.gameObject.transform.position) <= range;
+								if (withinRange && hasLOS) {
 									EventController.Damage(hit.collider.gameObject, damageAmount);
 									damagedColliders.Add(hit.collider.gameObject);
 								}

@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
 
 	private InputAction move;
 	private InputAction look;
-	private InputAction fire;
 	private InputAction dash;
 	private InputAction interact;
 	private InputAction restart;
@@ -46,10 +45,6 @@ public class PlayerController : MonoBehaviour
 		look = playerControls.Player.Look;
 		look.Enable();
 
-		fire = playerControls.Player.Fire;
-		fire.Enable();
-		fire.canceled += FireRelease;
-
 		dash = playerControls.Player.Dash;
 		dash.Enable();
 		dash.performed += Dash;
@@ -72,7 +67,6 @@ public class PlayerController : MonoBehaviour
 	{
 		move.Disable();
 		look.Disable();
-		fire.Disable();
 		dash.Disable();
 		interact.Disable();
 		restart.Disable();
@@ -91,9 +85,6 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (playerControls.Player.Fire.ReadValue<float>() > 0f) {
-			EventController.Fire();
-		}
 		
 		// read move input
 		moveDirection = move.ReadValue<Vector2>();

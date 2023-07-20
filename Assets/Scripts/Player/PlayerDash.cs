@@ -16,8 +16,8 @@ public class PlayerDash : MonoBehaviour
 	private bool dashOnCooldown = false;
 	[SerializeField] private float dashDuration = 0.1f;
 	[SerializeField] private float dashSpeed = 3f;
-	[SerializeField] private float dashEaseIntensity = 2f;
 	[SerializeField] private float dashCooldown = 0.8f;
+	[SerializeField] private BoxCollider2D playerCollider;
 	private Rigidbody2D rb;
 
 	private void OnEnable()
@@ -56,10 +56,12 @@ public class PlayerDash : MonoBehaviour
 		if (isDashing)
 		{
 			StartCoroutine(DashLerp());
+			Physics2D.IgnoreLayerCollision(3, 8, true);
 		}
 		else
 		{
 			StopCoroutine(DashLerp());
+			Physics2D.IgnoreLayerCollision(3, 8, false);
 		}
 
 

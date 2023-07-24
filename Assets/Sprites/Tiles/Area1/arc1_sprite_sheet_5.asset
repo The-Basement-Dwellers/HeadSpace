@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: arc1_sprite_sheet_5
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 861111130, guid: e21cbff57f4d877498a7752ef50e6e9c, type: 3}
+  m_Sprite: {fileID: 1297298741, guid: 8288b6e21080e594cb9b261f994ba57a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

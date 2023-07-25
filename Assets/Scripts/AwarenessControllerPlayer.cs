@@ -14,17 +14,17 @@ public class AwarenessControllerPlayer : MonoBehaviour
 	private float max = 0.75f;
 	[SerializeField]
 	private float min = 0.2f;
+	[SerializeField] private float minGrain = 0.01f;
 
 	[SerializeField] private GameObject head;
 	[SerializeField] private GameObject body;
 	[SerializeField] private Volume volume;
+	[SerializeField] private float grainIntensity = 1.5f;
 
 	private SpriteRenderer headRenderer;
 	private SpriteRenderer bodyRenderer;
-
-	private FilmGrain filmGrain;
-
 	private Color initalColor;
+	private	FilmGrain filmGrain;
 
 	void Start()
 	{
@@ -33,6 +33,8 @@ public class AwarenessControllerPlayer : MonoBehaviour
 		bodyRenderer = body.GetComponent<SpriteRenderer>();
 
 		innerBar.GetComponent<Image>().color = initalColor;
+
+		SetAwareness(1.0f, player);
 	}
 
 	private void OnEnable() {
@@ -43,8 +45,7 @@ public class AwarenessControllerPlayer : MonoBehaviour
 		EventController.setHealthBarPercentEvent -= SetAwareness;
 	}
 
-	void SetAwareness(float percent, GameObject targetedGameObject)
-	{
+	void SetAwareness(float percent, GameObject targetedGameObject) {
 		if (player == targetedGameObject) {
 			if (percent <= 0) {
 				Destroy(targetedGameObject);
@@ -66,10 +67,17 @@ public class AwarenessControllerPlayer : MonoBehaviour
 
 			headRenderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);
 			bodyRenderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+			float grainPercent = Mathf.Clamp((percent - 1) * -1 * grainIntensity, minGrain, grainIntensity - minGrain);
 
+			if (volume.profile.TryGet<FilmGrain>(out filmGrain)) {
+				filmGrain.intensity.max = grainIntensity;
+				filmGrain.intensity.value = grainPercent + minGrain;
+				Debug.Log(filmGrain.intensity.value);
+			};
+			WaitForSeconds wait = new WaitForSeconds(0.1f);
 			if (volume.profile.TryGet<FilmGrain>(out filmGrain))
 			{
-				filmGrain.intensity = new ClampedFloatParameter(percent, 0, 1, true);
+				filmGrain.intensity.max = 1;
 			};
 		}
 	}

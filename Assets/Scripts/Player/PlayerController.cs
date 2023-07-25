@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private bool binaryMove = false;
 	[SerializeField] public float playerMaxHealth = 100.0f;
 	[SerializeField] public float playerHealth;
+	private float oldPercent = 1.0f;
 	
 	private float rotZ;
 	private bool isDashing = false;
@@ -93,7 +94,10 @@ public class PlayerController : MonoBehaviour
 		EventController.StartLookDirectionEvent(lookDirection);
 
 		float percent = playerHealth / playerMaxHealth;
-		EventController.StartHealthBarEvent(percent, gameObject);
+		if (percent != oldPercent) {
+			EventController.StartHealthBarEvent(percent, gameObject);
+		}
+		oldPercent = percent;
  
 		if (binaryMove)
 		{                     

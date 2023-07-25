@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class AwarenessControllerPlayer : MonoBehaviour
 {
-	private SpriteRenderer playerRenderer;
 	[SerializeField] private GameObject innerBar;
 	[SerializeField] private GameObject player;
 
@@ -15,14 +16,21 @@ public class AwarenessControllerPlayer : MonoBehaviour
 	private float min = 0.2f;
 
 	[SerializeField] private GameObject head;
-    [SerializeField] private GameObject body;
+	[SerializeField] private GameObject body;
+	[SerializeField] private Volume volume;
 
-    private Color initalColor;
+	private SpriteRenderer headRenderer;
+	private SpriteRenderer bodyRenderer;
+
+	private FilmGrain filmGrain;
+
+	private Color initalColor;
 
 	void Start()
 	{
 		initalColor = gameObject.GetComponent<Image>().color;
-		playerRenderer = player.GetComponent<SpriteRenderer>();
+		headRenderer = head.GetComponent<SpriteRenderer>();
+		bodyRenderer = body.GetComponent<SpriteRenderer>();
 
 		innerBar.GetComponent<Image>().color = initalColor;
 	}
@@ -48,7 +56,7 @@ public class AwarenessControllerPlayer : MonoBehaviour
 
 			innerBar.transform.localPosition = new Vector3(x, 0, 0);
 
-            float alpha = 1.0f;
+			float alpha = 1.0f;
 			if (percent <= max)
 			{
 				// normalize 0.75 -> 0.0 to 1.0 -> 0.0 then clamp so cant go below min
@@ -56,7 +64,13 @@ public class AwarenessControllerPlayer : MonoBehaviour
 				alpha = Mathf.Clamp(alpha, min, max);
 			}
 
-			playerRenderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+			headRenderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+			bodyRenderer.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+
+			if (volume.profile.TryGet<FilmGrain>(out filmGrain))
+			{
+				filmGrain.intensity = new ClampedFloatParameter(percent, 0, 1, true);
+			};
 		}
 	}
 }

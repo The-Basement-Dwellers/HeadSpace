@@ -62,3 +62,6 @@ TagManager:
   - name: Health
     uniqueID: 4081142523
     locked: 0
+  - name: Particles
+    uniqueID: 1963842189
+    locked: 0

@@ -47,9 +47,9 @@ public class AwarenessControllerPlayer : MonoBehaviour
 
 	void SetAwareness(float percent, GameObject targetedGameObject) {
 		if (player == targetedGameObject) {
-			if (percent <= 0) {
-				Destroy(targetedGameObject);
-			};
+			//if (percent <= 0) {
+			//	Destroy(targetedGameObject);
+			//};
 			percent = Mathf.Clamp(percent, 0.075f, 1); 
 			innerBar.transform.localScale = new Vector3((percent - 1) * -1, 1, 1);
 			float x = -innerBar.transform.localScale.x * 100 / 2 + 50;
@@ -72,7 +72,6 @@ public class AwarenessControllerPlayer : MonoBehaviour
 			if (volume.profile.TryGet<FilmGrain>(out filmGrain)) {
 				filmGrain.intensity.max = grainIntensity;
 				filmGrain.intensity.value = grainPercent + minGrain;
-				Debug.Log(filmGrain.intensity.value);
 			};
 			WaitForSeconds wait = new WaitForSeconds(0.1f);
 			if (volume.profile.TryGet<FilmGrain>(out filmGrain))

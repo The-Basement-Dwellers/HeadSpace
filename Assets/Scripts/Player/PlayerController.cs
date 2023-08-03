@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
 	private bool isDashing = false;
 	private bool canMoveFlash = true;
 
+	private bool newSceneLoading = false;
+
 	private void OnEnable()
 	{
 		if (playerControls == null)
@@ -86,9 +88,13 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		
-		// read move input
-		moveDirection = move.ReadValue<Vector2>();
+		if (playerHealth <= 0 && !newSceneLoading) {
+			newSceneLoading = true;
+            SceneController.StartScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        // read move input
+        moveDirection = move.ReadValue<Vector2>();
 		lookDirection = look.ReadValue<Vector2>();
 		EventController.StartMoveDirectionEvent(moveDirection, gameObject);
 		EventController.StartLookDirectionEvent(lookDirection);
@@ -158,10 +164,6 @@ public class PlayerController : MonoBehaviour
 	}
 	
 	private void Restart(InputAction.CallbackContext context) {
-		Destroy(gameObject);
-	}
-
-	private void OnDestroy() {
-		SceneManager.LoadScene("Ward");
+		playerHealth = 0;
 	}
 }

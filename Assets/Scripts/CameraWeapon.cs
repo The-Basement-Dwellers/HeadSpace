@@ -57,8 +57,10 @@ public class CameraWeapon : MonoBehaviour
 		}
 		
 		if (isShooting) {
+			EventController.StartIsShootingEvent(true);
 			StartCoroutine(RangeLerp());
 		} else {
+			EventController.StartIsShootingEvent(false);
 			StopCoroutine(RangeLerp());
 		}
 	}

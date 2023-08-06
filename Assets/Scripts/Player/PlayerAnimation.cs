@@ -50,6 +50,7 @@ public class PlayerAnimation : MonoBehaviour
         }
 
         bodyAnimator.SetBool("isMoving", isMoving);
+        headAnimator.SetBool("isMoving", isMoving);
     }
 
     private void SetMoveDirection(Vector3 eventMoveDirection, GameObject targetedGameObject) {

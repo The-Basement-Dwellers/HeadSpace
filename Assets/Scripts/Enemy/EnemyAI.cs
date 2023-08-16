@@ -18,6 +18,7 @@ public class EnemyAI : MonoBehaviour
     private Vector3 moveDirection;
     private IAstarAI ai;
     private bool isLost;
+    private float delay;
 
     private void OnEnable()
     {
@@ -46,8 +47,6 @@ public class EnemyAI : MonoBehaviour
         StartCoroutine(FindDirection(transform.position));
         float fortnite = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         cone.transform.eulerAngles = new Vector3(0, 0, fortnite + 90);
-
-
     }
 
     private void FixedUpdate()
@@ -57,7 +56,6 @@ public class EnemyAI : MonoBehaviour
         {
             //Debug.Log(hit.collider.name);
         }
-
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -70,6 +68,7 @@ public class EnemyAI : MonoBehaviour
         if (collision.gameObject == player)
         {
             target = player.transform;
+            delay = 6f;
             //Debug.Log(target);
         }
     }
@@ -80,7 +79,7 @@ public class EnemyAI : MonoBehaviour
         else if (collision.gameObject == player && !isLost)
         {
             isLost = true;
-            StartCoroutine(Lost(6));
+            StartCoroutine(Lost(delay));
         }
     }
 

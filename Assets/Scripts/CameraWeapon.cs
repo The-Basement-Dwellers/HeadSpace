@@ -29,6 +29,7 @@ public class CameraWeapon : MonoBehaviour
 	private float elapsedTime;
 	private float lerpScaleY = 0.95f;
 	private bool isOnCooldown = false;
+	private bool firstRun = true;
 
 	private void OnEnable() {
 		EventController.fireRelease += StopFire;
@@ -119,9 +120,9 @@ public class CameraWeapon : MonoBehaviour
 	private void DisableFlash() {
 		flash.SetActive(false);
 		EventController.StartCanMoveFlashEvent(true);
-	}
-	
-	private void DisablePreFlash() {
+    }
+
+    private void DisablePreFlash() {
 		preFlash.SetActive(false);
 	}
 	
@@ -185,7 +186,8 @@ public class CameraWeapon : MonoBehaviour
 	private void StopFire() {
 		if (isShooting) {
 			EventController.StartCanMoveFlashEvent(false);
-			isShooting = false;
+
+            isShooting = false;
 			DisablePreFlash();
 			Invoke("EnablePreFlash", flashDuration / 2);
 			Invoke("EnablePreFlash", (flashDuration / 2) * 3);

@@ -17,7 +17,8 @@ public class EnemyLogic : MonoBehaviour
 
     void Start()
     {
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        player = GameObject.Find("Player");
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         health = enemyTemplate.maxHealth;
         maxHealth = enemyTemplate.maxHealth;
         damage = enemyTemplate.damage;

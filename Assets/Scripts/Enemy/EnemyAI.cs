@@ -9,7 +9,7 @@ public class EnemyAI : MonoBehaviour
 {
  
     [SerializeField] private GameObject cone;
-    [SerializeField] private GameObject player;
+    private GameObject player;
     [SerializeField] private Vector3 dir;
     [SerializeField] private Transform target;
     [SerializeField] private float maxRange;
@@ -22,6 +22,7 @@ public class EnemyAI : MonoBehaviour
 
     private void OnEnable()
     {
+        player = GameObject.Find("Player");
         EventController.setMoveDirectionEvent += setMoveDirection;
         ai = GetComponent<IAstarAI>();
         if (ai != null) ai.onSearchPath += Update;

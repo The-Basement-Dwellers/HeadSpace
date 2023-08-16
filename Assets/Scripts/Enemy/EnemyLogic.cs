@@ -54,7 +54,6 @@ public class EnemyLogic : MonoBehaviour
         {
             health -= damageAmount;
             EventController.StartHealthBarEvent(health / maxHealth, gameObject);
-
         }
         else if (targetedGameObject == player) 
         {   

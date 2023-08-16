@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraWeapon : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class CameraWeapon : MonoBehaviour
 	[SerializeField] private GameObject collision;
 	[SerializeField] private float rangePeriod = 2;
 	[SerializeField] private float flashDuration = 0.1f;
+
+	private bool loading = false;
 	private float range = 0;
 	private float elapsedTimeCooldown;	
 	private bool isShooting = false;
@@ -104,6 +107,7 @@ public class CameraWeapon : MonoBehaviour
 								if (withinRange && hasLOS) {
 									EventController.Damage(hit.collider.gameObject, damageAmount);
 									damagedColliders.Add(hit.collider.gameObject);
+									StartCoroutine("CheckEnemys");
 								}
 							}
 						}
@@ -180,6 +184,19 @@ public class CameraWeapon : MonoBehaviour
 		if (percentageComplete >= 1) {
 			StopFire();
 		}
+		yield return null;
+	}
+
+	private IEnumerator CheckEnemys() {
+		yield return new WaitForSeconds(0.1f);
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length <= 0) {
+            int index = SceneManager.GetActiveScene().buildIndex + 1;
+            if (!loading) {
+				loading = true;
+				SceneController.StartScene(index);
+			}
+        }
 		yield return null;
 	}
 	

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4464052684333501846}
   - component: {fileID: 4464052684333501845}
   - component: {fileID: 4464052684333501844}
+  - component: {fileID: 2077917591}
   m_Layer: 0
   m_Name: Bed
   m_TagString: Interactable
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 899026771
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0b0f3a419c18841cfac09efa4af679d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -111,3 +112,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4545455, y: 0.5813583}
   m_EdgeRadius: 0
+--- !u!114 &2077917591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4464052684333501843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a041e17546c1d4743b38ac44a3524b6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

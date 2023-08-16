@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Changes.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/Ward.unity
+    path: Assets/Scenes/ward_1.unity
+    guid: 98c8376eea28f4f8aa34804f2088f603
+  - enabled: 1
+    path: Assets/Scenes/ward_2.unity
     guid: 7f3fd69a6591293439be8e6f24b54364
   m_configObjects: {}

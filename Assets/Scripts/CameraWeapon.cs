@@ -9,6 +9,8 @@ public class CameraWeapon : MonoBehaviour
 	[SerializeField] private LayerMask rayLayerMask;
 	[SerializeField] private GameObject player;
 	[SerializeField] private GameObject flash;
+	[SerializeField] private GameObject flashSpill;
+	[SerializeField] private GameObject rangeFlashSpill;
 	[SerializeField] private GameObject preFlash;
 	[SerializeField] private GameObject rangeFlash;
 	[SerializeField] private GameObject cameraBar;
@@ -27,13 +29,11 @@ public class CameraWeapon : MonoBehaviour
 	private float elapsedTime;
 	private float lerpScaleY = 0.95f;
 	private bool isOnCooldown = false;
+	private bool firstRun = true;
 
 	private void OnEnable() {
 		EventController.fireRelease += StopFire;
 		EventController.setLookDirectionEvent += SetLookDirectionEvent;
-		
-		flash.GetComponent<Light2D>().pointLightInnerRadius = collision.transform.localScale.y - 0.5f;
-		flash.GetComponent<Light2D>().pointLightOuterRadius = collision.transform.localScale.y;
 	}
 
 	private void OnDisable() {
@@ -58,8 +58,10 @@ public class CameraWeapon : MonoBehaviour
 		}
 		
 		if (isShooting) {
+			EventController.StartIsShootingEvent(true);
 			StartCoroutine(RangeLerp());
 		} else {
+			EventController.StartIsShootingEvent(false);
 			StopCoroutine(RangeLerp());
 		}
 	}
@@ -75,6 +77,8 @@ public class CameraWeapon : MonoBehaviour
 			flash.SetActive(true);
 			flash.GetComponent<Light2D>().pointLightInnerRadius = range - 0.5f;
 			flash.GetComponent<Light2D>().pointLightOuterRadius = range;
+			flashSpill.GetComponent<Light2D>().pointLightInnerRadius = range;
+			flashSpill.GetComponent<Light2D>().pointLightOuterRadius = range * 2;
 			Invoke("DisableFlash", flashDuration);
 
 			List<GameObject> collidersCopy = new List<GameObject>(colliders);
@@ -115,12 +119,10 @@ public class CameraWeapon : MonoBehaviour
 	
 	private void DisableFlash() {
 		flash.SetActive(false);
-		flash.GetComponent<Light2D>().pointLightInnerRadius = collision.transform.localScale.y - 0.5f;
-		flash.GetComponent<Light2D>().pointLightOuterRadius = collision.transform.localScale.y ;
 		EventController.StartCanMoveFlashEvent(true);
-	}
-	
-	private void DisablePreFlash() {
+    }
+
+    private void DisablePreFlash() {
 		preFlash.SetActive(false);
 	}
 	
@@ -173,6 +175,7 @@ public class CameraWeapon : MonoBehaviour
 		rangeFlash.GetComponent<Light2D>().pointLightInnerRadius = range - 0.75f;
 		rangeFlash.GetComponent<Light2D>().pointLightOuterRadius = range;
 		rangeFlash.SetActive(true);
+		rangeFlashSpill.GetComponent<Light2D>().pointLightInnerRadius = range;
 
 		if (percentageComplete >= 1) {
 			StopFire();
@@ -183,7 +186,8 @@ public class CameraWeapon : MonoBehaviour
 	private void StopFire() {
 		if (isShooting) {
 			EventController.StartCanMoveFlashEvent(false);
-			isShooting = false;
+
+            isShooting = false;
 			DisablePreFlash();
 			Invoke("EnablePreFlash", flashDuration / 2);
 			Invoke("EnablePreFlash", (flashDuration / 2) * 3);

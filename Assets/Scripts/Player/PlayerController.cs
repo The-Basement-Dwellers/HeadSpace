@@ -26,14 +26,17 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private bool binaryMove = false;
 	[SerializeField] public float playerMaxHealth = 100.0f;
 	[SerializeField] public float playerHealth;
+	private float oldPercent = 1.0f;
 	
 	private float rotZ;
 	private bool isDashing = false;
 	private bool canMoveFlash = true;
 
+	private bool newSceneLoading = false;
+
 	private void OnEnable()
 	{
-		if (playerControls == null)
+        if (playerControls == null)
 		{
 			playerControls = new PlayerInputActions();
 			playerControls.Enable();
@@ -85,15 +88,22 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		
-		// read move input
-		moveDirection = move.ReadValue<Vector2>();
-		lookDirection = look.ReadValue<Vector2>();
-		EventController.StartMoveDirectionEvent(moveDirection, gameObject);
-		EventController.StartLookDirectionEvent(lookDirection);
+		if (playerHealth <= 0 && !newSceneLoading) {
+			newSceneLoading = true;
+            SceneController.StartScene(SceneManager.GetActiveScene().buildIndex);
+        }
 
-		float percent = playerHealth / playerMaxHealth;
-		EventController.StartHealthBarEvent(percent, gameObject);
+        // read move input
+        moveDirection = move.ReadValue<Vector2>();
+		lookDirection = look.ReadValue<Vector2>();
+        EventController.StartMoveDirectionEvent(moveDirection, gameObject);
+        EventController.StartLookDirectionEvent(lookDirection);
+
+        float percent = playerHealth / playerMaxHealth;
+		if (percent != oldPercent) {
+			EventController.StartHealthBarEvent(percent, gameObject);
+		}
+		oldPercent = percent;
  
 		if (binaryMove)
 		{                     
@@ -154,10 +164,6 @@ public class PlayerController : MonoBehaviour
 	}
 	
 	private void Restart(InputAction.CallbackContext context) {
-		Destroy(gameObject);
-	}
-
-	private void OnDestroy() {
-		SceneManager.LoadScene("Ward");
+		playerHealth = 0;
 	}
 }

@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
 	private void OnEnable()
 	{
-		if (playerControls == null)
+        if (playerControls == null)
 		{
 			playerControls = new PlayerInputActions();
 			playerControls.Enable();
@@ -96,10 +96,10 @@ public class PlayerController : MonoBehaviour
         // read move input
         moveDirection = move.ReadValue<Vector2>();
 		lookDirection = look.ReadValue<Vector2>();
-		EventController.StartMoveDirectionEvent(moveDirection, gameObject);
-		EventController.StartLookDirectionEvent(lookDirection);
+        EventController.StartMoveDirectionEvent(moveDirection, gameObject);
+        EventController.StartLookDirectionEvent(lookDirection);
 
-		float percent = playerHealth / playerMaxHealth;
+        float percent = playerHealth / playerMaxHealth;
 		if (percent != oldPercent) {
 			EventController.StartHealthBarEvent(percent, gameObject);
 		}

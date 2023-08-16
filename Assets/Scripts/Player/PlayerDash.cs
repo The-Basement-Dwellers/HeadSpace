@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+
 
 public class PlayerDash : MonoBehaviour
 {
@@ -17,7 +21,7 @@ public class PlayerDash : MonoBehaviour
 	[SerializeField] private float dashDuration = 0.1f;
 	[SerializeField] private float dashSpeed = 3f;
 	[SerializeField] private float dashCooldown = 0.8f;
-	[SerializeField] private BoxCollider2D playerCollider;
+	[SerializeField] private Volume volume;
 	private Rigidbody2D rb;
 
 	private void OnEnable()
@@ -56,11 +60,17 @@ public class PlayerDash : MonoBehaviour
 		if (isDashing)
 		{
 			StartCoroutine(DashLerp());
+			if(volume.profile.TryGet<MotionBlur>(out MotionBlur motionBlur)) {
+				motionBlur.active = true;
+			}
 			Physics2D.IgnoreLayerCollision(3, 8, true);
 		}
 		else
 		{
 			StopCoroutine(DashLerp());
+			if(volume.profile.TryGet<MotionBlur>(out MotionBlur motionBlur)) {
+				motionBlur.active = false;
+			}
 			Physics2D.IgnoreLayerCollision(3, 8, false);
 		}
 

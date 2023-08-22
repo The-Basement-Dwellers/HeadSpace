@@ -26,7 +26,8 @@ public class CameraWeapon : MonoBehaviour
 
 	private bool loading = false;
 	private float range = 0;
-	private float elapsedTimeCooldown;	
+	private float elapsedTimeCooldown;
+	private float rangePercent;
 	private bool isShooting = false;
 	[SerializeField] private float shootThreshhold = 0.2f;
 	private bool isPastThreshhold = false;
@@ -106,7 +107,10 @@ public class CameraWeapon : MonoBehaviour
 
 								bool withinRange = Vector3.Distance(player.transform.position, hit.collider.gameObject.transform.position) <= range;
 								if (withinRange && hasLOS) {
-									EventController.Damage(hit.collider.gameObject, damageAmount);
+									Vector3 dif = hit.transform.position - transform.position;
+									float chargeDamageAmount = damageAmount * rangePercent;
+									Debug.Log(chargeDamageAmount);
+									EventController.Damage(hit.collider.gameObject, chargeDamageAmount);
 									damagedColliders.Add(hit.collider.gameObject);
 									StartCoroutine("CheckEnemys");
 								}
@@ -156,7 +160,7 @@ public class CameraWeapon : MonoBehaviour
 	
 	private IEnumerator BarLerp()
 	{
-		float percentageComplete = elapsedTimeCooldown / cooldown;
+		float percentageComplete = elapsedTimeCooldown / (cooldown * rangePercent);
 
 		elapsedTimeCooldown += Time.deltaTime;
 		if (percentageComplete >= 1)
@@ -175,13 +179,12 @@ public class CameraWeapon : MonoBehaviour
 		elapsedTime += Time.deltaTime;
 
 		float maxRange = collision.transform.localScale.y;
-		float rangePercent = percentageComplete;
+		rangePercent = percentageComplete;
 		percentageComplete = Mathf.Clamp(percentageComplete, 0, 1);
 		if (percentageComplete < shootThreshhold) rangePercent = 0;
 		else rangePercent = (percentageComplete - shootThreshhold);
 		rangePercent = (rangePercent / (1 - shootThreshhold));
 		rangePercent = Mathf.Clamp(rangePercent, 0, 1);
-        Debug.Log(rangePercent);
 		range = Mathf.Lerp(0, maxRange, rangePercent);
 		rangeFlash.GetComponent<Light2D>().pointLightInnerRadius = range - 0.75f;
 		rangeFlash.GetComponent<Light2D>().pointLightOuterRadius = range;

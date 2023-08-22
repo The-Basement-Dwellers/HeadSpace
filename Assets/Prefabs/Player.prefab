@@ -604,8 +604,9 @@ MonoBehaviour:
   cooldown: 1.75
   showRay: 1
   collision: {fileID: 6063935171084474387}
-  rangePeriod: 1
+  rangePeriod: 1.5
   flashDuration: 0.1
+  shootThreshhold: 0.25
 --- !u!210 &740568667
 SortingGroup:
   m_ObjectHideFlags: 0

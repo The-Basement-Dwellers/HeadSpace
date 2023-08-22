@@ -6,7 +6,7 @@ using Pathfinding;
 
 public class Door : MonoBehaviour, IInteractable
 {
-	public GraphUpdateScene gustavofring;
+	private GraphUpdateScene gustavofring;
 
 	void Start()
 	{

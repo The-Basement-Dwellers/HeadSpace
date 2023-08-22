@@ -28,11 +28,12 @@ public class CameraWeapon : MonoBehaviour
 	private float range = 0;
 	private float elapsedTimeCooldown;	
 	private bool isShooting = false;
+	[SerializeField] private float shootThreshhold = 0.2f;
+	private bool isPastThreshhold = false;
 
 	private float elapsedTime;
 	private float lerpScaleY = 0.95f;
 	private bool isOnCooldown = false;
-	private bool firstRun = true;
 
 	private void OnEnable() {
 		EventController.fireRelease += StopFire;
@@ -174,8 +175,14 @@ public class CameraWeapon : MonoBehaviour
 		elapsedTime += Time.deltaTime;
 
 		float maxRange = collision.transform.localScale.y;
-		
-		range = Mathf.Lerp(0, maxRange, percentageComplete);
+		float rangePercent = percentageComplete;
+		percentageComplete = Mathf.Clamp(percentageComplete, 0, 1);
+		if (percentageComplete < shootThreshhold) rangePercent = 0;
+		else rangePercent = (percentageComplete - shootThreshhold);
+		rangePercent = (rangePercent / (1 - shootThreshhold));
+		rangePercent = Mathf.Clamp(rangePercent, 0, 1);
+        Debug.Log(rangePercent);
+		range = Mathf.Lerp(0, maxRange, rangePercent);
 		rangeFlash.GetComponent<Light2D>().pointLightInnerRadius = range - 0.75f;
 		rangeFlash.GetComponent<Light2D>().pointLightOuterRadius = range;
 		rangeFlash.SetActive(true);
@@ -184,6 +191,10 @@ public class CameraWeapon : MonoBehaviour
 		if (percentageComplete >= 1) {
 			StopFire();
 		}
+
+		if (percentageComplete < shootThreshhold) isPastThreshhold = false;
+		else isPastThreshhold = true;
+
 		yield return null;
 	}
 
@@ -201,14 +212,18 @@ public class CameraWeapon : MonoBehaviour
 	}
 	
 	private void StopFire() {
-		if (isShooting) {
+        if (isShooting && isPastThreshhold) {
 			EventController.StartCanMoveFlashEvent(false);
-
-            isShooting = false;
 			DisablePreFlash();
-			Invoke("EnablePreFlash", flashDuration / 2);
+            Invoke("EnablePreFlash", flashDuration / 2);
 			Invoke("EnablePreFlash", (flashDuration / 2) * 3);
 			Invoke("DelayedFire", flashDuration * 2);
+		} else if (!isPastThreshhold) {
+			rangeFlashSpill.SetActive(false);
+			rangeFlash.SetActive(false);
+			preFlash.SetActive(false);
+			elapsedTime = 0;
 		}
-	}
+        isShooting = false;
+    }
 }

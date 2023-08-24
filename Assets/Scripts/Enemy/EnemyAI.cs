@@ -23,14 +23,17 @@ public class EnemyAI : MonoBehaviour
     private void OnEnable()
     {
         player = GameObject.Find("Player");
-        EventController.setMoveDirectionEvent += setMoveDirection;
         ai = GetComponent<IAstarAI>();
         if (ai != null) ai.onSearchPath += Update;
+        EventController.setMoveDirectionEvent += setMoveDirection;
+        EventController.damageEvent += Hurt;
+        
     }
 
     private void OnDisable()
     {
         EventController.setMoveDirectionEvent -= setMoveDirection;
+        EventController.damageEvent -= Hurt;
         if (ai != null) ai.onSearchPath -= Update;
     }
 
@@ -92,6 +95,14 @@ public class EnemyAI : MonoBehaviour
 
     }
 
+    private void Hurt(GameObject targetedgameObject, float damageAmount=0)
+    {
+        if (targetedgameObject == gameObject)
+        {
+            ai.destination = player.transform.position;
+        }
+            
+    }
     IEnumerator Lost(float delay)
     {
         Transform lastKnown;

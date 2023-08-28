@@ -9,11 +9,25 @@ public class MenuButtonAnimator : MonoBehaviour
     [SerializeField] EventSystem eventSystem;
     [SerializeField] Animator animator;
     [SerializeField] Image image;
-    [SerializeField] Sprite hover;
-    [SerializeField] Sprite noHover;
+    [SerializeField] ParticleSystem stream;
 
+    IEnumerator streamCoroutine;
 
+    public void Hover() {
+        animator.SetBool("IsHover", true);
+        stream.Play();
+        streamCoroutine = StopParticals(1);
+        StartCoroutine(streamCoroutine);
+    }
+    public void NoHover() {
+        animator.SetBool("IsHover", false);
+        stream.Stop();
+        StopCoroutine(streamCoroutine);
+    }
 
-    public void Hover() { animator.SetBool("IsHover", true);}
-    public void NoHover() { animator.SetBool("IsHover", false);}
+    private IEnumerator StopParticals(float time)
+    {
+        yield return new WaitForSeconds(time);
+        stream.Stop();
+    }
 }

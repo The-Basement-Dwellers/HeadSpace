@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+using Cinemachine;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,7 +30,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] public float playerMaxHealth = 100.0f;
 	[SerializeField] public float playerHealth;
 	private float oldPercent = 1.0f;
-	
+	[SerializeField]CinemachineImpulseSource impulseSource;
+
 	private float rotZ;
 	private bool isDashing = false;
 	private bool canMoveFlash = true;
@@ -36,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
 	private void OnEnable()
 	{
-        if (playerControls == null)
+		if (playerControls == null)
 		{
 			playerControls = new PlayerInputActions();
 			playerControls.Enable();
@@ -55,11 +59,11 @@ public class PlayerController : MonoBehaviour
 		interact = playerControls.Player.Interact;
 		interact.Enable();
 		interact.performed += InteractAction;
-		
+
 		restart = playerControls.Player.Restart;
 		restart.Enable();
 		restart.performed += Restart;
-		
+
 		EventController.setCanMoveFlash += setCanMoveFlash;
 		EventController.startIsDashingEvent += SetisDashing;
 
@@ -73,7 +77,7 @@ public class PlayerController : MonoBehaviour
 		dash.Disable();
 		interact.Disable();
 		restart.Disable();
-		
+
 		EventController.setCanMoveFlash -= setCanMoveFlash;
 		EventController.startIsDashingEvent -= SetisDashing;
 	}
@@ -82,7 +86,8 @@ public class PlayerController : MonoBehaviour
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
-		playerHealth = playerMaxHealth;		
+		impulseSource = GetComponent<CinemachineImpulseSource>();
+        playerHealth = playerMaxHealth;		
 	}
 
 	// Update is called once per frame
@@ -101,7 +106,10 @@ public class PlayerController : MonoBehaviour
 
         float percent = playerHealth / playerMaxHealth;
 		if (percent != oldPercent) {
-			EventController.StartHealthBarEvent(percent, gameObject);
+			if (percent > 0) impulseSource.GenerateImpulse();
+			Time.timeScale = 0;
+			StartCoroutine(StopHitPause(0.025f));
+            EventController.StartHealthBarEvent(percent, gameObject);
 		}
 		oldPercent = percent;
  
@@ -134,9 +142,17 @@ public class PlayerController : MonoBehaviour
 			cameraWeapon.transform.eulerAngles = new Vector3(0, 0, rotZ + 90);
 		}
 	}
-	
-	// set player velocity
-	private void FixedUpdate() {
+
+	private IEnumerator StopHitPause(float seconds)
+	{
+        Debug.Log("start");
+        yield return new WaitForSecondsRealtime(seconds);
+		Debug.Log("stop");
+		Time.timeScale = 1;
+	}
+
+    // set player velocity
+    private void FixedUpdate() {
 		if (!isDashing)
 		{
 			rb.velocity = moveDirection * moveSpeed * Time.fixedDeltaTime;

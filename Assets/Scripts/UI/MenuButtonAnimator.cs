@@ -10,13 +10,14 @@ public class MenuButtonAnimator : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] Image image;
     [SerializeField] ParticleSystem stream;
+    [SerializeField] float animationTime = 0.2f;
 
     IEnumerator streamCoroutine;
 
     public void Hover() {
         animator.SetBool("IsHover", true);
         stream.Play();
-        streamCoroutine = StopParticals(1);
+        streamCoroutine = StopParticals(animationTime);
         StartCoroutine(streamCoroutine);
     }
     public void NoHover() {

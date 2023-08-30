@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class EnemyAI : MonoBehaviour
 {
- 
+
     [SerializeField] private GameObject cone;
     private GameObject player;
     [SerializeField] private Vector3 dir;
@@ -27,7 +27,7 @@ public class EnemyAI : MonoBehaviour
         if (ai != null) ai.onSearchPath += Update;
         EventController.setMoveDirectionEvent += setMoveDirection;
         EventController.damageEvent += Hurt;
-        
+
     }
 
     private void OnDisable()
@@ -64,28 +64,40 @@ public class EnemyAI : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (target != null && ai != null)
-        {
-            ai.destination = target.position;
-        }
-        
+        GraphNode node1 = AstarPath.active.GetNearest(transform.position, NNConstraint.Default).node;
+        GraphNode node2 = AstarPath.active.GetNearest(player.transform.position, NNConstraint.Default).node;
         if (collision.gameObject == player)
         {
             target = player.transform;
-            delay = 6f;
-            //Debug.Log(target);
+            delay = 2f;
         }
+
+        if (target != null && ai != null)
+        {
+            if (PathUtilities.IsPathPossible(node1, node2))
+            {
+                ai.destination = target.position;
+            }
+            else if (!PathUtilities.IsPathPossible(node1, node2) && !isLost)
+            {
+                Debug.Log("Nein");
+                isLost = true;
+                StartCoroutine(Lost(delay));
+            }
+        }
+
+
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision == null) return;
-        else if (collision.gameObject == player && !isLost)
-        {
-            isLost = true;
-            StartCoroutine(Lost(delay));
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision == null) return;
+    //    else if (collision.gameObject == player && !isLost)
+    //    {
+    //        isLost = true;
+    //        StartCoroutine(Lost(delay));
+    //    }
+    //}
 
     IEnumerator FindDirection(Vector3 oldPos)
     {
@@ -95,30 +107,24 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-    private void Hurt(GameObject targetedgameObject, float damageAmount=0)
+    private void Hurt(GameObject targetedgameObject, float damageAmount = 0)
     {
         if (targetedgameObject == gameObject)
         {
             ai.destination = player.transform.position;
         }
-            
+
     }
     IEnumerator Lost(float delay)
     {
-        Transform lastKnown;
-        if (ai.reachedEndOfPath != true)
-        {
-            lastKnown = player.transform;
-            if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath))
-            {
-                ai.destination = PickRandomPoint();
-                ai.SearchPath();
-                //Debug.Log("Is this being called");
-            }
-            yield return new WaitForSeconds(delay);
-            target = null;
-            ai.destination = spawnPos;
-        }
+        yield return new WaitForSeconds(delay);
+        target = null;
+        ai.destination = PickRandomPoint();
+        ai.SearchPath();
+        Debug.Log("Is this being called");
+        yield return new WaitForSeconds(delay);
+        ai.destination = spawnPos;
+
         //else {
         //    Debug.Log("No worky");
         //}
@@ -128,7 +134,6 @@ public class EnemyAI : MonoBehaviour
     Vector3 PickRandomPoint()
     {
         var point = Random.insideUnitSphere * lookRad;
-
         point.y = 0;
         point += ai.position;
         return point;

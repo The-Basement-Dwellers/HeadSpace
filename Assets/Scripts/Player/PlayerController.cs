@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] public float playerHealth;
 	private float oldPercent = 1.0f;
 	[SerializeField]CinemachineImpulseSource impulseSource;
+	[SerializeField] GameObject deathScreen;
 
 	private float rotZ;
 	private bool isDashing = false;
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour
 		restart.Enable();
 		restart.performed += Restart;
 
-		EventController.setCanMoveFlash += setCanMoveFlash;
+		CameraEventController.setCanMoveFlash += setCanMoveFlash;
 		EventController.startIsDashingEvent += SetisDashing;
 
 		AstarPath.active.Scan();
@@ -78,7 +79,7 @@ public class PlayerController : MonoBehaviour
 		interact.Disable();
 		restart.Disable();
 
-		EventController.setCanMoveFlash -= setCanMoveFlash;
+		CameraEventController.setCanMoveFlash -= setCanMoveFlash;
 		EventController.startIsDashingEvent -= SetisDashing;
 	}
 
@@ -95,7 +96,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (playerHealth <= 0 && !newSceneLoading) {
 			newSceneLoading = true;
-            SceneController.StartScene(SceneManager.GetActiveScene().buildIndex);
+			deathScreen.SetActive(true);
         }
 
         // read move input
@@ -145,9 +146,7 @@ public class PlayerController : MonoBehaviour
 
 	private IEnumerator StopHitPause(float seconds)
 	{
-        Debug.Log("start");
         yield return new WaitForSecondsRealtime(seconds);
-		Debug.Log("stop");
 		Time.timeScale = 1;
 	}
 
@@ -168,7 +167,7 @@ public class PlayerController : MonoBehaviour
 	}
 	
 	private void FireRelease(InputAction.CallbackContext context) {
-		EventController.FireRelease();
+		CameraEventController.FireRelease();
 	}
 
 	private void Dash(InputAction.CallbackContext context) {

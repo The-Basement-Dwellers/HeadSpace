@@ -16,13 +16,14 @@ public class MenuButtonAnimator : MonoBehaviour
 
     public void Hover() {
         animator.SetBool("IsHover", true);
-        stream.Play();
+            
+        if (stream != null) stream.Play();
         streamCoroutine = StopParticals(animationTime);
         StartCoroutine(streamCoroutine);
     }
     public void NoHover() {
         animator.SetBool("IsHover", false);
-        stream.Stop();
+        if (stream != null) stream.Stop();
         StopCoroutine(streamCoroutine);
     }
 

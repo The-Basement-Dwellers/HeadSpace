@@ -23,8 +23,8 @@ public class PlayerAnimation : MonoBehaviour
     {
         EventController.setMoveDirectionEvent += SetMoveDirection;
         EventController.setLookDirectionEvent += SetLookDirection;
-        EventController.setIsShootingEvent += SetIsShooting;
-        EventController.setCanMoveFlash += SetCanMoveFlash;
+        CameraEventController.setIsShootingEvent += SetIsShooting;
+        CameraEventController.setCanMoveFlash += SetCanMoveFlash;
 
         headAnimator = head.GetComponent<Animator>();
         bodyAnimator = body.GetComponent<Animator>();
@@ -34,8 +34,8 @@ public class PlayerAnimation : MonoBehaviour
     {
         EventController.setMoveDirectionEvent -= SetMoveDirection;
         EventController.setLookDirectionEvent -= SetLookDirection;
-        EventController.setIsShootingEvent -= SetIsShooting;
-        EventController.setCanMoveFlash -= SetCanMoveFlash;
+        CameraEventController.setIsShootingEvent -= SetIsShooting;
+        CameraEventController.setCanMoveFlash -= SetCanMoveFlash;
     }
 
     private void Update()

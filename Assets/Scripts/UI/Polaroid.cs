@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Poloroid : MonoBehaviour
+public class Polaroid : MonoBehaviour
 {
-    [SerializeField] GameObject poloroidCamera;
-    [SerializeField] GameObject poloroidFrame;
+    [SerializeField] GameObject polaroidCamera;
+    [SerializeField] GameObject polaroidFrame;
+    RectTransform polaroidFrameRect;
 
     private float elapsedTime = 0;
     private bool isLerping = false;
@@ -33,11 +34,16 @@ public class Poloroid : MonoBehaviour
         EventController.setLookDirectionEvent -= SetLookDirection;
     }
 
+    private void Start()
+    {
+        polaroidFrameRect = polaroidFrame.GetComponent<RectTransform>();
+    }
+
     private void Update()
     {
         if (isLerping) { StartCoroutine(PoloroidLerp()); }
 
-        poloroidCamera.transform.localPosition = lookDirection * 3.5f + new Vector3(0, 0, -20);
+        polaroidCamera.transform.localPosition = lookDirection * 3.5f + new Vector3(0, 0, -20);
     }
 
     void Fired()
@@ -47,7 +53,7 @@ public class Poloroid : MonoBehaviour
         isLerping = true;
         elapsedTime = 0;
         if (turnOffCamera != null) StopCoroutine(turnOffCamera); 
-        poloroidCamera.SetActive(true);
+        polaroidCamera.SetActive(true);
         turnOffCamera = TurnOffCamera(3);
         StartCoroutine(turnOffCamera);
     }
@@ -60,9 +66,9 @@ public class Poloroid : MonoBehaviour
     IEnumerator TurnOffCamera(float seconds)
     {
         yield return new WaitForSeconds(0.01f);
-        poloroidCamera.SetActive(false);
+        polaroidCamera.SetActive(false);
         yield return new WaitForSeconds(seconds);
-        poloroidCamera.SetActive(true);
+        polaroidCamera.SetActive(true);
     }
 
     private IEnumerator PoloroidLerp()
@@ -72,7 +78,7 @@ public class Poloroid : MonoBehaviour
         elapsedTime += Time.deltaTime;
 
         float lerpPosition = Mathf.Lerp(startPos.y, endPos.y, percentageComplete);
-        poloroidFrame.transform.localPosition = new Vector3(startPos.x, lerpPosition, 0f);
+        polaroidFrameRect.localPosition = new Vector3(startPos.x, lerpPosition, 0f);
 
         if (percentageComplete >= 1.0f && isLerping && startPos == bottomPos)
         {

@@ -4,6 +4,7 @@ using UnityEngine;
 using Pathfinding;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
+using UnityEditor.Experimental.GraphView;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -51,10 +52,12 @@ public class EnemyAI : MonoBehaviour
         StartCoroutine(FindDirection(transform.position));
         float fortnite = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         cone.transform.eulerAngles = new Vector3(0, 0, fortnite + 90);
+
     }
 
     private void FixedUpdate()
     {
+        StartCoroutine(Lost(2));
         RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position);
         if (hit.collider != null)
         {
@@ -64,6 +67,7 @@ public class EnemyAI : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+
         GraphNode node1 = AstarPath.active.GetNearest(transform.position, NNConstraint.Default).node;
         GraphNode node2 = AstarPath.active.GetNearest(player.transform.position, NNConstraint.Default).node;
         if (collision.gameObject == player)
@@ -117,26 +121,27 @@ public class EnemyAI : MonoBehaviour
     }
     IEnumerator Lost(float delay)
     {
+        Debug.Log("Lost has been called");
         yield return new WaitForSeconds(delay);
         target = null;
         ai.destination = PickRandomPoint();
         ai.SearchPath();
-        Debug.Log("Is this being called");
+        Debug.Log("Wandering");
         yield return new WaitForSeconds(delay);
-        ai.destination = spawnPos;
-
-        //else {
-        //    Debug.Log("No worky");
-        //}
+        //ai.destination = spawnPos;
         isLost = false;
     }
 
     Vector3 PickRandomPoint()
     {
-        var point = Random.insideUnitSphere * lookRad;
-        point.y = 0;
-        point += ai.position;
-        return point;
+        var startNode = AstarPath.active.GetNearest(transform.position, NNConstraint.Default).node;
+        var nodes = PathUtilities.BFS(startNode, 100);
+        List<GraphNode> reachableNodes = PathUtilities.GetReachableNodes(startNode);
+        var singleRandomPoint = PathUtilities.GetPointsOnNodes(reachableNodes, 1)[0];
+
+        return singleRandomPoint;
+
+
     }
 
 }

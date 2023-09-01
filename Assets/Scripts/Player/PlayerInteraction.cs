@@ -48,9 +48,9 @@ public class PlayerInteraction : MonoBehaviour
             }
 
             oldObject.GetComponent<Renderer>().material = defaultMaterial;
-
-            if (Vector3.Distance(player.transform.position, closestObject.transform.position) <= 1.5)
+            if (Vector2.Distance(player.transform.position, closestObject.transform.position) <= 1.5)
             {
+
                 closestObject.GetComponent<Renderer>().material = whiteOutline;
                 targetedGameObject = closestObject.GetComponent<IInteractable>();
                 isHighlighted = true;

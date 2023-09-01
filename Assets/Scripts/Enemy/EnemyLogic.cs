@@ -37,14 +37,14 @@ public class EnemyLogic : MonoBehaviour
 
     private void OnEnable()
     {
-        EventController.damageEvent += Damage;
+        CameraEventController.damageEvent += Damage;
         EventController.colliderEnter += ColliderEnter;
         EventController.colliderExit += ColliderExit;
     }
 
     private void OnDisable()
     {
-        EventController.damageEvent -= Damage;
+        CameraEventController.damageEvent -= Damage;
         EventController.colliderEnter -= ColliderEnter;
         EventController.colliderExit -= ColliderExit;
     }

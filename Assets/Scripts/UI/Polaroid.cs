@@ -19,6 +19,7 @@ public class Polaroid : MonoBehaviour
 
     private Vector3 startPos;
     private Vector3 endPos;
+    private Vector3 initalPos;
 
     private Vector3 lookDirection;
 
@@ -50,6 +51,7 @@ public class Polaroid : MonoBehaviour
     {
         startPos = bottomPos;
         endPos = topPos;
+        initalPos = transform.localPosition;
         isLerping = true;
         elapsedTime = 0;
         if (turnOffCamera != null) StopCoroutine(turnOffCamera); 

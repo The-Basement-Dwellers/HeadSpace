@@ -49,6 +49,7 @@ public class Polaroid : MonoBehaviour
 
     void Fired()
     {
+        AudioEventController.CameraShootPrint();
         startPos = bottomPos;
         endPos = topPos;
         initalPos = transform.localPosition;

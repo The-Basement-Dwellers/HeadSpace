@@ -76,6 +76,7 @@ public class CameraWeapon : MonoBehaviour
 		
 		if (!isOnCooldown)
 		{
+			AudioEventController.CameraShoot();
 			isOnCooldown = true;
 			elapsedTimeCooldown = 0;
 

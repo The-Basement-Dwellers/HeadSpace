@@ -16,6 +16,7 @@ public class Door : MonoBehaviour, IInteractable
 	{
 		if  (gameObject.GetComponent<BoxCollider2D>().isTrigger)
 		{
+			AudioEventController.DoorOpen();
 			gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
 			gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
 			gameObject.layer = 4;
@@ -24,6 +25,7 @@ public class Door : MonoBehaviour, IInteractable
 		}
 		else
 		{
+			AudioEventController.DoorClose();
 			gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
 			gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, .5f);
 			gameObject.layer = 2;

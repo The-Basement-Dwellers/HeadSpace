@@ -10,6 +10,7 @@ public class AudioEventController : MonoBehaviour
     public static event Action dash;
     public static event Action doorOpen;
     public static event Action doorClose;
+    public static event Action hit;
 
     public static void CameraShoot() {
         cameraShoot?.Invoke();
@@ -29,5 +30,9 @@ public class AudioEventController : MonoBehaviour
 
     public static void DoorClose() {
         doorClose?.Invoke();
+    }
+
+    public static void Hit() {
+        hit?.Invoke();
     }
 }

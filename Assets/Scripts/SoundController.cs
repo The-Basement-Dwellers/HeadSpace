@@ -4,31 +4,30 @@ using UnityEngine;
 
 public class SoundController : MonoBehaviour
 {
-    private AudioSource audioSource;
-    [SerializeField] private AudioClip cameraShootClip;
-    [SerializeField] private AudioClip cameraShootPrintClip;
-    [SerializeField] private AudioClip dash;
-    [SerializeField] private AudioClip doorOpen;
-    [SerializeField] private AudioClip doorClose;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource footstepsSource;
+    [SerializeField] private AudioClip
+        cameraShootClip,
+        cameraShootPrintClip,
+        dash,
+        doorOpen,
+        doorClose,
+        hit;
 
     private void OnEnable()
     {
         AudioEventController.cameraShoot += cameraShoot;
         AudioEventController.cameraShootPrint += cameraShootPrint;
         AudioEventController.dash += Dash;
+        AudioEventController.hit += Hit;
     }
 
     private void OnDisable()
     {
         AudioEventController.cameraShoot -= cameraShoot;
         AudioEventController.cameraShootPrint -= cameraShootPrint;
-        AudioEventController.dash += Dash;
+        AudioEventController.dash -= Dash;
+        AudioEventController.hit -= Hit;
     }
 
     private void cameraShoot()
@@ -54,6 +53,11 @@ public class SoundController : MonoBehaviour
 
     private void DoorClose() {
         audioSource.clip = doorClose;
+        audioSource.Play();
+    }
+
+    private void Hit() {
+        audioSource.clip = hit;
         audioSource.Play();
     }
 }

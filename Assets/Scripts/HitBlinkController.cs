@@ -34,22 +34,28 @@ public class HitBlinkController : MonoBehaviour
 
     private IEnumerator Damage(GameObject target)
     {
-        Debug.Log(target);
-        Debug.Log(player);
         if (target != player)
         {
             target.GetComponent<SpriteRenderer>().material = hitBlink;
             yield return new WaitForSecondsRealtime(hitBlinkTime);
             if (target != null) target.GetComponent<SpriteRenderer>().material = original;
         } else {
-            Debug.Log("player");
+            AudioEventController.Hit();
             head.GetComponent<SpriteRenderer>().material = hitBlink;
             body.GetComponent<SpriteRenderer>().material = hitBlink;
+
+            float alpha = head.GetComponent<SpriteRenderer>().color.a;
+            head.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            body.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+
             yield return new WaitForSecondsRealtime(hitBlinkTime);
             if (target != null)
             {
                 head.GetComponent<SpriteRenderer>().material = original;
                 body.GetComponent<SpriteRenderer>().material = original;
+
+                head.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
+                body.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
             }
         }
     }

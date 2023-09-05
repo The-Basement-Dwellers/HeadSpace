@@ -1551,7 +1551,6 @@ MonoBehaviour:
   playerMaxHealth: 100
   playerHealth: 0
   impulseSource: {fileID: 740568659}
-  deathScreen: {fileID: 0}
 --- !u!114 &6063935169211142301
 MonoBehaviour:
   m_ObjectHideFlags: 0

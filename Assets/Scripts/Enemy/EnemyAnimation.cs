@@ -34,7 +34,6 @@ public class EnemyAnimation : MonoBehaviour
         } else isMoving = false;
 
         animator.SetBool("isMoving", isMoving);
-        Debug.Log(dir);
         animator.speed = dir.magnitude * animationSpeedMult;
     }
 

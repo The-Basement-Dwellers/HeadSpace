@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] public float playerHealth;
 	private float oldPercent = 1.0f;
 	[SerializeField]CinemachineImpulseSource impulseSource;
-	[SerializeField] GameObject deathScreen;
+	GameObject deathScreen;
 
 	private float rotZ;
 	private bool isDashing = false;
@@ -86,9 +86,11 @@ public class PlayerController : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		rb = GetComponent<Rigidbody2D>();
+        Time.timeScale = 1;
+        rb = GetComponent<Rigidbody2D>();
 		impulseSource = GetComponent<CinemachineImpulseSource>();
-        playerHealth = playerMaxHealth;		
+        playerHealth = playerMaxHealth;
+		deathScreen = GameObject.Find("GameController").transform.Find("Canvas").Find("Death Screen").gameObject;
 	}
 
 	// Update is called once per frame
@@ -97,7 +99,7 @@ public class PlayerController : MonoBehaviour
 		if (playerHealth <= 0 && !newSceneLoading) {
 			newSceneLoading = true;
 			deathScreen.SetActive(true);
-			Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         // read move input

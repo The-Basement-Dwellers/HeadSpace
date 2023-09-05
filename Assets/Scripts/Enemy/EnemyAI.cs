@@ -18,12 +18,12 @@ public class EnemyAI : MonoBehaviour
     private Vector3 moveDirection;
     private IAstarAI ai;
     private bool isLost;
-    private bool isWandering;
+    [SerializeField] private bool isWandering;
     private bool sightLine;
     private float delay;
     private AIPath aiPath;
     [SerializeField] private LayerMask rayLayerMask;
-
+    [SerializeField, Range(0f, 360f)] private float dirOffset = 0;
 
     private void OnEnable()
     {
@@ -52,8 +52,7 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.Find("Player");
         ai = GetComponent<IAstarAI>();
         spawnPos = transform.position;
-        isWandering = true;
-        StartCoroutine(Wandering(3));
+        StartCoroutine(Wandering(5));
 
 
     }
@@ -74,30 +73,23 @@ public class EnemyAI : MonoBehaviour
     private void FixedUpdate()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - transform.position, rayLayerMask);
-        Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.red, 1);
+        Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.red, 0.01f);
         
         if (hit.collider != null && hit.collider.name == "Player")
         {
             sightLine = true;
             Debug.Log(hit.collider.name);
         }
+
         else
         {
             sightLine = false;
         }
 
-        if (!sightLine || isLost)
-        {
-            
-        }
-        else 
-        {
-            
-        }
         Debug.Log(aiPath.maxSpeed);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         
         GraphNode node1 = AstarPath.active.GetNearest(transform.position, NNConstraint.Default).node;
@@ -106,6 +98,7 @@ public class EnemyAI : MonoBehaviour
         {
             //Debug.Log("SightLine" + sightLine);
             //Debug.Log("isLost" + isLost);
+            isWandering = false;
             aiPath.maxSpeed = 5;
             target = player.transform;
            
@@ -119,9 +112,8 @@ public class EnemyAI : MonoBehaviour
             }
             else if (!PathUtilities.IsPathPossible(node1, node2) && !isLost)
             {
-                Debug.Log("Nein");
                 isLost = true;
-                StartCoroutine(Lost(6));
+                StartCoroutine(Lost(3));
             }
         }
 
@@ -134,6 +126,16 @@ public class EnemyAI : MonoBehaviour
         Vector3 newPos = transform.position;
         dir = Vector3.Normalize(newPos - oldPos);
 
+        float len = Mathf.Sqrt(2);
+        float angle = dirOffset * Mathf.PI / 180;
+        float x = Mathf.Cos(angle) * len;
+        float y = Mathf.Sin(angle) * len;
+
+        Vector3 offsetVector = new Vector3(x, y, 0);
+        if (newPos == oldPos)
+        {
+            dir += offsetVector;
+        }
     }
 
     private void Hurt(GameObject targetedgameObject, float damageAmount = 0)
@@ -154,6 +156,7 @@ public class EnemyAI : MonoBehaviour
         Debug.Log("AI Lost Player. Trying to find");
         isLost = false;
         isWandering = true;
+        StartCoroutine(Wandering(5));
     }
     
     IEnumerator Wandering(float delay)

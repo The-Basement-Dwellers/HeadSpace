@@ -162,7 +162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2558887114022107961}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.086, y: -0.736, z: 0}
+  m_LocalPosition: {x: 0, y: -0.69, z: 0}
   m_LocalScale: {x: 1.1964, y: 1.1964, z: 1.1964}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -274,7 +274,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2558887114498727483}
   m_LocalRotation: {x: -0, y: -0, z: 0.027890772, w: 0.999611}
-  m_LocalPosition: {x: -0.03, y: 0.006, z: 0}
+  m_LocalPosition: {x: -0.052, y: 0.01, z: 0}
   m_LocalScale: {x: 0.2874436, y: -0.31670076, z: 0.25647253}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Intensity: 0.16
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000f33b72e06bae8b7233df3e3c530f9635
+  m_ApplyToSortingLayers: 00000000f33b72e033df3e3c530f96354b371f968dda0d75
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -385,7 +385,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2558887114702306261}
   m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
-  m_LocalPosition: {x: -0.08, y: -0.04, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.28744355, y: -0.31670073, z: 0.25647253}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -824,9 +824,11 @@ MonoBehaviour:
   cone: {fileID: 2558887114845345830}
   dir: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
+  isWandering: 1
   rayLayerMask:
     serializedVersion: 2
     m_Bits: 4087
+  dirOffset: 0
 --- !u!114 &7977580245597859538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -864,11 +866,11 @@ MonoBehaviour:
   rotationSpeed: 360
   slowdownDistance: 0.6
   pickNextWaypointDist: 2
-  endReachedDistance: 0.2
+  endReachedDistance: 0.5
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
-  constrainInsideGraph: 0
+  constrainInsideGraph: 1
 --- !u!114 &7977580245597859539
 MonoBehaviour:
   m_ObjectHideFlags: 0

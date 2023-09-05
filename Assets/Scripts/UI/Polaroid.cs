@@ -44,11 +44,14 @@ public class Polaroid : MonoBehaviour
     {
         if (isLerping) { StartCoroutine(PoloroidLerp()); }
 
-        polaroidCamera.transform.localPosition = lookDirection * 3.5f + new Vector3(0, 0, -20);
+        float mult = 1;
+        if (lookDirection.x != 0 && lookDirection.y != 0) mult = Mathf.Sqrt(2);
+        polaroidCamera.transform.localPosition = lookDirection * 3f * mult + new Vector3(0, 0, -20);
     }
 
     void Fired()
     {
+        AudioEventController.CameraShootPrint();
         startPos = bottomPos;
         endPos = topPos;
         initalPos = transform.localPosition;

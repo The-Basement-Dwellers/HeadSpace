@@ -16,6 +16,8 @@ public class PlayerAnimation : MonoBehaviour
     private bool isMoving;
     private bool canMoveFlash;
 
+    [SerializeField] private float animationSpeedMult = 1.5f;
+
     [SerializeField] private GameObject head;
     [SerializeField] private GameObject body;
 
@@ -74,6 +76,8 @@ public class PlayerAnimation : MonoBehaviour
 
         bodyAnimator.SetBool("isMoving", isMoving);
         headAnimator.SetBool("isMoving", isMoving);
+
+        bodyAnimator.speed = moveDirection.magnitude * animationSpeedMult;
     }
 
     private void SetMoveDirection(Vector3 eventMoveDirection, GameObject targetedGameObject) {

@@ -82,6 +82,7 @@ public class PlayerDash : MonoBehaviour
 	{
 		if (!isDashing && !dashOnCooldown && moveDirection.magnitude > 0.05f)
 		{
+			AudioEventController.Dash();
 			StartCoroutine(DashCooldown(dashCooldown));
 			startVelocity = dashSpeed * rb.velocity.normalized;
 			endVelocity = rb.velocity;

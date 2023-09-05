@@ -86,6 +86,8 @@ public class CameraWeapon : MonoBehaviour
 			flashSpill.GetComponent<Light2D>().pointLightOuterRadius = range * 2;
 			Invoke("DisableFlash", flashDuration);
 
+			bool playAudio = true;
+
 			List<GameObject> collidersCopy = new List<GameObject>(colliders);
 
 			List<GameObject> damagedColliders = new List<GameObject>();
@@ -107,6 +109,7 @@ public class CameraWeapon : MonoBehaviour
 
 								bool withinRange = Vector3.Distance(player.transform.position, hit.collider.gameObject.transform.position) <= range;
 								if (withinRange && hasLOS) {
+									playAudio = false;
 									Vector3 dif = hit.transform.position - transform.position;
 									float chargeDamageAmount = damageAmount * rangePercent;
 									CameraEventController.Damage(hit.collider.gameObject, chargeDamageAmount);
@@ -123,7 +126,9 @@ public class CameraWeapon : MonoBehaviour
 			}
 			range = 0;
 			preFlash.SetActive(false);
-		}
+
+			if (playAudio) AudioEventController.CameraShoot();
+        }
 	}
 	
 	private void DisableFlash() {
@@ -169,10 +174,10 @@ public class CameraWeapon : MonoBehaviour
 		}
 
 		lerpScaleY = Mathf.Lerp(0, 1f, percentageComplete);
-		cameraBar.transform.localScale = new Vector3(1, lerpScaleY, 0f);
+		cameraBar.transform.localScale = new Vector3(1, lerpScaleY, 1f);
 
 		float barHeight = cameraBar.GetComponent<RectTransform>().rect.height;
-		cameraBar.transform.localPosition = new Vector3(0, -barHeight + ((barHeight/2) * lerpScaleY) + 5f, 0);
+		cameraBar.transform.localPosition = new Vector3(0, -barHeight + (barHeight/2 * lerpScaleY) + 5f, 0);
 		yield return null;
 	}
 	

@@ -9,6 +9,5 @@ public class EnemyTemplate : ScriptableObject
     public float health;
     public float maxHealth;
     public float damage;
-
 }
 

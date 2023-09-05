@@ -5,6 +5,7 @@ using Pathfinding;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 using UnityEditor.Experimental.GraphView;
+using System.Net;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -13,13 +14,15 @@ public class EnemyAI : MonoBehaviour
     private GameObject player;
     [SerializeField] private Vector3 dir;
     [SerializeField] private Transform target;
-    [SerializeField] private float maxRange;
-    [SerializeField] private float lookRad;
     private Vector3 spawnPos;
     private Vector3 moveDirection;
     private IAstarAI ai;
     private bool isLost;
+    private bool sightLine;
     private float delay;
+    private AIPath aiPath;
+    [SerializeField] private LayerMask rayLayerMask;
+
 
     private void OnEnable()
     {
@@ -45,7 +48,9 @@ public class EnemyAI : MonoBehaviour
 
     private void Start()
     {
+        aiPath = GetComponent<AIPath>();
         spawnPos = transform.position;
+
     }
     void Update()
     {
@@ -53,32 +58,44 @@ public class EnemyAI : MonoBehaviour
         float fortnite = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         cone.transform.eulerAngles = new Vector3(0, 0, fortnite + 90);
 
+        if (ai.reachedDestination)
+        {
+            ai.destination = spawnPos;
+        }
     }
 
     private void FixedUpdate()
     {
-        StartCoroutine(Lost(2));
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - transform.position, rayLayerMask);
+        Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.red, 1);
+        
         if (hit.collider != null)
         {
-            //Debug.Log(hit.collider.name);
+            sightLine = true;
+            Debug.Log(hit.collider.name);
+        }
+        else
+        {
+            sightLine = false;
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        
         GraphNode node1 = AstarPath.active.GetNearest(transform.position, NNConstraint.Default).node;
         GraphNode node2 = AstarPath.active.GetNearest(player.transform.position, NNConstraint.Default).node;
-        if (collision.gameObject == player)
+        if (collision.gameObject == player && sightLine && !isLost)
         {
+            Debug.Log("I LOVE MEN");
+            aiPath.maxSpeed = 5;
             target = player.transform;
             delay = 2f;
         }
 
         if (target != null && ai != null)
         {
-            if (PathUtilities.IsPathPossible(node1, node2))
+            if (PathUtilities.IsPathPossible(node1, node2) && sightLine)
             {
                 ai.destination = target.position;
             }
@@ -92,16 +109,6 @@ public class EnemyAI : MonoBehaviour
 
 
     }
-
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if (collision == null) return;
-    //    else if (collision.gameObject == player && !isLost)
-    //    {
-    //        isLost = true;
-    //        StartCoroutine(Lost(delay));
-    //    }
-    //}
 
     IEnumerator FindDirection(Vector3 oldPos)
     {
@@ -122,23 +129,23 @@ public class EnemyAI : MonoBehaviour
     IEnumerator Lost(float delay)
     {
         Debug.Log("Lost has been called");
+        aiPath.maxSpeed = 2;
         yield return new WaitForSeconds(delay);
         target = null;
         ai.destination = PickRandomPoint();
-        ai.SearchPath();
+        //ai.SearchPath();
         Debug.Log("Wandering");
-        yield return new WaitForSeconds(delay);
-        //ai.destination = spawnPos;
         isLost = false;
-    }
 
+    }
+    
+    
     Vector3 PickRandomPoint()
     {
         var startNode = AstarPath.active.GetNearest(transform.position, NNConstraint.Default).node;
         var nodes = PathUtilities.BFS(startNode, 100);
         List<GraphNode> reachableNodes = PathUtilities.GetReachableNodes(startNode);
         var singleRandomPoint = PathUtilities.GetPointsOnNodes(reachableNodes, 1)[0];
-
         return singleRandomPoint;
 
 

@@ -18,6 +18,7 @@ public class EnemyAI : MonoBehaviour
     private Vector3 moveDirection;
     private IAstarAI ai;
     private bool isLost;
+    private bool isWandering;
     private bool sightLine;
     private float delay;
     private AIPath aiPath;
@@ -26,8 +27,7 @@ public class EnemyAI : MonoBehaviour
 
     private void OnEnable()
     {
-        player = GameObject.Find("Player");
-        ai = GetComponent<IAstarAI>();
+
         if (ai != null) ai.onSearchPath += Update;
         EventController.setMoveDirectionEvent += setMoveDirection;
         CameraEventController.damageEvent += Hurt;
@@ -49,7 +49,12 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         aiPath = GetComponent<AIPath>();
+        player = GameObject.Find("Player");
+        ai = GetComponent<IAstarAI>();
         spawnPos = transform.position;
+        isWandering = true;
+        StartCoroutine(Wandering(3));
+
 
     }
     void Update()
@@ -58,10 +63,10 @@ public class EnemyAI : MonoBehaviour
         float fortnite = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         cone.transform.eulerAngles = new Vector3(0, 0, fortnite + 90);
 
-        if (ai.reachedDestination)
-        {
-            ai.destination = spawnPos;
-        }
+        //if (ai.reachedDestination)
+        //{
+        //    ai.destination = spawnPos;
+        //}
 
 
     }
@@ -83,11 +88,11 @@ public class EnemyAI : MonoBehaviour
 
         if (!sightLine || isLost)
         {
-            aiPath.maxSpeed = 2;
+            
         }
         else 
         {
-            aiPath.maxSpeed = 5;
+            
         }
         Debug.Log(aiPath.maxSpeed);
     }
@@ -97,26 +102,26 @@ public class EnemyAI : MonoBehaviour
         
         GraphNode node1 = AstarPath.active.GetNearest(transform.position, NNConstraint.Default).node;
         GraphNode node2 = AstarPath.active.GetNearest(player.transform.position, NNConstraint.Default).node;
-        if (collision.gameObject == player && !isLost)
+        if (collision.gameObject == player && !isLost && sightLine)
         {
-            Debug.Log("SightLine" + sightLine);
-            Debug.Log("isLost" + isLost);
+            //Debug.Log("SightLine" + sightLine);
+            //Debug.Log("isLost" + isLost);
+            aiPath.maxSpeed = 5;
             target = player.transform;
-            delay = 2f;
+           
         }
 
         if (target != null && ai != null)
         {
             if (PathUtilities.IsPathPossible(node1, node2) && sightLine)
             {
-                Debug.Log("ai.destination = target.position");
                 ai.destination = target.position;
             }
             else if (!PathUtilities.IsPathPossible(node1, node2) && !isLost)
             {
                 Debug.Log("Nein");
                 isLost = true;
-                StartCoroutine(Lost(delay));
+                StartCoroutine(Lost(6));
             }
         }
 
@@ -142,20 +147,38 @@ public class EnemyAI : MonoBehaviour
     IEnumerator Lost(float delay)
     {
         Debug.Log("Lost has been called");
+        aiPath.maxSpeed = 3.5f;
         yield return new WaitForSeconds(delay);
         target = null;
         ai.destination = PickRandomPoint();
-        //ai.SearchPath();
-        Debug.Log("Wandering");
+        Debug.Log("AI Lost Player. Trying to find");
         isLost = false;
-
+        isWandering = true;
     }
     
+    IEnumerator Wandering(float delay)
+    {
+        target = null;
+        if (isWandering)
+        {
+            aiPath.maxSpeed = 2;
+            ai.destination = PickRandomPoint();
+            yield return new WaitForSeconds(delay);
+            StartCoroutine(Wandering(delay));
+        }
+        else if (!isLost)
+        {
+            isWandering = false;
+        }
+        
+
+
+    }
     
     Vector3 PickRandomPoint()
     {
         var startNode = AstarPath.active.GetNearest(transform.position, NNConstraint.Default).node;
-        var nodes = PathUtilities.BFS(startNode, 100);
+        var nodes = PathUtilities.BFS(startNode, 150);
         List<GraphNode> reachableNodes = PathUtilities.GetReachableNodes(startNode);
         var singleRandomPoint = PathUtilities.GetPointsOnNodes(reachableNodes, 1)[0];
         return singleRandomPoint;

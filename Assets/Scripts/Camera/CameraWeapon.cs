@@ -174,10 +174,10 @@ public class CameraWeapon : MonoBehaviour
 		}
 
 		lerpScaleY = Mathf.Lerp(0, 1f, percentageComplete);
-		cameraBar.transform.localScale = new Vector3(1, lerpScaleY, 0f);
+		cameraBar.transform.localScale = new Vector3(1, lerpScaleY, 1f);
 
 		float barHeight = cameraBar.GetComponent<RectTransform>().rect.height;
-		cameraBar.transform.localPosition = new Vector3(0, -barHeight + ((barHeight/2) * lerpScaleY) + 5f, 0);
+		cameraBar.transform.localPosition = new Vector3(0, -barHeight + (barHeight/2 * lerpScaleY) + 5f, 0);
 		yield return null;
 	}
 	

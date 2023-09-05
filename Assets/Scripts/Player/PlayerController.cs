@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
 		if (playerHealth <= 0 && !newSceneLoading) {
 			newSceneLoading = true;
 			deathScreen.SetActive(true);
+			Destroy(gameObject);
         }
 
         // read move input

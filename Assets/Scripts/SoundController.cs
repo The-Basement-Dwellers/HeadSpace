@@ -5,10 +5,9 @@ using UnityEngine;
 public class SoundController : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioSource footstepsSource;
-    [SerializeField] private AudioClip
-        cameraShootClip,
-        cameraShootPrintClip,
+    [SerializeField] private AudioSource
+        cameraShoot,
+        cameraShootPrint,
         dash,
         doorOpen,
         doorClose,
@@ -16,48 +15,46 @@ public class SoundController : MonoBehaviour
 
     private void OnEnable()
     {
-        AudioEventController.cameraShoot += cameraShoot;
-        AudioEventController.cameraShootPrint += cameraShootPrint;
+        AudioEventController.cameraShoot += CameraShoot;
+        AudioEventController.cameraShootPrint += CameraShootPrint;
         AudioEventController.dash += Dash;
         AudioEventController.hit += Hit;
+        AudioEventController.doorOpen += DoorOpen;
+        AudioEventController.doorClose += DoorClose;
     }
 
     private void OnDisable()
     {
-        AudioEventController.cameraShoot -= cameraShoot;
-        AudioEventController.cameraShootPrint -= cameraShootPrint;
+        AudioEventController.cameraShoot -= CameraShoot;
+        AudioEventController.cameraShootPrint -= CameraShootPrint;
         AudioEventController.dash -= Dash;
         AudioEventController.hit -= Hit;
+        AudioEventController.doorOpen -= DoorOpen;
+        AudioEventController.doorClose -= DoorClose;
     }
 
-    private void cameraShoot()
+    private void CameraShoot()
     {
-        audioSource.clip = cameraShootClip;
-        audioSource.Play();
+        cameraShoot.Play();
     }
 
-    private void cameraShootPrint() {
-        audioSource.clip = cameraShootPrintClip;
-        audioSource.Play();
+    private void CameraShootPrint() {
+        cameraShootPrint.Play();
     }
 
     private void Dash() {
-        audioSource.clip = dash;
-        audioSource.Play();
+        dash.Play();
     }
 
     private void DoorOpen() {
-        audioSource.clip = doorOpen;
-        audioSource.Play();
+        doorOpen.Play();
     }
 
     private void DoorClose() {
-        audioSource.clip = doorClose;
-        audioSource.Play();
+        doorClose.Play();
     }
 
     private void Hit() {
-        audioSource.clip = hit;
-        audioSource.Play();
+        hit.Play();
     }
 }

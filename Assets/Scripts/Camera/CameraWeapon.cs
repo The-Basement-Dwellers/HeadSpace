@@ -76,7 +76,6 @@ public class CameraWeapon : MonoBehaviour
 		
 		if (!isOnCooldown)
 		{
-			AudioEventController.CameraShoot();
 			isOnCooldown = true;
 			elapsedTimeCooldown = 0;
 
@@ -86,6 +85,8 @@ public class CameraWeapon : MonoBehaviour
 			flashSpill.GetComponent<Light2D>().pointLightInnerRadius = range;
 			flashSpill.GetComponent<Light2D>().pointLightOuterRadius = range * 2;
 			Invoke("DisableFlash", flashDuration);
+
+			bool playAudio = true;
 
 			List<GameObject> collidersCopy = new List<GameObject>(colliders);
 
@@ -108,6 +109,7 @@ public class CameraWeapon : MonoBehaviour
 
 								bool withinRange = Vector3.Distance(player.transform.position, hit.collider.gameObject.transform.position) <= range;
 								if (withinRange && hasLOS) {
+									playAudio = false;
 									Vector3 dif = hit.transform.position - transform.position;
 									float chargeDamageAmount = damageAmount * rangePercent;
 									CameraEventController.Damage(hit.collider.gameObject, chargeDamageAmount);
@@ -124,7 +126,9 @@ public class CameraWeapon : MonoBehaviour
 			}
 			range = 0;
 			preFlash.SetActive(false);
-		}
+
+			if (playAudio) AudioEventController.CameraShoot();
+        }
 	}
 	
 	private void DisableFlash() {

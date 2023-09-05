@@ -30,14 +30,14 @@ public class EnemyAI : MonoBehaviour
         ai = GetComponent<IAstarAI>();
         if (ai != null) ai.onSearchPath += Update;
         EventController.setMoveDirectionEvent += setMoveDirection;
-        EventController.damageEvent += Hurt;
+        CameraEventController.damageEvent += Hurt;
 
     }
 
     private void OnDisable()
     {
         EventController.setMoveDirectionEvent -= setMoveDirection;
-        EventController.damageEvent -= Hurt;
+        CameraEventController.damageEvent -= Hurt;
         if (ai != null) ai.onSearchPath -= Update;
     }
 
@@ -62,6 +62,8 @@ public class EnemyAI : MonoBehaviour
         {
             ai.destination = spawnPos;
         }
+
+
     }
 
     private void FixedUpdate()
@@ -69,7 +71,7 @@ public class EnemyAI : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - transform.position, rayLayerMask);
         Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.red, 1);
         
-        if (hit.collider != null)
+        if (hit.collider != null && hit.collider.name == "Player")
         {
             sightLine = true;
             Debug.Log(hit.collider.name);
@@ -78,6 +80,16 @@ public class EnemyAI : MonoBehaviour
         {
             sightLine = false;
         }
+
+        if (!sightLine || isLost)
+        {
+            aiPath.maxSpeed = 2;
+        }
+        else 
+        {
+            aiPath.maxSpeed = 5;
+        }
+        Debug.Log(aiPath.maxSpeed);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -85,10 +97,10 @@ public class EnemyAI : MonoBehaviour
         
         GraphNode node1 = AstarPath.active.GetNearest(transform.position, NNConstraint.Default).node;
         GraphNode node2 = AstarPath.active.GetNearest(player.transform.position, NNConstraint.Default).node;
-        if (collision.gameObject == player && sightLine && !isLost)
+        if (collision.gameObject == player && !isLost)
         {
-            Debug.Log("I LOVE MEN");
-            aiPath.maxSpeed = 5;
+            Debug.Log("SightLine" + sightLine);
+            Debug.Log("isLost" + isLost);
             target = player.transform;
             delay = 2f;
         }
@@ -97,6 +109,7 @@ public class EnemyAI : MonoBehaviour
         {
             if (PathUtilities.IsPathPossible(node1, node2) && sightLine)
             {
+                Debug.Log("ai.destination = target.position");
                 ai.destination = target.position;
             }
             else if (!PathUtilities.IsPathPossible(node1, node2) && !isLost)
@@ -129,7 +142,6 @@ public class EnemyAI : MonoBehaviour
     IEnumerator Lost(float delay)
     {
         Debug.Log("Lost has been called");
-        aiPath.maxSpeed = 2;
         yield return new WaitForSeconds(delay);
         target = null;
         ai.destination = PickRandomPoint();

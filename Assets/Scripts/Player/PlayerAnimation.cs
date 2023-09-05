@@ -23,8 +23,8 @@ public class PlayerAnimation : MonoBehaviour
     {
         EventController.setMoveDirectionEvent += SetMoveDirection;
         EventController.setLookDirectionEvent += SetLookDirection;
-        EventController.setIsShootingEvent += SetIsShooting;
-        EventController.setCanMoveFlash += SetCanMoveFlash;
+        CameraEventController.setIsShootingEvent += SetIsShooting;
+        CameraEventController.setCanMoveFlash += SetCanMoveFlash;
 
         headAnimator = head.GetComponent<Animator>();
         bodyAnimator = body.GetComponent<Animator>();
@@ -34,8 +34,8 @@ public class PlayerAnimation : MonoBehaviour
     {
         EventController.setMoveDirectionEvent -= SetMoveDirection;
         EventController.setLookDirectionEvent -= SetLookDirection;
-        EventController.setIsShootingEvent -= SetIsShooting;
-        EventController.setCanMoveFlash -= SetCanMoveFlash;
+        CameraEventController.setIsShootingEvent -= SetIsShooting;
+        CameraEventController.setCanMoveFlash -= SetCanMoveFlash;
     }
 
     private void Update()
@@ -44,16 +44,13 @@ public class PlayerAnimation : MonoBehaviour
         if (lookDirection.magnitude > 0.05)
         {
             if (lookDirection.x > 0.1) {
-                shadows.enabled = false;
                 preFlash.transform.localPosition = new Vector3(0.0221f, 0.5826f, 0);
             } else if (lookDirection.x < -0.1) {
-                shadows.enabled = false;
                 preFlash.transform.localPosition = new Vector3(-0.0221f, 0.5826f, 0);
             } else if (lookDirection.y > 0.1) {
                 shadows.enabled = true;
                 preFlash.transform.localPosition = new Vector3(0.0167f, 0.5594f, 0);
             } else if (lookDirection.y < -0.1) {
-                shadows.enabled = false;
                 preFlash.transform.localPosition = new Vector3(-0.0167f, 0.6047f, 0);
             } 
 
@@ -62,9 +59,11 @@ public class PlayerAnimation : MonoBehaviour
         }
         else if (moveDirection.magnitude > 0.05)
         {
+            shadows.enabled = false;
             headAnimator.SetFloat("X", moveDirection.x);
             headAnimator.SetFloat("Y", moveDirection.y);
-        }
+        } else shadows.enabled = false;
+ 
 
         if (moveDirection.magnitude > 0.05)
         {

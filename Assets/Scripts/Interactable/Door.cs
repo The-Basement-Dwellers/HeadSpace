@@ -7,6 +7,7 @@ using Pathfinding;
 public class Door : MonoBehaviour, IInteractable
 {
 	private GraphUpdateScene gustavofring;
+	[SerializeField] Sprite open, closed;
 
 	void Start()
 	{
@@ -18,7 +19,8 @@ public class Door : MonoBehaviour, IInteractable
 		{
 			AudioEventController.DoorClose();
 			gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-			gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+			gameObject.GetComponent<SpriteRenderer>().sprite = closed;
+			gameObject.GetComponent<SpriteRenderer>().sortingOrder = 0;
 			gameObject.layer = 4;
 			
 
@@ -27,8 +29,9 @@ public class Door : MonoBehaviour, IInteractable
 		{
 			AudioEventController.DoorOpen();
 			gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-			gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, .5f);
-			gameObject.layer = 2;
+			gameObject.GetComponent<SpriteRenderer>().sprite = open;
+            gameObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
+            gameObject.layer = 2;
 		}
         gustavofring.Apply();
     }

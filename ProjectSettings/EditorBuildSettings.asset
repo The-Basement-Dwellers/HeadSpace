@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/menu.unity
     guid: 5c25e2cb6fb534871beedb2ff509cd0a
   - enabled: 1
-    path: Assets/Scenes/old_ward_1.unity
-    guid: 98c8376eea28f4f8aa34804f2088f603
+    path: Assets/Scenes/ward_0.unity
+    guid: ddd0480bd7f94954f8345ca31b69e77b
+  - enabled: 1
+    path: Assets/Scenes/ward_1.unity
+    guid: a67515206277fe047b1719adba07664f
   - enabled: 1
     path: Assets/Scenes/old_ward_2.unity
     guid: 7f3fd69a6591293439be8e6f24b54364

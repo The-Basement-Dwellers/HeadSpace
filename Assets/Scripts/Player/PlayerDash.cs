@@ -13,6 +13,10 @@ public class PlayerDash : MonoBehaviour
 	private PlayerInputActions playerControls;
 	private InputAction dash;
 	private Vector2 moveDirection = Vector2.zero;
+	private Vector2 lookDirection = Vector2.zero;
+
+	private Vector2 dashDirection = new Vector2(0, -1);
+	private bool isBulletTime = false;
 	private Vector3 startVelocity;
 	private Vector3 endVelocity;
 	private float elapsedTime;
@@ -37,6 +41,8 @@ public class PlayerDash : MonoBehaviour
 		dash.performed += Dash;
 
 		EventController.setMoveDirectionEvent += setMoveDirection;
+		EventController.setLookDirectionEvent += setLookDirectionEvent;
+		EventController.isBulletTime += IsBulletTime;
 		dashOnCooldown = false;
 	}
 
@@ -44,10 +50,27 @@ public class PlayerDash : MonoBehaviour
 	{
 		dash.Disable();
 		EventController.setMoveDirectionEvent -= setMoveDirection;
+		EventController.setLookDirectionEvent -= setLookDirectionEvent;
+		EventController.isBulletTime -= IsBulletTime;
+
 	}
 
 	private void setMoveDirection(Vector3 eventMoveDirection, GameObject targetedGameObject) {
-		if (gameObject == targetedGameObject) moveDirection = eventMoveDirection;
+		if (gameObject == targetedGameObject && eventMoveDirection.magnitude > 0) dashDirection = eventMoveDirection;
+	}
+
+	private void setLookDirectionEvent(Vector3 eventLookDirection) {
+		if (eventLookDirection.magnitude > 0) {
+			Debug.Log("set");
+			dashDirection = eventLookDirection;
+		}
+	}
+
+	private void IsBulletTime(bool bulletTime) {
+		isBulletTime = bulletTime;
+		if (isBulletTime) {
+			dashDirection = new Vector2(0, 1);
+		}
 	}
 
 	private void Start() {
@@ -80,12 +103,14 @@ public class PlayerDash : MonoBehaviour
 	// called on dash input
 	private void Dash(InputAction.CallbackContext context)
 	{
-		if (!isDashing && !dashOnCooldown && moveDirection.magnitude > 0.05f)
+		if (!isDashing && !dashOnCooldown)
 		{
 			AudioEventController.Dash();
 			StartCoroutine(DashCooldown(dashCooldown));
-			startVelocity = dashSpeed * rb.velocity.normalized;
-			endVelocity = rb.velocity;
+			startVelocity = rb.velocity.normalized;
+			Debug.Log(rb.velocity);
+			Debug.Log(lookDirection);
+			endVelocity = dashDirection * dashSpeed;
 			elapsedTime = 0;
 			isDashing = true;
 			EventController.StartIsDashingEvent(true);

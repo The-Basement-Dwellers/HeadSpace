@@ -8,10 +8,18 @@ public class Door : MonoBehaviour, IInteractable
 {
 	private GraphUpdateScene gustavofring;
 	[SerializeField] Sprite open, closed;
+	[SerializeField] bool openByDefault = false;
 
 	void Start()
 	{
 		gustavofring = gameObject.GetComponent<GraphUpdateScene>();
+		if (openByDefault) {
+			gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+			gameObject.GetComponent<SpriteRenderer>().sprite = open;
+            gameObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
+            gameObject.layer = 2;
+		}
+
 	}
     public void Interact()
 	{

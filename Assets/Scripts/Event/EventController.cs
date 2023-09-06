@@ -16,6 +16,8 @@ public class EventController : MonoBehaviour {
 	public static event Action<GameObject> colliderEnter;
 	public static event Action<GameObject> colliderExit;
 
+	public static event Action<bool> isBulletTime;
+
 	public static void StartColliderEnterEvent(GameObject targetedGameObject) {
 		colliderEnter?.Invoke(targetedGameObject);
 	}
@@ -47,5 +49,9 @@ public class EventController : MonoBehaviour {
 	public static void InteractEvent()
 	{
 		interactEvent?.Invoke();
+	}
+
+	public static void IsBulletTime(bool bulletTime) {
+		isBulletTime?.Invoke(bulletTime);
 	}
 }

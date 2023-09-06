@@ -105,78 +105,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ward_tilemap_blood_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 192
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5846fab14384147749767b7089537fab
-      internalID: 345040569
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ward_tilemap_dirt_0
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 192
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 68f6e2dc3bb7b4e74b1b4c70565631bd
-      internalID: 1364943212
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ward_tilemap_clean_0
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 192
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0715f2bfd4bb643f185d237f65993dc7
-      internalID: 1165166510
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ward_tilemap_3
       rect:
         serializedVersion: 2
         x: 96
-        y: 192
+        y: 224
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -193,11 +130,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 192
+        y: 224
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -214,11 +151,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 160
-        y: 192
+        y: 224
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -231,78 +168,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ward_tilemap_blood_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 160
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c1345bd4ab0eb4a66ace3b99ed78b52e
-      internalID: -633153338
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ward_tilemap_dirt_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 160
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c8187986032404e6fbf4dc58c4b1ff9b
-      internalID: 490286443
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ward_tilemap_clean_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 160
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0a891f986a2af475c943900f4109ca2d
-      internalID: -34686914
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ward_tilemap_9
       rect:
         serializedVersion: 2
-        x: 96
-        y: 160
+        x: 32
+        y: 192
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -318,12 +192,12 @@ TextureImporter:
       name: ward_tilemap_10
       rect:
         serializedVersion: 2
-        x: 128
-        y: 160
+        x: 64
+        y: 192
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -339,12 +213,12 @@ TextureImporter:
       name: ward_tilemap_11
       rect:
         serializedVersion: 2
-        x: 160
-        y: 160
+        x: 96
+        y: 192
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -360,12 +234,12 @@ TextureImporter:
       name: ward_tilemap_12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
+        x: 128
+        y: 192
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -381,12 +255,12 @@ TextureImporter:
       name: ward_tilemap_13
       rect:
         serializedVersion: 2
-        x: 32
-        y: 128
+        x: 160
+        y: 192
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -402,12 +276,12 @@ TextureImporter:
       name: ward_tilemap_14
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
+        x: 192
+        y: 192
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -423,12 +297,12 @@ TextureImporter:
       name: ward_tilemap_15
       rect:
         serializedVersion: 2
-        x: 96
-        y: 128
+        x: 224
+        y: 192
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -444,12 +318,12 @@ TextureImporter:
       name: ward_tilemap_16
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
+        x: 0
+        y: 160
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -465,12 +339,12 @@ TextureImporter:
       name: ward_tilemap_17
       rect:
         serializedVersion: 2
-        x: 160
-        y: 128
+        x: 32
+        y: 160
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -486,12 +360,12 @@ TextureImporter:
       name: ward_tilemap_18
       rect:
         serializedVersion: 2
-        x: 0
-        y: 96
+        x: 64
+        y: 160
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -507,12 +381,12 @@ TextureImporter:
       name: ward_tilemap_19
       rect:
         serializedVersion: 2
-        x: 32
-        y: 96
+        x: 96
+        y: 160
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -528,12 +402,12 @@ TextureImporter:
       name: ward_tilemap_20
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
+        x: 160
+        y: 160
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -549,12 +423,12 @@ TextureImporter:
       name: ward_tilemap_21
       rect:
         serializedVersion: 2
-        x: 96
-        y: 96
+        x: 192
+        y: 160
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -570,12 +444,12 @@ TextureImporter:
       name: ward_tilemap_22
       rect:
         serializedVersion: 2
-        x: 128
-        y: 96
+        x: 224
+        y: 160
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -591,12 +465,12 @@ TextureImporter:
       name: ward_tilemap_23
       rect:
         serializedVersion: 2
-        x: 160
-        y: 96
+        x: 0
+        y: 128
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -612,12 +486,12 @@ TextureImporter:
       name: ward_tilemap_24
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 32
+        y: 128
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -633,15 +507,19 @@ TextureImporter:
       name: ward_tilemap_25
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
+        x: 64
+        y: 128
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -16, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: -15}
+        - {x: -16, y: -15}
       tessellationDetail: 0
       bones: []
       spriteID: fa072cc605b4e4e83a22334b3d6ff5a4
@@ -654,15 +532,19 @@ TextureImporter:
       name: ward_tilemap_26
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
+        x: 96
+        y: 128
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -16, y: -16}
+        - {x: -16, y: -15}
+        - {x: 16, y: -15}
+        - {x: 16, y: -16}
       tessellationDetail: 0
       bones: []
       spriteID: 86347f3aad3a745a4a4a5cf20eaf88bf
@@ -675,15 +557,19 @@ TextureImporter:
       name: ward_tilemap_27
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 128
+        y: 128
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -16, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: -15}
+        - {x: -16, y: -15}
       tessellationDetail: 0
       bones: []
       spriteID: 8730b4a4731094b288cda776f1e7d377
@@ -696,12 +582,12 @@ TextureImporter:
       name: ward_tilemap_28
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
+        x: 192
+        y: 128
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -717,12 +603,12 @@ TextureImporter:
       name: ward_tilemap_29
       rect:
         serializedVersion: 2
-        x: 96
-        y: 32
+        x: 224
+        y: 128
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -738,12 +624,12 @@ TextureImporter:
       name: ward_tilemap_30
       rect:
         serializedVersion: 2
-        x: 128
-        y: 32
+        x: 0
+        y: 96
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -759,12 +645,12 @@ TextureImporter:
       name: ward_tilemap_31
       rect:
         serializedVersion: 2
-        x: 160
-        y: 32
+        x: 32
+        y: 96
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -780,12 +666,12 @@ TextureImporter:
       name: ward_tilemap_32
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 64
+        y: 96
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -798,106 +684,127 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ward_tilemap_33
+      name: ward_tilemap_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c726c1591c34346789a30e2a3a847563
+      internalID: 425559134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ward_tilemap_1
       rect:
         serializedVersion: 2
         x: 32
-        y: 0
+        y: 224
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 20c453dc5c7e74010a604773e5ff7f45
-      internalID: -1616575991
+      spriteID: 17b466b8f78db4480b2140bbfe991901
+      internalID: 1986027789
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ward_tilemap_34
+      name: ward_tilemap_2
       rect:
         serializedVersion: 2
         x: 64
-        y: 0
+        y: 224
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fee6298d7d05d49d28e23e8736322062
-      internalID: 1632992333
+      spriteID: 70b73f21fd0864288a416d4a23a19336
+      internalID: 1888931550
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ward_tilemap_35
+      name: ward_tilemap_6
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
+        x: 192
+        y: 224
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cff210417d0df40a68b4c201a4815c8e
-      internalID: -697330865
+      spriteID: 90ffc232bd78e4ad99f054f95fe4cd1a
+      internalID: -619428618
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ward_tilemap_36
+      name: ward_tilemap_7
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
+        x: 224
+        y: 224
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2442fa3c7ea5f48e0a7a598f0a5e396c
-      internalID: -898843323
+      spriteID: 306061e77205c411aaa64d4c561811e3
+      internalID: -1344945593
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ward_tilemap_37
+      name: ward_tilemap_8
       rect:
         serializedVersion: 2
-        x: 160
-        y: 0
+        x: 0
+        y: 192
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2313f23b7d8945c89883ab6e81ef307
-      internalID: 525008553
+      spriteID: f47e317c7e8c44c529ff8ebaac2cd2da
+      internalID: 1784060932
       vertices: []
       indices: 
       edges: []
@@ -913,6 +820,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      ward_tilemap_0: 425559134
+      ward_tilemap_1: 1986027789
       ward_tilemap_10: -2078243633
       ward_tilemap_11: -142082066
       ward_tilemap_12: 1462521370
@@ -923,6 +832,7 @@ TextureImporter:
       ward_tilemap_17: -1061359954
       ward_tilemap_18: 943310114
       ward_tilemap_19: -183457538
+      ward_tilemap_2: 1888931550
       ward_tilemap_20: -1013558357
       ward_tilemap_21: 472262229
       ward_tilemap_22: -654013109
@@ -942,15 +852,19 @@ TextureImporter:
       ward_tilemap_35: -697330865
       ward_tilemap_36: -898843323
       ward_tilemap_37: 525008553
+      ward_tilemap_38: -2220754
+      ward_tilemap_39: -1015662825
       ward_tilemap_4: 1038551646
+      ward_tilemap_40: 1156018009
+      ward_tilemap_41: 1260968705
+      ward_tilemap_42: 1609800005
+      ward_tilemap_43: -948501943
+      ward_tilemap_44: -741831430
       ward_tilemap_5: -211127202
+      ward_tilemap_6: -619428618
+      ward_tilemap_7: -1344945593
+      ward_tilemap_8: 1784060932
       ward_tilemap_9: -1635189532
-      ward_tilemap_blood_0: 345040569
-      ward_tilemap_blood_1: -633153338
-      ward_tilemap_clean_0: 1165166510
-      ward_tilemap_clean_1: -34686914
-      ward_tilemap_dirt_0: 1364943212
-      ward_tilemap_dirt_1: 490286443
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

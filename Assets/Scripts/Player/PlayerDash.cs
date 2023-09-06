@@ -108,8 +108,6 @@ public class PlayerDash : MonoBehaviour
 			AudioEventController.Dash();
 			StartCoroutine(DashCooldown(dashCooldown));
 			startVelocity = rb.velocity.normalized;
-			Debug.Log(rb.velocity);
-			Debug.Log(lookDirection);
 			endVelocity = dashDirection * dashSpeed;
 			elapsedTime = 0;
 			isDashing = true;

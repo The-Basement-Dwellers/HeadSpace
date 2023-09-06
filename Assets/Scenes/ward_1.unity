@@ -347,10 +347,6 @@ PrefabInstance:
       propertyPath: damage
       value: 1e+10
       objectReference: {fileID: 0}
-    - target: {fileID: 2558887114702306259, guid: 4b9b2de6b7f7041038131978c9b48dcd, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2624764006800727191, guid: 4b9b2de6b7f7041038131978c9b48dcd, type: 3}
       propertyPath: dirOffset
       value: 270
@@ -5698,7 +5694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 322136140}
   enemy: {fileID: 736065957}
-  distanceToStart: 1.5
+  distanceToStart: 1.1
 --- !u!4 &1549193996
 Transform:
   m_ObjectHideFlags: 0
@@ -6171,10 +6167,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1176668286, guid: 0fc03c1333b394841ae3fb2bf5dc5785, type: 3}
-      propertyPath: data.dataString
-      value: UEsDBBQAAAgIAABoIew9aSCwdAIAADAFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMFy4jAM/RXG54VJKBSyt12gdA9tmdKdXnIxtkI8OHbGdgq0w7+v7CQky85yQZH0pKcnJV9EKFsCc9qsjeBPmgP5PiDeJt8GXfARTnSv1VZ8QpvzLrjLfRINOa/UCY3+2MOsLsAZwX6ovfTJETorJTJtihXfw0JbZ9GdUWkBQ0Y7j1bo+hqQE/4NEw85ozWeeesTrSQaXNBkoByYLnUymt41udFoMonwF8ezBlNDKsUkLUrgnn+HnI2mDRBrhESFszU5UQgyLaWwDTXizmUYfVvmYMDPzgXFSQOdGpCD2OfO8+6jX7LMgmuEMPS8FAYlq8uSn7rWsaD2UJP7oLLyjeY1/brm0z/hYRzCmdHFY9s2jnwLlwt2eKVnRq3r6dx3LzvmcZDoSOWB7iS856Ce9droSnEMOlN5aGVhvOwer5MtcmCHzl9TvXFWZad5u9Z4FCfjKLmL56th1G7LD3QJSpwWUhS7eqW1Yyt1ED8cBhhc1C9kH87GNnXR6yn9tvBG9/37agIPwliHoWZk5bnudGV8KnlAw2+BVW6hjQLTL1CCotKdN1jG3a7zJvZ/1AP1b1LTvIm1L8gNJLi7/Ci6CW308bo5m+vjE9j8pXJSKOhk94Fn1GmhlaqvrT9SC9tWJqOsB9tXgv99ZyQbT+/jJI5m2XzCx/x+mMS7KJuyHZvPIk4nCQmHKBTOSeWmJtrIg1tTXXGFR9d+YAZrQ8tw+dzQ41p8Ftp2mUJlessMgHqpK1yJg8Em+JLyFRco0BacEyrsm3ylRGp2AJ5eC6Vh0tXJGZp2VVJSig/tvCcli/BFSYl3Xw97Y+BDwNE3b4tdyOUPUEsDBBQAAAgIAABoIex6jgbmbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrRSmpGpmaGloYF5moVJilGKma6lYZJBmmlyUrKFuUFKoomlUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAABoIew9aSCwdAIAADAFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAABoIex6jgbmbQAAAHgAAAAJACQAAAAAAAAAAAAAAMECAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAeQMAAAAA
-      objectReference: {fileID: 0}
     - target: {fileID: 3523321692033882160, guid: 0fc03c1333b394841ae3fb2bf5dc5785, type: 3}
       propertyPath: m_Name
       value: GameController
@@ -6222,10 +6214,6 @@ PrefabInstance:
     - target: {fileID: 3523321692033882189, guid: 0fc03c1333b394841ae3fb2bf5dc5785, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7565509847483094204, guid: 0fc03c1333b394841ae3fb2bf5dc5785, type: 3}
-      propertyPath: m_Intensity
-      value: 0.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fc03c1333b394841ae3fb2bf5dc5785, type: 3}
@@ -6510,10 +6498,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6063935169211142296, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 6063935169211142297, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -6561,10 +6545,6 @@ PrefabInstance:
     - target: {fileID: 6063935169211142300, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
       propertyPath: playerMaxHealth
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6063935169211142301, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
-      propertyPath: dashSpeed
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6063935169211142326, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
       propertyPath: m_Name

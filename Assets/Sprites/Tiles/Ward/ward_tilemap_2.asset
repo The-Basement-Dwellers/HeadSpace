@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ward_tilemap_37
+  m_Name: ward_tilemap_2
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 525008553, guid: 3bbc9472311da44a4b3da1489724269b, type: 3}
+  m_Sprite: {fileID: 1888931550, guid: 3bbc9472311da44a4b3da1489724269b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

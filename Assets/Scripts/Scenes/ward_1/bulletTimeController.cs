@@ -24,6 +24,7 @@ public class bulletTimeController : MonoBehaviour
             if (distance <= distanceToStart && !isBulletTime) {
                 Time.timeScale = 0.000000001f;
                 isBulletTime = true;
+                GameObject.Find("Player").GetComponent<PlayerDash>().enabled = true;
                 EventController.IsBulletTime(isBulletTime);
                 Debug.Log("Press Space to dash");
             }

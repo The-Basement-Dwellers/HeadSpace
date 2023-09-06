@@ -4,7 +4,6 @@ using UnityEngine;
 using Pathfinding;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
-using UnityEditor.Experimental.GraphView;
 using System.Net;
 
 public class EnemyAI : MonoBehaviour
@@ -78,7 +77,6 @@ public class EnemyAI : MonoBehaviour
         if (hit.collider != null && hit.collider.name == "Player")
         {
             sightLine = true;
-            Debug.Log(hit.collider.name);
         }
 
         else
@@ -86,7 +84,6 @@ public class EnemyAI : MonoBehaviour
             sightLine = false;
         }
 
-        Debug.Log(aiPath.maxSpeed);
     }
 
     private void OnTriggerStay2D(Collider2D collision)

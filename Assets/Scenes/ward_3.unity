@@ -376,6 +376,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &168192755 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3678374218963788666, guid: 0fc03c1333b394841ae3fb2bf5dc5785, type: 3}
+  m_PrefabInstance: {fileID: 627921867}
+  m_PrefabAsset: {fileID: 0}
 --- !u!156049354 &175349599
 Grid:
   m_ObjectHideFlags: 0
@@ -868,6 +873,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1176668286, guid: 0fc03c1333b394841ae3fb2bf5dc5785, type: 3}
+      propertyPath: data.dataString
+      value: UEsDBBQAAAgIAABgIey82MhabQIAACcFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE2T2jAM/SuMz4VJKF/prWUXtofdZZZ29pKLsRXiwbEztrPAMvz3yk5CUjrlgiLpSXpPSi5EKFsCc9qsjeDPmgP5NiDeJl8GXfAJTnSv1VZ8QpvzLrjLfRINOW/UCY3+2MOsLsAZwb6rvfTJETorJTJtike+h6W2zqI7o9IChox2Hq3QdRmQE/4NEw85ozWee+sTrSQaXNFkoByYXmo0mswT/M2+jhvMMBnNG1CNqRSTtCiBewIddDwbTds2aIZUhfSarChEmZZS2GY64s5lYL8tczDg6XNBkWyYKB7N/Qg5iH3ufNE+/DXLLLhGDEPPD8KgbHVd8kPXWhbUHur5PqisfKdFzaCu+fxPeBiHcGZ08dS2jSPfwuWCHd7omVHrelr33Q+90YNKRyoPdCfhPQf1otdGV4pj0JnKQysL44fu8cZsmQM7dP561DtnVXayt6ttF+s5XAP501KKYhekn9SOrdRB8HAPYHA5P3HgcC22KYFeP8VvC7/ovn9WTWAljHUYalgqP95OV8ankhUaXnhWuaU2Cky/QAmKSnfeYBl3v8G72P9RK+pfoKZ5E2vfiztIcHf5UXQX2ujjbVk218dnsPlr5aRQ0CntAy+o01IrVR9Yn1IL21Ymo6wH21eC/31aJBtPZ3ESR/NsMeFjPhsm8S7KpmzHFvOI00lCwu0JhTyp3NSDNvLg1lRXXOGdtd+VwdrQMhw7N/S4Fp+Ftl2mUJneMgOgXusKt8HBYBN8MfkjFyjQFpwTKuybXFIiNTsAT2+F0sD08eQMTbsqKSnFh3bek5Jl+JCkxLtvt7wx8CHg6Ju3xa7k+gdQSwMEFAAACAgAAGAh7HqOBuZtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFKakamZoaWhgXmahUmKUYqZrqVhkkGaaXJSsoW5QUqiiaVSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAGAh7LzYyFptAgAAJwUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAGAh7HqOBuZtAAAAeAAAAAkAJAAAAAAAAAAAAAAAugIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAAByAwAAAAA=
+      objectReference: {fileID: 0}
     - target: {fileID: 3523321692033882160, guid: 0fc03c1333b394841ae3fb2bf5dc5785, type: 3}
       propertyPath: m_Name
       value: GameController
@@ -7999,6 +8008,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6063935169211142300, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
+      propertyPath: deathScreen
+      value: 
+      objectReference: {fileID: 168192755}
     - target: {fileID: 6063935169211142326, guid: 5a935043adbe8e94da6d075a45ead2a2, type: 3}
       propertyPath: m_Name
       value: Player
@@ -8261,6 +8274,10 @@ PrefabInstance:
     - target: {fileID: 3172633893375144731, guid: 37ab8d8d6a06c405f8fb229d4e3bbaab, type: 3}
       propertyPath: m_LocalPosition.y
       value: 8.281416
+      objectReference: {fileID: 0}
+    - target: {fileID: 3172633893375144731, guid: 37ab8d8d6a06c405f8fb229d4e3bbaab, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.063396
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37ab8d8d6a06c405f8fb229d4e3bbaab, type: 3}

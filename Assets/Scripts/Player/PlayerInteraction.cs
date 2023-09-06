@@ -27,46 +27,47 @@ public class PlayerInteraction : MonoBehaviour
     void Start()
     {
         allInteractables = GameObject.FindGameObjectsWithTag("Interactable");
-        closestObject = allInteractables[0];
     }
 
     // Outlining Logic
     void Update()
     {
-        GameObject oldObject = closestObject;
-        closestObject = allInteractables[0];
-        if (oldObject != null)
+        if (allInteractables.Length > 0)
         {
-            for (int i = 0; i < allInteractables.Length; i++)
-            {
-                float interactableDist = Vector3.Distance(player.transform.position, allInteractables[i].transform.position);
+            GameObject oldObject = closestObject;
+            closestObject = allInteractables[0];
 
-                if (interactableDist < Vector3.Distance(player.transform.position, closestObject.transform.position))
+            if (oldObject != null)
+            {
+                foreach (GameObject i in allInteractables)
                 {
-                    closestObject = allInteractables[i];
+                    float interactableDist = Vector3.Distance(player.transform.position, i.transform.position);
+
+                    if (interactableDist < Vector3.Distance(player.transform.position, closestObject.transform.position))
+                    {
+                        closestObject = i;
+                    }
                 }
-            }
+                oldObject.GetComponent<Renderer>().material = defaultMaterial;
+                if (Vector2.Distance(player.transform.position, closestObject.transform.position) <= 1.5)
+                {
 
-            oldObject.GetComponent<Renderer>().material = defaultMaterial;
-            if (Vector2.Distance(player.transform.position, closestObject.transform.position) <= 1.5)
-            {
+                    closestObject.GetComponent<Renderer>().material = whiteOutline;
+                    targetedGameObject = closestObject.GetComponent<IInteractable>();
+                    isHighlighted = true;
 
-                closestObject.GetComponent<Renderer>().material = whiteOutline;
-                targetedGameObject = closestObject.GetComponent<IInteractable>();
-                isHighlighted = true;
-
-            }
-            else
-            {
-                isHighlighted = false;
-                closestObject = null;
+                }
+                else
+                {
+                    isHighlighted = false;
+                    closestObject = null;
+                }
             }
         }
     }
     
     void Interact()
     {
-        //Debug.Log(targetedGameObject);
         if (isHighlighted) {
             targetedGameObject.Interact();
         }

@@ -8,6 +8,9 @@ public class EnemyAnimation : MonoBehaviour
     private Vector3 moveDirection;
     private bool isMoving;
     private Vector3 dir;
+    private Vector3 animDir;
+
+    [SerializeField] private float animationSpeedMult = 1.5f;
 
     // Start is called before the first frame update
     private void OnEnable()
@@ -24,13 +27,14 @@ public class EnemyAnimation : MonoBehaviour
     void Update()
     {
         StartCoroutine(FindDirection(transform.position));
-        if (dir.magnitude > 0.5) {
+        if (animDir.magnitude > 0.5) {
             isMoving = true;
             animator.SetFloat("X", dir.x);
             animator.SetFloat("Y", dir.y);
         } else isMoving = false;
 
         animator.SetBool("isMoving", isMoving);
+        animator.speed = dir.magnitude * animationSpeedMult;
     }
 
     private void setMoveDirection(Vector3 eventMoveDirection, GameObject targetedGameObject) {
@@ -41,6 +45,6 @@ public class EnemyAnimation : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         Vector3 newPosition = transform.position;
         dir = newPosition - a;
-        dir = Vector3.Normalize(dir);
+        animDir = Vector3.Normalize(dir);
     }
 }

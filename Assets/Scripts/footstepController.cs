@@ -15,5 +15,6 @@ public class footstepController : MonoBehaviour
     void Update()
     {
         audioSource.enabled = playSound;
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
     }
 }

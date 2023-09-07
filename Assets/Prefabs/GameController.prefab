@@ -1527,7 +1527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a70f0dbfa01f4a70856341ff922c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoadOnEnemyDeath: 1
+  LoadOnEnemyDeath: 0
   loadingScreen: {fileID: 8827068772610719234}
   loadingBar: {fileID: 4672179501219581165}
 --- !u!114 &3523321692033882191

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class CameraWeapon : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class CameraWeapon : MonoBehaviour
 	private float elapsedTime;
 	private float lerpScaleY = 0.95f;
 	private bool isOnCooldown = false;
+
+	private bool firstHold = true;
 
 	private void OnEnable() {
 		CameraEventController.fireRelease += StopFire;
@@ -90,9 +93,13 @@ public class CameraWeapon : MonoBehaviour
 			List<GameObject> collidersCopy = new List<GameObject>(colliders);
 
 			List<GameObject> damagedColliders = new List<GameObject>();
+
+			bool hitEnemy = false;
+
 			foreach (GameObject collider in collidersCopy) {
 				if (collider != null) {
 					if (collider.gameObject.tag == "Enemy") {
+						hitEnemy = true;
 						rayDistance = Vector3.Distance(player.transform.position, collider.transform.position);
 						RaycastHit2D[] hits = Physics2D.RaycastAll(player.transform.position, collider.transform.position - player.transform.position, rayDistance, rayLayerMask);
 						bool hasLOS = checkLOS(collider, hits);
@@ -122,6 +129,11 @@ public class CameraWeapon : MonoBehaviour
 					colliders.Remove(collider);
 				}
 			}
+			
+			if (!hitEnemy) {
+				EventController.StartTutorialCameraMissEvent();
+			}
+
 			range = 0;
 			preFlash.SetActive(false);
 
@@ -188,8 +200,8 @@ public class CameraWeapon : MonoBehaviour
 		rangePercent = percentageComplete;
 		percentageComplete = Mathf.Clamp(percentageComplete, 0, 1);
 		if (percentageComplete < shootThreshhold) rangePercent = 0;
-		else rangePercent = (percentageComplete - shootThreshhold);
-		rangePercent = (rangePercent / (1 - shootThreshhold));
+		else rangePercent = percentageComplete - shootThreshhold;
+		rangePercent = rangePercent / (1 - shootThreshhold);
 		rangePercent = Mathf.Clamp(rangePercent, 0, 1);
 		range = Mathf.Lerp(0, maxRange, rangePercent);
 		rangeFlash.GetComponent<Light2D>().pointLightInnerRadius = range - 0.75f;
@@ -199,6 +211,7 @@ public class CameraWeapon : MonoBehaviour
 
 		if (percentageComplete >= 1) {
 			elapsedTime = rangePeriod;
+			EventController.StartTutorialCameraHoldEvent();
 		}
 
 		if (percentageComplete < shootThreshhold) isPastThreshhold = false;

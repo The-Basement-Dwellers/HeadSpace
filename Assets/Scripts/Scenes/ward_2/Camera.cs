@@ -9,7 +9,8 @@ public class Camera : MonoBehaviour, IInteractable
 {
     [SerializeField] SpriteLibraryAsset playerWithCamera;
     [SerializeField] GameObject pedestoolLight;
-    GameObject player;
+    [SerializeField] GameObject cameraPanel;
+    private GameObject player;
 
     void Start() {
         player = GameObject.Find("Player");
@@ -25,5 +26,6 @@ public class Camera : MonoBehaviour, IInteractable
         pedestoolLight.SetActive(false);
         EventController.StartHealthBarEvent(1f, player);
         player.GetComponent<PlayerController>().playerHealth = 100f;
+        cameraPanel.SetActive(true);
     }
 }

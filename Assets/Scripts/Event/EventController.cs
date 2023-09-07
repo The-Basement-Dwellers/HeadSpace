@@ -21,6 +21,16 @@ public class EventController : MonoBehaviour {
 	public static event Action<bool> isMoving;
 	public static event Action resetInteractabes;
 
+	public static event Action tutorialCameraHoldEvent;
+	public static event Action tutorialCameraMissEvent;
+
+	public static void StartTutorialCameraMissEvent() {
+		tutorialCameraMissEvent?.Invoke();
+	}
+
+	public static void StartTutorialCameraHoldEvent() {
+		tutorialCameraHoldEvent?.Invoke();
+	}
 	public static void ResetInteractables() {
 		resetInteractabes?.Invoke();
 	}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class dioorClose : MonoBehaviour
+public class doorClose : MonoBehaviour
 {
     [SerializeField] GameObject door;
     [SerializeField] Sprite closed;

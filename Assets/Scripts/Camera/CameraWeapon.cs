@@ -200,7 +200,7 @@ public class CameraWeapon : MonoBehaviour
 		rangeFlashSpill.GetComponent<Light2D>().pointLightInnerRadius = range;
 
 		if (percentageComplete >= 1) {
-			StopFire();
+			elapsedTime = rangePeriod;
 		}
 
 		if (percentageComplete < shootThreshhold) isPastThreshhold = false;

@@ -68,6 +68,7 @@ public class PlayerInteraction : MonoBehaviour
     
     void Interact()
     {
+        //Debug.Log(targetedGameObject);
         if (isHighlighted) {
             targetedGameObject.Interact();
         }

@@ -18,6 +18,8 @@ public class EventController : MonoBehaviour {
 
 	public static event Action<bool> isBulletTime;
 
+	public static event Action<bool> isMoving;
+
 	public static void StartColliderEnterEvent(GameObject targetedGameObject) {
 		colliderEnter?.Invoke(targetedGameObject);
 	}
@@ -53,5 +55,10 @@ public class EventController : MonoBehaviour {
 
 	public static void IsBulletTime(bool bulletTime) {
 		isBulletTime?.Invoke(bulletTime);
+	}
+
+	public static void IsMoving(bool moving)
+	{
+		isMoving?.Invoke(moving);
 	}
 }

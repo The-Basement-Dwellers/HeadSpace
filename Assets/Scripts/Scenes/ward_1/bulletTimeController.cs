@@ -6,12 +6,18 @@ public class bulletTimeController : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemy;
+    [SerializeField] GameObject dashPanel;
+    [SerializeField] float hideDelay = 1f;
     [SerializeField] float distanceToStart = 0.1f;
 
     bool isBulletTime = false;
 
-    private void Start() {
+    private void OnEnable() {
         EventController.startIsDashingEvent += Dash;
+    }
+
+    private void OnDisable() {
+        EventController.startIsDashingEvent -= Dash;
     }
 
     private void Update() {
@@ -26,7 +32,7 @@ public class bulletTimeController : MonoBehaviour
                 isBulletTime = true;
                 GameObject.Find("Player").GetComponent<PlayerDash>().enabled = true;
                 EventController.IsBulletTime(isBulletTime);
-                Debug.Log("Press Space to dash");
+                dashPanel.SetActive(true);
             }
         }
     }
@@ -34,7 +40,13 @@ public class bulletTimeController : MonoBehaviour
     private void Dash(bool isDashing) {
         if (isBulletTime) {
             Time.timeScale = 1;
-            Debug.Log("Bullet time ended");
+            StartCoroutine(HideText(dashPanel, hideDelay));
         }
+    }
+
+    private IEnumerator HideText(GameObject text, float time)
+    {
+        yield return new WaitForSeconds(time);
+        text.SetActive(false);
     }
 }

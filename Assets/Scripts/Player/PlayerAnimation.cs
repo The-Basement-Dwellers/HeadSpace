@@ -78,6 +78,8 @@ public class PlayerAnimation : MonoBehaviour
         headAnimator.SetBool("isMoving", isMoving);
 
         bodyAnimator.speed = moveDirection.magnitude * animationSpeedMult;
+
+        EventController.IsMoving(isMoving);
     }
 
     private void SetMoveDirection(Vector3 eventMoveDirection, GameObject targetedGameObject) {

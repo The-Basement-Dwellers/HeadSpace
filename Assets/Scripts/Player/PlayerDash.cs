@@ -21,6 +21,7 @@ public class PlayerDash : MonoBehaviour
 	private Vector3 endVelocity;
 	private float elapsedTime;
 	private bool isDashing = false;
+	private bool isMoving = false;
 	private bool dashOnCooldown = false;
 	[SerializeField] private float dashDuration = 0.1f;
 	[SerializeField] private float dashSpeed = 3f;
@@ -43,6 +44,7 @@ public class PlayerDash : MonoBehaviour
 		EventController.setMoveDirectionEvent += setMoveDirection;
 		EventController.setLookDirectionEvent += setLookDirectionEvent;
 		EventController.isBulletTime += IsBulletTime;
+		EventController.isMoving += IsMoving;
 		dashOnCooldown = false;
 	}
 
@@ -52,16 +54,15 @@ public class PlayerDash : MonoBehaviour
 		EventController.setMoveDirectionEvent -= setMoveDirection;
 		EventController.setLookDirectionEvent -= setLookDirectionEvent;
 		EventController.isBulletTime -= IsBulletTime;
+        EventController.isMoving -= IsMoving;
+    }
 
-	}
-
-	private void setMoveDirection(Vector3 eventMoveDirection, GameObject targetedGameObject) {
+    private void setMoveDirection(Vector3 eventMoveDirection, GameObject targetedGameObject) {
 		if (gameObject == targetedGameObject && eventMoveDirection.magnitude > 0) dashDirection = eventMoveDirection;
 	}
 
 	private void setLookDirectionEvent(Vector3 eventLookDirection) {
-		if (eventLookDirection.magnitude > 0) {
-			Debug.Log("set");
+		if (eventLookDirection.magnitude > 0 && !isMoving) {
 			dashDirection = eventLookDirection;
 		}
 	}
@@ -71,6 +72,11 @@ public class PlayerDash : MonoBehaviour
 		if (isBulletTime) {
 			dashDirection = new Vector2(0, 1);
 		}
+	}
+
+	private void IsMoving(bool moving)
+	{
+		isMoving = moving;
 	}
 
 	private void Start() {

@@ -197,7 +197,7 @@ MonoBehaviour:
   head: {fileID: 6063935171216015159}
   body: {fileID: 6063935170749406252}
   volume: {fileID: 6376596162790059790}
-  grainIntensity: 5
+  grainIntensity: 2
 --- !u!1 &499689850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1550,6 +1550,7 @@ MonoBehaviour:
   binaryMove: 0
   playerMaxHealth: 100
   playerHealth: 0
+  moveEnabled: 1
   impulseSource: {fileID: 740568659}
 --- !u!114 &6063935169211142301
 MonoBehaviour:

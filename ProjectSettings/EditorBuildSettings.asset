@@ -22,6 +22,9 @@ EditorBuildSettings:
     guid: 3eb663185b9b6934fa44be206e1263ec
   - enabled: 1
     path: Assets/Scenes/ward_4.unity
+    guid: 118dbcb37bc144d84a47977210733619
+  - enabled: 1
+    path: Assets/Scenes/ward_5.unity
     guid: 55bd8fd32ed5fa0488c89c68854c2844
   - enabled: 0
     path: Assets/Scenes/old_ward_2.unity

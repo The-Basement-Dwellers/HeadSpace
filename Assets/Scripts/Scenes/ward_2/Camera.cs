@@ -17,15 +17,16 @@ public class Camera : MonoBehaviour, IInteractable
     }
 
     public void Interact() {
+        cameraPanel.SetActive(true);
         player.transform.Find("Head").GetComponent<SpriteLibrary>().spriteLibraryAsset = playerWithCamera;
+        player.transform.Find("Canvas").Find("Awarness Bar").gameObject.SetActive(true);
         player.transform.Find("Canvas").Find("Camera").gameObject.SetActive(true);
         player.transform.Find("Canvas").Find("Camera Bar").gameObject.SetActive(true);
         player.GetComponent<CameraWeapon>().enabled = true;
-        Destroy(gameObject);
 		EventController.ResetInteractables();
         pedestoolLight.SetActive(false);
-        EventController.StartHealthBarEvent(1f, player);
+        player.GetComponent<PlayerController>().playerMaxHealth = 100f;
         player.GetComponent<PlayerController>().playerHealth = 100f;
-        cameraPanel.SetActive(true);
+        Destroy(gameObject);
     }
 }

@@ -6,21 +6,10 @@ public class Tutorial : MonoBehaviour
 {
     [SerializeField] GameObject WASDPanel;
     [SerializeField] GameObject interactPanel;
-    [SerializeField] float hideDelay = 1f;
     [SerializeField] float triggerDistance = 2f;
 
     private GameObject player;
     private GameObject bed;
-
-    private void OnEnable()
-    {
-        EventController.isMoving += IsMoving;
-    }
-
-    private void OnDisable()
-    {
-        EventController.isMoving -= IsMoving;
-    }
 
     private void Start()
     {
@@ -34,20 +23,10 @@ public class Tutorial : MonoBehaviour
         Vector3 bedPos = bed.transform.position;
 
         Vector3 distanceToBed = playerPos - bedPos;
-        if (distanceToBed.magnitude < triggerDistance && !WASDPanel.activeSelf)
+        if (distanceToBed.magnitude < triggerDistance)
         {
+            WASDPanel.SetActive(false);
             interactPanel.SetActive(true);
         }
-    }
-
-    private void IsMoving(bool isMoving)
-    {
-        if (isMoving) StartCoroutine(HideText(WASDPanel, hideDelay));
-    }
-
-    private IEnumerator HideText(GameObject text, float time)
-    {
-        yield return new WaitForSeconds(time);
-        text.SetActive(false);
     }
 }

@@ -74,7 +74,7 @@ public class EnemyAI : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - transform.position, rayLayerMask);
         Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.red, 0.01f);
         
-        if (hit.collider != null && hit.collider.name == "Player")
+        if (hit.collider != null && hit.collider.transform.name == "Player")
         {
             sightLine = true;
         }

@@ -10,7 +10,6 @@ public class sneakGoal : MonoBehaviour
     private void Start()
     {
         player = GameObject.Find("Player");
-        StartCoroutine(delayDamage());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,12 +18,5 @@ public class sneakGoal : MonoBehaviour
         {
             sneakPanel.SetActive(false);
         }
-    }
-
-    private IEnumerator delayDamage()
-    {
-        yield return new WaitForSeconds(0.3f);
-        EventController.StartHealthBarEvent(0.2f, player);
-        player.GetComponent<PlayerController>().playerHealth = 20f;
     }
 }

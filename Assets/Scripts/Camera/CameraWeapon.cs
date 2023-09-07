@@ -36,7 +36,6 @@ public class CameraWeapon : MonoBehaviour
 	private float lerpScaleY = 0.95f;
 	private bool isOnCooldown = false;
 
-	private bool firstHold = true;
 
 	private void OnEnable() {
 		CameraEventController.fireRelease += StopFire;

@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyAnimation : MonoBehaviour
@@ -29,8 +32,19 @@ public class EnemyAnimation : MonoBehaviour
         StartCoroutine(FindDirection(transform.position));
         if (animDir.magnitude > 0.5) {
             isMoving = true;
-            animator.SetFloat("X", dir.x);
-            animator.SetFloat("Y", dir.y);
+            float x;
+            float y;
+            
+            if (Mathf.Abs(dir.x) > MathF.Abs(dir.y)) {
+                x = Mathf.Sign(dir.x);
+                y = 0;
+            } else {
+                x = 0;
+                y = Mathf.Sign(dir.y);
+            }
+            
+            animator.SetFloat("X", x);
+            animator.SetFloat("Y", y);
         } else isMoving = false;
 
         animator.SetBool("isMoving", isMoving);

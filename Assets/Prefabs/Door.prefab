@@ -78,12 +78,12 @@ SpriteRenderer:
   m_SortingLayerID: 899026771
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1931902948, guid: 1fa2ddb268a5940ed98e6718d55b7cb7, type: 3}
+  m_Sprite: {fileID: -1454294053, guid: 1fa2ddb268a5940ed98e6718d55b7cb7, type: 3}
   m_Color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1.0625, y: 2.0625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -106,8 +106,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
-    newSize: {x: 1, y: 2}
+    oldSize: {x: 1.0625, y: 2.0625}
+    newSize: {x: 1.0625, y: 2.0625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -127,8 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e73355c690baca84c964f829eae71584, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  open: {fileID: -677895415, guid: 1fa2ddb268a5940ed98e6718d55b7cb7, type: 3}
-  closed: {fileID: 1931902948, guid: 1fa2ddb268a5940ed98e6718d55b7cb7, type: 3}
+  open: {fileID: 8304601, guid: 1fa2ddb268a5940ed98e6718d55b7cb7, type: 3}
+  closed: {fileID: -1454294053, guid: 1fa2ddb268a5940ed98e6718d55b7cb7, type: 3}
   openByDefault: 0
   lockUntillEnemiesDead: 0
   endingDoor: 0

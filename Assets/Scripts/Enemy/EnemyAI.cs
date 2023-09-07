@@ -96,7 +96,7 @@ public class EnemyAI : MonoBehaviour
             //Debug.Log("SightLine" + sightLine);
             //Debug.Log("isLost" + isLost);
             isWandering = false;
-            aiPath.maxSpeed = 5;
+            //aiPath.maxSpeed = s;
             target = player.transform;
            
         }

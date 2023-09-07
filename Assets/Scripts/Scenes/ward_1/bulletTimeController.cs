@@ -9,6 +9,7 @@ public class bulletTimeController : MonoBehaviour
     [SerializeField] GameObject dashPanel;
     [SerializeField] float hideDelay = 1f;
     [SerializeField] float distanceToStart = 0.1f;
+    [SerializeField] float bulletTime = 0.1f;
 
     bool isBulletTime = false;
 
@@ -28,7 +29,7 @@ public class bulletTimeController : MonoBehaviour
             float distance = enemyDistance.magnitude;
 
             if (distance <= distanceToStart && !isBulletTime) {
-                Time.timeScale = 0.000000001f;
+                Time.timeScale = bulletTime;
                 isBulletTime = true;
                 GameObject.Find("Player").GetComponent<PlayerDash>().enabled = true;
                 EventController.IsBulletTime(isBulletTime);

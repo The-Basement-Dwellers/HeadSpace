@@ -41,8 +41,12 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (allInteractables.Length > 0)
         {
-            GameObject oldObject = closestObject;
+            GameObject oldObject = null;
+            if (closestObject != null) {
+                oldObject = closestObject;
+            }
             closestObject = allInteractables[0];
+            ResetInteractables();
 
             if (oldObject != null)
             {
@@ -75,9 +79,10 @@ public class PlayerInteraction : MonoBehaviour
     
     void Interact()
     {
-        //Debug.Log(targetedGameObject);
         if (isHighlighted) {
             targetedGameObject.Interact();
+            closestObject = null;
+            ResetInteractables();
         }
         else
         {

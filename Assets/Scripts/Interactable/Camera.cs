@@ -21,6 +21,7 @@ public class Camera : MonoBehaviour, IInteractable
         player.transform.Find("Canvas").Find("Camera Bar").gameObject.SetActive(true);
         player.GetComponent<CameraWeapon>().enabled = true;
         Destroy(gameObject);
+		EventController.ResetInteractables();
         pedestoolLight.SetActive(false);
         EventController.StartHealthBarEvent(1f, player);
         player.GetComponent<PlayerController>().playerHealth = 100f;

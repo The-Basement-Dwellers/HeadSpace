@@ -24,7 +24,6 @@ public class CameraWeapon : MonoBehaviour
 	[SerializeField] private float rangePeriod = 2;
 	[SerializeField] private float flashDuration = 0.1f;
 
-	private bool loading = false;
 	private float range = 0;
 	private float elapsedTimeCooldown;
 	private float rangePercent;
@@ -115,7 +114,6 @@ public class CameraWeapon : MonoBehaviour
 									CameraEventController.Damage(hit.collider.gameObject, chargeDamageAmount);
 									damagedColliders.Add(hit.collider.gameObject);
                                     CameraEventController.Fired();
-                                    StartCoroutine("CheckEnemys");
 								}
 							}
 						}
@@ -206,19 +204,6 @@ public class CameraWeapon : MonoBehaviour
 		if (percentageComplete < shootThreshhold) isPastThreshhold = false;
 		else isPastThreshhold = true;
 
-		yield return null;
-	}
-
-	private IEnumerator CheckEnemys() {
-		yield return new WaitForSeconds(0.1f);
-		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (enemies.Length <= 0) {
-            int index = SceneManager.GetActiveScene().buildIndex + 1;
-            if (!loading) {
-				loading = true;
-				SceneController.StartScene(index);
-			}
-        }
 		yield return null;
 	}
 	

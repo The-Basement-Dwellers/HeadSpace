@@ -19,6 +19,11 @@ public class EventController : MonoBehaviour {
 	public static event Action<bool> isBulletTime;
 
 	public static event Action<bool> isMoving;
+	public static event Action resetInteractabes;
+
+	public static void ResetInteractables() {
+		resetInteractabes?.Invoke();
+	}
 
 	public static void StartColliderEnterEvent(GameObject targetedGameObject) {
 		colliderEnter?.Invoke(targetedGameObject);

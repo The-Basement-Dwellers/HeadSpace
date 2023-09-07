@@ -16,18 +16,25 @@ public class PlayerInteraction : MonoBehaviour
     void OnEnable()
     {
         EventController.interactEvent += Interact;
+        EventController.resetInteractabes += ResetInteractables;
     }
 
     private void OnDisable()
     {
         EventController.interactEvent -= Interact;
+        EventController.resetInteractabes -= ResetInteractables;
     }
 
     // Stores all interactables in an array and sets closestObject to first index
     void Start()
     {
+        ResetInteractables();
+    }
+
+	private void ResetInteractables() {
         allInteractables = GameObject.FindGameObjectsWithTag("Interactable");
     }
+    
 
     // Outlining Logic
     void Update()

@@ -16,6 +16,25 @@ public class EventController : MonoBehaviour {
 	public static event Action<GameObject> colliderEnter;
 	public static event Action<GameObject> colliderExit;
 
+	public static event Action<bool> isBulletTime;
+
+	public static event Action<bool> isMoving;
+	public static event Action resetInteractabes;
+
+	public static event Action tutorialCameraHoldEvent;
+	public static event Action tutorialCameraMissEvent;
+
+	public static void StartTutorialCameraMissEvent() {
+		tutorialCameraMissEvent?.Invoke();
+	}
+
+	public static void StartTutorialCameraHoldEvent() {
+		tutorialCameraHoldEvent?.Invoke();
+	}
+	public static void ResetInteractables() {
+		resetInteractabes?.Invoke();
+	}
+
 	public static void StartColliderEnterEvent(GameObject targetedGameObject) {
 		colliderEnter?.Invoke(targetedGameObject);
 	}
@@ -47,5 +66,14 @@ public class EventController : MonoBehaviour {
 	public static void InteractEvent()
 	{
 		interactEvent?.Invoke();
+	}
+
+	public static void IsBulletTime(bool bulletTime) {
+		isBulletTime?.Invoke(bulletTime);
+	}
+
+	public static void IsMoving(bool moving)
+	{
+		isMoving?.Invoke(moving);
 	}
 }

@@ -13,10 +13,15 @@ public class PlayerDash : MonoBehaviour
 	private PlayerInputActions playerControls;
 	private InputAction dash;
 	private Vector2 moveDirection = Vector2.zero;
+	private Vector2 lookDirection = Vector2.zero;
+
+	private Vector2 dashDirection = new Vector2(0, -1);
+	private bool isBulletTime = false;
 	private Vector3 startVelocity;
 	private Vector3 endVelocity;
 	private float elapsedTime;
 	private bool isDashing = false;
+	private bool isMoving = false;
 	private bool dashOnCooldown = false;
 	[SerializeField] private float dashDuration = 0.1f;
 	[SerializeField] private float dashSpeed = 3f;
@@ -37,6 +42,9 @@ public class PlayerDash : MonoBehaviour
 		dash.performed += Dash;
 
 		EventController.setMoveDirectionEvent += setMoveDirection;
+		EventController.setLookDirectionEvent += setLookDirectionEvent;
+		EventController.isBulletTime += IsBulletTime;
+		EventController.isMoving += IsMoving;
 		dashOnCooldown = false;
 	}
 
@@ -44,10 +52,31 @@ public class PlayerDash : MonoBehaviour
 	{
 		dash.Disable();
 		EventController.setMoveDirectionEvent -= setMoveDirection;
+		EventController.setLookDirectionEvent -= setLookDirectionEvent;
+		EventController.isBulletTime -= IsBulletTime;
+        EventController.isMoving -= IsMoving;
+    }
+
+    private void setMoveDirection(Vector3 eventMoveDirection, GameObject targetedGameObject) {
+		if (gameObject == targetedGameObject && eventMoveDirection.magnitude > 0) dashDirection = eventMoveDirection;
 	}
 
-	private void setMoveDirection(Vector3 eventMoveDirection, GameObject targetedGameObject) {
-		if (gameObject == targetedGameObject) moveDirection = eventMoveDirection;
+	private void setLookDirectionEvent(Vector3 eventLookDirection) {
+		if (eventLookDirection.magnitude > 0 && !isMoving) {
+			dashDirection = eventLookDirection;
+		}
+	}
+
+	private void IsBulletTime(bool bulletTime) {
+		isBulletTime = bulletTime;
+		if (isBulletTime) {
+			dashDirection = new Vector2(0, 1);
+		}
+	}
+
+	private void IsMoving(bool moving)
+	{
+		isMoving = moving;
 	}
 
 	private void Start() {
@@ -80,12 +109,12 @@ public class PlayerDash : MonoBehaviour
 	// called on dash input
 	private void Dash(InputAction.CallbackContext context)
 	{
-		if (!isDashing && !dashOnCooldown && moveDirection.magnitude > 0.05f)
+		if (!isDashing && !dashOnCooldown)
 		{
 			AudioEventController.Dash();
 			StartCoroutine(DashCooldown(dashCooldown));
-			startVelocity = dashSpeed * rb.velocity.normalized;
-			endVelocity = rb.velocity;
+			startVelocity = rb.velocity.normalized;
+			endVelocity = dashDirection * dashSpeed;
 			elapsedTime = 0;
 			isDashing = true;
 			EventController.StartIsDashingEvent(true);

@@ -16,26 +16,37 @@ public class PlayerInteraction : MonoBehaviour
     void OnEnable()
     {
         EventController.interactEvent += Interact;
+        EventController.resetInteractabes += ResetInteractables;
     }
 
     private void OnDisable()
     {
         EventController.interactEvent -= Interact;
+        EventController.resetInteractabes -= ResetInteractables;
     }
 
     // Stores all interactables in an array and sets closestObject to first index
     void Start()
     {
+        ResetInteractables();
+    }
+
+	private void ResetInteractables() {
         allInteractables = GameObject.FindGameObjectsWithTag("Interactable");
     }
+    
 
     // Outlining Logic
     void Update()
     {
         if (allInteractables.Length > 0)
         {
-            GameObject oldObject = closestObject;
+            GameObject oldObject = null;
+            if (closestObject != null) {
+                oldObject = closestObject;
+            }
             closestObject = allInteractables[0];
+            ResetInteractables();
 
             if (oldObject != null)
             {
@@ -70,6 +81,8 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (isHighlighted) {
             targetedGameObject.Interact();
+            closestObject = null;
+            ResetInteractables();
         }
         else
         {

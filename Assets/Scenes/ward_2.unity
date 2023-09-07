@@ -582,7 +582,7 @@ GameObject:
   - component: {fileID: 368172943}
   - component: {fileID: 368172942}
   m_Layer: 5
-  m_Name: Panel (1)
+  m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -603,11 +603,11 @@ RectTransform:
   - {fileID: 2008510632}
   - {fileID: 463753654}
   m_Father: {fileID: 2122338611}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 25}
+  m_AnchoredPosition: {x: 0, y: 24.999992}
   m_SizeDelta: {x: 199, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &368172942
@@ -679,7 +679,7 @@ GameObject:
   - component: {fileID: 463753656}
   - component: {fileID: 463753655}
   m_Layer: 5
-  m_Name: Hold <^> To Charge Camera
+  m_Name: Release To Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -725,7 +725,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hold     To Charge The Camera
+  m_text: Release     To Fire
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8fa29afa2b9a54109ac70cdb726cac8c, type: 2}
   m_sharedMaterial: {fileID: 4394305381827944515, guid: 8fa29afa2b9a54109ac70cdb726cac8c, type: 2}
@@ -7517,6 +7517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1549193996}
   - component: {fileID: 1549193997}
+  - component: {fileID: 1549193998}
   m_Layer: 0
   m_Name: ward_2
   m_TagString: Untagged
@@ -7553,6 +7554,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   door: {fileID: 66209960}
   closed: {fileID: 1931902948, guid: 1fa2ddb268a5940ed98e6718d55b7cb7, type: 3}
+--- !u!114 &1549193998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549193994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4f6fed948f9e949ae2e474e8c83308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraPanel: {fileID: 2043446355}
+  holdPanel: {fileID: 368172940}
 --- !u!1 &1717274721
 GameObject:
   m_ObjectHideFlags: 0
@@ -7732,7 +7747,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -26.8, y: 12.9}
+  m_AnchoredPosition: {x: 26, y: 12.9}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2008510633
@@ -7806,7 +7821,7 @@ RectTransform:
   - {fileID: 1345723900}
   - {fileID: 1234221712}
   m_Father: {fileID: 2122338611}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -7985,8 +8000,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 130010049}
-  - {fileID: 2043446356}
   - {fileID: 368172941}
+  - {fileID: 2043446356}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

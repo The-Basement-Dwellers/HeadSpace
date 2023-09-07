@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private bool binaryMove = false;
 	[SerializeField] public float playerMaxHealth = 100.0f;
 	[SerializeField] public float playerHealth;
+	[SerializeField] public bool moveEnabled = true;
 	private float oldPercent = 1.0f;
 	[SerializeField]CinemachineImpulseSource impulseSource;
 	GameObject deathScreen;
@@ -103,8 +104,14 @@ public class PlayerController : MonoBehaviour
         }
 
         // read move input
-        moveDirection = move.ReadValue<Vector2>();
-		lookDirection = look.ReadValue<Vector2>();
+        if (moveEnabled) {
+			moveDirection = move.ReadValue<Vector2>();
+			lookDirection = look.ReadValue<Vector2>();
+		} else {
+			moveDirection = Vector2.zero;
+			lookDirection = Vector2.zero;
+		}
+
         EventController.StartMoveDirectionEvent(moveDirection, gameObject);
         EventController.StartLookDirectionEvent(lookDirection);
 

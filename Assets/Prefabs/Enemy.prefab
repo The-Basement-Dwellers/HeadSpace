@@ -689,7 +689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   innerBar: {fileID: 5704274853368434000}
-  max: 0.75
+  max: 1
   min: 0.2
 --- !u!1 &8788067584203236128
 GameObject:

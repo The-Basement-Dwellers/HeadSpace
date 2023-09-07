@@ -1,17 +1,17 @@
-# Checklist for the feedback we recived 
+# Checklist for the feedback we received 
 
 ### Sprint 1
 - [x] Door Animation 
-- [ ] Attack Indicator
+- [x] Attack Indicator
 - [x] Health GUI
 - [x] Attacking System
 ### Sprint 2
 - [x] Tile Layering *- Nice To Add*
-- [ ] Tutorial
-- [ ] Enemy AI
+- [x] Tutorial
+- [x] Enemy AI
 - [ ] Addition of Storyline
 - [ ] Death Animation *- Nice To Add*
-- [ ] Death GUI *- Nice To Add*
-- [ ] SFX/BGM *- Nice To Add*
+- [x] Death GUI *- Nice To Add*
+- [x] SFX/BGM *- Nice To Add*
 - [x] Attacking Speed
-- [ ] Health Bar ("too subtle")
+- [x] Health Bar ("too subtle")

@@ -9,9 +9,10 @@ public class Door : MonoBehaviour, IInteractable
 {
 	private GraphUpdateScene gustavofring;
 	[SerializeField] Sprite open, closed;
-	[SerializeField] bool openByDefault = false;
-	[SerializeField] bool lockUntillEnemiesDead = false;
-	[SerializeField] bool endingDoor = false;
+	[SerializeField] public bool openByDefault = false;
+	[SerializeField] public bool lockUntillEnemiesDead = false;
+	[SerializeField] public bool endingDoor = false;
+	[SerializeField] GameObject linkedDoor;
 
 	void Start()
 	{
@@ -22,18 +23,19 @@ public class Door : MonoBehaviour, IInteractable
             gameObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
             gameObject.layer = 2;
 		}
-
-		if (lockUntillEnemiesDead) {
-			gameObject.tag = "Untagged";
-			EventController.ResetInteractables();
-			ParticleSystem particleSystem = gameObject.GetComponent<ParticleSystem>();
-			ParticleSystem.EmissionModule emission = particleSystem.emission;
-			emission.enabled = true;
-		}
 	}
 
 	private void Update() {
-		if(lockUntillEnemiesDead) {
+        if (lockUntillEnemiesDead)
+        {
+            gameObject.tag = "Untagged";
+            EventController.ResetInteractables();
+            ParticleSystem particleSystem = gameObject.GetComponent<ParticleSystem>();
+            ParticleSystem.EmissionModule emission = particleSystem.emission;
+            emission.enabled = true;
+        }
+
+        if (lockUntillEnemiesDead) {
 			GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 			if (enemies.Length <= 0) {
 				lockUntillEnemiesDead = false;
@@ -49,6 +51,7 @@ public class Door : MonoBehaviour, IInteractable
 
     public void Interact()
 	{
+
 		if  (gameObject.GetComponent<BoxCollider2D>().isTrigger)
 		{
 			AudioEventController.DoorClose();
@@ -68,7 +71,12 @@ public class Door : MonoBehaviour, IInteractable
 		gustavofring.Apply();
 		if (endingDoor) {
 			StartCoroutine(LoadNextScene());
-		}	
+		}
+
+        if (linkedDoor != null && linkedDoor.GetComponent<BoxCollider2D>().isTrigger != gameObject.GetComponent<BoxCollider2D>().isTrigger)
+        {
+            linkedDoor.GetComponent<Door>().Interact();
+        }
     }
 
 	private IEnumerator LoadNextScene() {

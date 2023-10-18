@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{505064CE-CDFC-88D3-B7F3-3CBBC7414005}|">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../Shader Dev/Assets/Learning.shader">
+    <Files>
+      <File FileName="../../Shader Dev/Assets/Learning.shader" Line="47" Column="40" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="DIT-A91906" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="Camera" expanded="True" />
+                <Node name="Interactable" expanded="True">
+                  <Node name="DoubleDoor.cs" selected="True" />
+                </Node>
+                <Node name="Player" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="1ee110f3-052d-47a2-b717-59e2df9c77ec" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+</Properties>
